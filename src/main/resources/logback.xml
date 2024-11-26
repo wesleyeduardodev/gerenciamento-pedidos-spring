@@ -1,0 +1,19 @@
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{dd/MM/yyyy HH:mm:ss} [%thread] %-5level %logger{36}.%M:%L - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <root level="info">
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>
+<!--
+%d{dd/MM/yyyy HH:mm:ss}: mostra a data e hora.
+%thread: exibe o nome da thread.
+%level: mostra o nível de log.
+%logger{36}: exibe o nome da classe até 36 caracteres.
+%M: exibe o nome do metodo.
+%L: exibe o número da linha onde o log foi chamado.
+%msg: é a mensagem de log.
+-->
