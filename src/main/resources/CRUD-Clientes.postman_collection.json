@@ -14,12 +14,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "admin",
+							"value": "password",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "admin",
+							"value": "gerente@gerente.com",
 							"type": "string"
 						}
 					]
@@ -408,13 +408,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "admin",
+							"key": "username",
+							"value": "manager@manager.com",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "admin",
+							"key": "password",
+							"value": "password",
 							"type": "string"
 						}
 					]
@@ -500,13 +500,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "admin",
+							"key": "username",
+							"value": "admin@admin.com",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "admin",
+							"key": "password",
+							"value": "password",
 							"type": "string"
 						}
 					]
