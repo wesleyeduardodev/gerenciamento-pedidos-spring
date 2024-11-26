@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-
 @RequiredArgsConstructor
 public class UsuarioConfig implements UserDetails {
 
@@ -18,7 +17,7 @@ public class UsuarioConfig implements UserDetails {
         return usuario.getRoles()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(
-                        role.getName().name()))
+                        role.getRoleType().name()))
                 .collect(Collectors.toList());
     }
 

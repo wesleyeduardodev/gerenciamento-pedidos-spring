@@ -1,6 +1,6 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.security;
 import br.com.aceleraprogramador.gerenciamento_pedidos.adapter.UsuarioAdapter;
-import br.com.aceleraprogramador.gerenciamento_pedidos.enuns.Role;
+import br.com.aceleraprogramador.gerenciamento_pedidos.enuns.RoleType;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +20,9 @@ public class InicializarUsuarios implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Usuario usuario = UsuarioAdapter.criarPerfilDeUsuario("Usuario", passwordEncoder.encode("password"), "usuario@usuario.com", Role.ROLE_USUARIO);
-        Usuario gerente = UsuarioAdapter.criarPerfilDeUsuario("Gerente", passwordEncoder.encode("password"), "gerente@gerente.com", Role.ROLE_GERENTE);
-        Usuario administrador = UsuarioAdapter.criarPerfilDeUsuario("Administrador", passwordEncoder.encode("password"), "administrador@administrador.com", Role.ROLE_ADMINISTRADOR);
+        Usuario usuario = UsuarioAdapter.criarPerfilDeUsuario("Usuario", passwordEncoder.encode("password"), "usuario@usuario.com", RoleType.ROLE_USUARIO);
+        Usuario gerente = UsuarioAdapter.criarPerfilDeUsuario("Gerente", passwordEncoder.encode("password"), "gerente@gerente.com", RoleType.ROLE_GERENTE);
+        Usuario administrador = UsuarioAdapter.criarPerfilDeUsuario("Administrador", passwordEncoder.encode("password"), "administrador@administrador.com", RoleType.ROLE_ADMINISTRADOR);
         usuarioRepository.saveAll(List.of(usuario, gerente, administrador));
     }
 }
