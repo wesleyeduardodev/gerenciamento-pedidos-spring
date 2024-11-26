@@ -23,7 +23,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @PostMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public ClienteResponse criarCliente(CreateClienteRequest request) {
         return clienteService.criarCliente(request);
     }
@@ -31,7 +31,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @GetMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public PageResponse<ClienteResponse> buscarTodosOsClientes(@RequestParam(required = false) Integer pageNumber,
                                                                @RequestParam(required = false) Integer pageSize,
                                                                @RequestParam(required = false) String sortBy,
@@ -42,7 +42,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @GetMapping(value = "/v1/buscarTodosOsClientesPorParametros", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public PageResponse<ClienteResponse> buscarTodosOsClientesPorParametros(@RequestParam(required = false) Long id,
                                                                             @RequestParam(required = false) String nome,
                                                                             @RequestParam(required = false) String email,
@@ -59,7 +59,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @GetMapping(value = "/v1/{idCliente}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public ClienteResponse buscarClientePorId(@PathVariable Long idCliente) {
         return clienteService.buscarClientePorId(idCliente);
     }
@@ -67,7 +67,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @GetMapping(value = "/v1/buscarPorNome", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public List<ClienteResponse> buscarClientesPorNome(
             @RequestParam() String nome) {
         return clienteService.buscarClientePorNome(nome);
@@ -76,7 +76,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @GetMapping(value = "/v1/buscarPorEmail", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public List<ClienteResponse> buscarClientesPorEmail(
             @RequestParam() String email) {
         return clienteService.buscarClientePorEmail(email);
@@ -85,7 +85,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @GetMapping(value = "/v1/buscarPorProfissao", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public List<ClienteResponse> buscarClientesPorProfissao(
             @RequestParam() String profissao) {
         return clienteService.buscarClientePorProfissao(profissao);
@@ -94,7 +94,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @GetMapping(value = "/v1/buscarPorNomeEmailProfissao", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public List<ClienteResponse> buscarClientePorNomeEmailProfissao(
             @RequestParam(required = false) String nome,
             @RequestParam(required = false) String email,
@@ -105,7 +105,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @PutMapping(value = "/v1/{idCliente}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ROLE_MANAGER')")
+    @PreAuthorize("hasRole('ROLE_GERENTE')")
     public void atualizarTodosOsDadosDoCliente(@PathVariable Long idCliente, UpdateClienteRequest request) {
         clienteService.atualizarTodosOsDadosDoCliente(idCliente, request);
     }
@@ -113,7 +113,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @PatchMapping(value = "/v1/{idCliente}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ROLE_MANAGER')")
+    @PreAuthorize("hasRole('ROLE_GERENTE')")
     public ClienteResponse atualizarParcialmenteOsDadosDoCliente(@PathVariable Long idCliente, UpdateClienteRequest request) {
         return clienteService.atualizarParcialmenteOsDadosDoCliente(idCliente, request);
     }
@@ -121,7 +121,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @DeleteMapping(value = "/v1/{idCliente}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     public void removerCliente(@PathVariable Long idCliente) {
         clienteService.removerCliente(idCliente);
     }

@@ -1,24 +1,22 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.security;
-
-import br.com.aceleraprogramador.gerenciamento_pedidos.model.UserInfoEntity;
+import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Arrays;
 import java.util.Collection;
 
 
 @RequiredArgsConstructor
-public class UserInfoConfig implements UserDetails {
+public class UsuarioConfig implements UserDetails {
 
-    private final UserInfoEntity userInfoEntity;
+    private final Usuario usuario;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays
-                .stream(userInfoEntity
+                .stream(usuario
                         .getRoles()
                         .split(","))
                 .map(SimpleGrantedAuthority::new)
@@ -27,12 +25,12 @@ public class UserInfoConfig implements UserDetails {
 
     @Override
     public String getPassword() {
-        return userInfoEntity.getPassword();
+        return usuario.getSenha();
     }
 
     @Override
     public String getUsername() {
-        return userInfoEntity.getUserName();
+        return usuario.getNome();
     }
 
     @Override
