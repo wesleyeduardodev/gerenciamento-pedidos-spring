@@ -1,6 +1,7 @@
-package br.com.aceleraprogramador.gerenciamento_pedidos.security;
+package br.com.aceleraprogramador.gerenciamento_pedidos.service;
 import br.com.aceleraprogramador.gerenciamento_pedidos.exceptions.RecursoNaoEncontradoException;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.UsuarioRepository;
+import br.com.aceleraprogramador.gerenciamento_pedidos.security.UsuarioConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class CarregarUsuario implements UserDetailsService {
+public class UsuarioService implements UserDetailsService {
 
     private final UsuarioRepository usuarioRepository;
 

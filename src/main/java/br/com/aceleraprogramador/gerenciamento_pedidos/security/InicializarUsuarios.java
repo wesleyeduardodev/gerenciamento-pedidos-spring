@@ -1,5 +1,5 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.security;
-import br.com.aceleraprogramador.gerenciamento_pedidos.model.ModelRole;
+import br.com.aceleraprogramador.gerenciamento_pedidos.adapter.UsuarioAdapter;
 import br.com.aceleraprogramador.gerenciamento_pedidos.enuns.Role;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.UsuarioRepository;
@@ -20,22 +20,9 @@ public class InicializarUsuarios implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Usuario usuario = criarPerfilDeUsuario("Usuario", "password", "usuario@usuario.com", Role.ROLE_USUARIO);
-        Usuario gerente = criarPerfilDeUsuario("Gerente", "password", "gerente@gerente.com", Role.ROLE_GERENTE);
-        Usuario administrador = criarPerfilDeUsuario("Administrador", "password", "administrador@administrador.com", Role.ROLE_ADMINISTRADOR);
+        Usuario usuario = UsuarioAdapter.criarPerfilDeUsuario("Usuario", passwordEncoder.encode("password"), "usuario@usuario.com", Role.ROLE_USUARIO);
+        Usuario gerente = UsuarioAdapter.criarPerfilDeUsuario("Gerente", passwordEncoder.encode("password"), "gerente@gerente.com", Role.ROLE_GERENTE);
+        Usuario administrador = UsuarioAdapter.criarPerfilDeUsuario("Administrador", passwordEncoder.encode("password"), "administrador@administrador.com", Role.ROLE_ADMINISTRADOR);
         usuarioRepository.saveAll(List.of(usuario, gerente, administrador));
-    }
-
-    private Usuario criarPerfilDeUsuario(String nome, String senha, String email, Role role) {
-        return Usuario
-                .builder()
-                .nome(nome)
-                .senha(passwordEncoder.encode(senha))
-                .email(email)
-                .roles(List.of(ModelRole.
-                        builder()
-                        .name(role)
-                        .build()))
-                .build();
     }
 }

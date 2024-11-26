@@ -1,4 +1,5 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.security;
+import br.com.aceleraprogramador.gerenciamento_pedidos.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +20,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final CarregarUsuario userInfoManagerConfig;
+    private final UsuarioService usuarioService;
 
     @Order(1)
     @Bean
@@ -28,7 +29,7 @@ public class SecurityConfig {
                 .securityMatcher(new AntPathRequestMatcher("/api/**"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .userDetailsService(userInfoManagerConfig)
+                .userDetailsService(usuarioService)
                 .httpBasic(withDefaults())
                 .build();
     }
