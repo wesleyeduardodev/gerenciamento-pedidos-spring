@@ -27,15 +27,15 @@ public class InicializarUsuarios implements CommandLineRunner {
     }
 
     private Usuario criarPerfilDeUsuario(String nome, String senha, String email, Role role) {
-        Usuario administrador = new Usuario();
-        administrador.setNome(nome);
-        administrador.setSenha(passwordEncoder.encode(senha));
-        ModelRole roleAdministrador = ModelRole.
-                builder()
-                .name(role)
+        return Usuario
+                .builder()
+                .nome(nome)
+                .senha(passwordEncoder.encode(senha))
+                .email(email)
+                .roles(List.of(ModelRole.
+                        builder()
+                        .name(role)
+                        .build()))
                 .build();
-        administrador.setRoles(List.of(roleAdministrador));
-        administrador.setEmail(email);
-        return administrador;
     }
 }
