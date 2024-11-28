@@ -37,14 +37,14 @@ public class FornecedorService {
     }
 
     public PageResponse<FornecedorResponse> buscarTodosOsFornecedoresPorParametros(Long id,
-                                                                                  String nome,
-                                                                                  String cnpj,
-                                                                                  String contato,
-                                                                                  String endereco,
-                                                                                  Integer pageNumber,
-                                                                                  Integer pageSize,
-                                                                                  String sortBy,
-                                                                                  String sortDirection) {
+                                                                                   String nome,
+                                                                                   String cnpj,
+                                                                                   String contato,
+                                                                                   String endereco,
+                                                                                   Integer pageNumber,
+                                                                                   Integer pageSize,
+                                                                                   String sortBy,
+                                                                                   String sortDirection) {
         log.info("Buscando todos os fornecedores de forma parametrizado...");
 
         Pageable pageable = PaginacaoUtils.criarPageable(pageNumber, pageSize, sortBy, sortDirection);
@@ -73,7 +73,6 @@ public class FornecedorService {
         log.info("Fornecedore retornado com sucesso.");
         return fornecedorResponse;
     }
-
 
     public void atualizarTodosOsDadosDoFornecedor(Long id, FornecedorRequest request) {
         log.info("Atualizando todos os dados do fornecedor com ID: {}", id);

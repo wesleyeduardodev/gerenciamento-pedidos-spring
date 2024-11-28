@@ -1,4 +1,4 @@
-package br.com.aceleraprogramador.gerenciamento_pedidos.controller;
+package br.com.aceleraprogramador.gerenciamento_pedidos.controller.cliente;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.CreateClienteRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.UpdateClienteRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.ClienteResponse;
