@@ -2,7 +2,7 @@ package br.com.aceleraprogramador.gerenciamento_pedidos.service;
 import br.com.aceleraprogramador.gerenciamento_pedidos.adapter.ProdutoAdapter;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.ProdutoRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
-import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.Lo;
+import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.ProdutoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.exceptions.RecursoNaoEncontradoException;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Produto;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.ProdutoRepository;
@@ -23,38 +23,38 @@ public class ProdutoService {
 
     private final ProdutoRepository produtoRepository;
 
-    public Lo criarProduto(ProdutoRequest request) {
+    public ProdutoResponse criarProduto(ProdutoRequest request) {
 
         log.info("Criando um novo Produto...");
         log.info("JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(request));
 
         Produto produto = ProdutoAdapter.toEntity(request);
         produtoRepository.save(produto);
-        Lo produtoResponse = ProdutoAdapter.toResponse(produto);
+        ProdutoResponse produtoResponse = ProdutoAdapter.toResponse(produto);
 
         log.info("Produto criado com sucesso...");
 
         return produtoResponse;
     }
 
-    public PageResponse<Lo> buscarTodosOsProdutosPorParametros(Long id,
-                                                               String nome,
-                                                               String descricao,
-                                                               BigDecimal preco,
-                                                               Long idFornecedor,
-                                                               Integer pageNumber,
-                                                               Integer pageSize,
-                                                               String sortBy,
-                                                               String sortDirection) {
+    public PageResponse<ProdutoResponse> buscarTodosOsProdutosPorParametros(Long id,
+                                                                            String nome,
+                                                                            String descricao,
+                                                                            BigDecimal preco,
+                                                                            Long idFornecedor,
+                                                                            Integer pageNumber,
+                                                                            Integer pageSize,
+                                                                            String sortBy,
+                                                                            String sortDirection) {
         log.info("Buscando todos os produtos de forma parametrizado...");
 
         Pageable pageable = PaginacaoUtils.criarPageable(pageNumber, pageSize, sortBy, sortDirection);
 
         Page<Produto> produtos = produtoRepository.findByFilters(id, nome, descricao, preco, idFornecedor, pageable);
 
-        Page<Lo> responsePage = produtos.map(ProdutoAdapter::toResponse);
-        PageResponse<Lo> pageResponse = PageResponse.
-                <Lo>builder()
+        Page<ProdutoResponse> responsePage = produtos.map(ProdutoAdapter::toResponse);
+        PageResponse<ProdutoResponse> pageResponse = PageResponse.
+                <ProdutoResponse>builder()
                 .content(responsePage.getContent())
                 .currentPage(responsePage.getNumber())
                 .pageSize(responsePage.getSize())
@@ -67,10 +67,10 @@ public class ProdutoService {
         return pageResponse;
     }
 
-    public Lo buscarProdutoPorId(Long id) {
+    public ProdutoResponse buscarProdutoPorId(Long id) {
         log.info("Buscando produto com ID:{}", id);
         Produto produto = buscarEntidadeProdutosPorId(id);
-        Lo produtoResponse = ProdutoAdapter.toResponse(produto);
+        ProdutoResponse produtoResponse = ProdutoAdapter.toResponse(produto);
         log.info("Produto retornado com sucesso.");
         return produtoResponse;
     }

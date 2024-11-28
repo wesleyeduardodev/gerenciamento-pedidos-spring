@@ -18,7 +18,7 @@ public class FornecedorRequest {
 
     @Schema(description = "CNPJ fornecedor", example = "12345678000200")
     @NotBlank(message = "O cnpj é obrigatório")
-    @Size(min = 14, max = 14, message = "O nome deve ter exatamente 14 caracteres.")
+    @Size(min = 14, max = 14, message = "O cnpj deve ter exatamente 14 caracteres.")
     private String cnpj;
 
     @Schema(description = "Informações de contato do fornecedor", example = "(11) 98765-4321 / contato@fornecedores.com")
