@@ -2,7 +2,6 @@ package br.com.aceleraprogramador.gerenciamento_pedidos.adapter;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.ItemPedidoRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.ItemPedidoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.ItemPedido;
-import br.com.aceleraprogramador.gerenciamento_pedidos.model.Pedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Produto;
 import lombok.experimental.UtilityClass;
 import java.util.List;
@@ -14,11 +13,17 @@ public class ItemPedidoAdapter {
     public static ItemPedido toEntity(ItemPedidoRequest request) {
         return ItemPedido
                 .builder()
-                .pedido(Pedido.builder().id(request.getIdPedido()).build())
                 .produto(Produto.builder().id(request.getIdProduto()).build())
                 .quantidade(request.getQuantidade())
                 .precoUnitario(request.getPrecoUnitario())
                 .build();
+    }
+
+    public static List<ItemPedido> toEntities(List<ItemPedidoRequest> requests) {
+        return requests
+                .stream()
+                .map(ItemPedidoAdapter::toEntity)
+                .collect(Collectors.toList());
     }
 
     public static ItemPedidoResponse toResponse(ItemPedido entity) {

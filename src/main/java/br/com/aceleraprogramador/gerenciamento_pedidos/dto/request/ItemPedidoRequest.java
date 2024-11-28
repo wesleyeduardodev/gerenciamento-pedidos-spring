@@ -14,10 +14,6 @@ import java.math.BigDecimal;
 @Builder
 public class ItemPedidoRequest {
 
-    @Schema(description = "ID do pedido associado ao item", example = "1")
-    @NotNull(message = "O ID do pedido é obrigatório")
-    private Long idPedido;
-
     @Schema(description = "ID do produto associado ao item", example = "101")
     @NotNull(message = "O ID do produto é obrigatório")
     private Long idProduto;

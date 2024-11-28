@@ -1,6 +1,7 @@
 
 package br.com.aceleraprogramador.gerenciamento_pedidos.dto.response;
 import lombok.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,4 +13,5 @@ public class PedidoResponse {
     private ClienteResponse cliente;
     private String dataPedido;
     private String status;
+    private List<ItemPedidoResponse> itens;
 }

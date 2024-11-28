@@ -3,6 +3,7 @@ import br.com.aceleraprogramador.gerenciamento_pedidos.enuns.StatusPedido;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,4 +27,7 @@ public class Pedido {
 
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<ItemPedido> itens;
 }

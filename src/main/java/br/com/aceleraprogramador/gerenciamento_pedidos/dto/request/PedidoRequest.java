@@ -1,7 +1,12 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.dto.request;
+import br.com.aceleraprogramador.gerenciamento_pedidos.model.ItemPedido;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,4 +31,9 @@ public class PedidoRequest {
     @Pattern(regexp = "PENDENTE|PROCESSANDO|EM_TRANSPORTE|CONCLUIDO|CANCELADO|DEVOLVIDO|FALHA_NA_ENTREGA", message = "status deve ser PENDENTE,PROCESSANDO,EM_TRANSPORTE,CONCLUIDO,CANCELADO,DEVOLVIDO,FALHA_NA_ENTREGA")
     @NotNull(message = "Não é permitido valor vazio.")
     private String status;
+
+    @ArraySchema(schema = @Schema(name = "itens", description = "Itens do Pedido", implementation = ItemPedidoRequest.class))
+    @Size(min = 1, message = "O array deve conter no mínimo 1 registro.")
+    @Valid
+    private List<ItemPedidoRequest> itens;
 }
