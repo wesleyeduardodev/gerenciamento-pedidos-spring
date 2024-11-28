@@ -51,7 +51,7 @@ public class PedidoController implements PedidoAPI {
     }
 
     @Override
-    @PutMapping(value = "/v1/{id}/status/{status}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/v1/{id}/status/{status}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public void atualizarStatusDoPedido(@PathVariable Long id, @PathVariable String status) {

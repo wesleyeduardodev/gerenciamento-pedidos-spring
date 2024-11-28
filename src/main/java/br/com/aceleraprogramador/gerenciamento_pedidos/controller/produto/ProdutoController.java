@@ -53,7 +53,7 @@ public class ProdutoController implements ProdutoAPI {
     }
 
     @Override
-    @PutMapping(value = "/v1/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/v1/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public void atualizarTodosOsDadosDoProduto(@PathVariable Long id, @Valid @RequestBody ProdutoRequest request) {

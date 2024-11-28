@@ -16,12 +16,25 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
                 WHERE (:id IS NULL OR p.id = :id)
                   AND (:status IS NULL OR LOWER(p.status) LIKE LOWER(CONCAT('%', :status, '%')))
                   AND (:dataPedido IS NULL OR FUNCTION('DATE', p.dataPedido) = :dataPedido)
-                  AND (:clienteId IS NULL OR p.cliente.id = :idCliente)
+                  AND (:idCliente IS NULL OR p.cliente.id = :idCliente)
             """)
     Page<Pedido> findByFilters(
             @Param("id") Long id,
             @Param("status") String status,
             @Param("dataPedido") LocalDate dataPedido,
+            @Param("idCliente") Long idCliente,
+            Pageable pageable
+    );
+
+    @Query("""
+                SELECT p FROM Pedido p 
+                WHERE (:id IS NULL OR p.id = :id)
+                  AND (:status IS NULL OR LOWER(p.status) LIKE LOWER(CONCAT('%', :status, '%')))               
+                  AND (:idCliente IS NULL OR p.cliente.id = :idCliente)
+            """)
+    Page<Pedido> findByFilters(
+            @Param("id") Long id,
+            @Param("status") String status,
             @Param("idCliente") Long idCliente,
             Pageable pageable
     );

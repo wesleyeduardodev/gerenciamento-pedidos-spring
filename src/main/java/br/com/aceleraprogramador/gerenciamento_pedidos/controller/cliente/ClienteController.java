@@ -104,7 +104,7 @@ public class ClienteController implements ClienteAPI {
     }
 
     @Override
-    @PutMapping(value = "/v1/{idCliente}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/v1/{idCliente}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ROLE_GERENTE')")
     public void atualizarTodosOsDadosDoCliente(@PathVariable Long idCliente, @Valid @RequestBody UpdateClienteRequest request) {

@@ -63,7 +63,7 @@ public class PedidoService {
 
         Pageable pageable = PaginacaoUtils.criarPageable(pageNumber, pageSize, sortBy, sortDirection);
 
-        Page<Pedido> pedidos = pedidoRepository.findByFilters(id, status, DateUtil.toLocalDate(dataPedido), idCliente, pageable);
+        Page<Pedido> pedidos = pedidoRepository.findByFilters(id, status, idCliente, pageable);
 
         Page<PedidoResponse> responsePage = pedidos.map(PedidoAdapter::toResponse);
 
@@ -85,6 +85,8 @@ public class PedidoService {
         log.info("Buscando pedido com ID:{}", id);
         Pedido pedido = buscarEntidadePedidoPorId(id);
         PedidoResponse pedidoResponse = PedidoAdapter.toResponse(pedido);
+        List<ItemPedido> itensSalvos = itemPedidoRepository.findByPedidoId(pedido.getId());
+        pedidoResponse.setItens(ItemPedidoAdapter.toResponseList(itensSalvos));
         log.info("Pedido retornado com sucesso.");
         return pedidoResponse;
     }

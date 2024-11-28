@@ -52,7 +52,7 @@ public class FornecedorController implements FornecedorAPI {
     }
 
     @Override
-    @PutMapping(value = "/v1/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/v1/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ROLE_GERENTE')")
     public void atualizarTodosOsDadosDoFornecedor(@PathVariable Long id, @Valid @RequestBody FornecedorRequest request) {
