@@ -25,14 +25,14 @@ public class ClienteService {
 
     private final ClienteRepository clienteRepository;
 
-    public ClienteResponse criarCliente(CreateClienteRequest createClienteRequest) {
+    public ClienteResponse criarCliente(CreateClienteRequest request) {
 
         log.info("Criando um novo cliente...");
-        log.info("JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(createClienteRequest));
+        log.info("JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(request));
 
-        Cliente cliente = ClienteAdapter.toCliente(createClienteRequest);
+        Cliente cliente = ClienteAdapter.toEntity(request);
         clienteRepository.save(cliente);
-        ClienteResponse clienteResponse = ClienteAdapter.toClienteResponse(cliente);
+        ClienteResponse clienteResponse = ClienteAdapter.toResponse(cliente);
 
         log.info("Cliente criado com sucesso...");
 
@@ -47,14 +47,14 @@ public class ClienteService {
         log.info("Buscando todos os clientes...");
         Pageable pageable = PaginacaoUtils.criarPageable(pageNumber, pageSize, sortBy, sortDirection);
         Page<Cliente> clientes = clienteRepository.findAll(pageable);
-        Page<ClienteResponse> clienteResponsePage = clientes.map(ClienteAdapter::toClienteResponse);
+        Page<ClienteResponse> responsePage = clientes.map(ClienteAdapter::toResponse);
         PageResponse<ClienteResponse> pageResponse = PageResponse.
                 <ClienteResponse>builder()
-                .content(clienteResponsePage.getContent())
-                .currentPage(clienteResponsePage.getNumber())
-                .pageSize(clienteResponsePage.getSize())
-                .totalElements(clienteResponsePage.getTotalElements())
-                .totalPages(clienteResponsePage.getTotalPages())
+                .content(responsePage.getContent())
+                .currentPage(responsePage.getNumber())
+                .pageSize(responsePage.getSize())
+                .totalElements(responsePage.getTotalElements())
+                .totalPages(responsePage.getTotalPages())
                 .build();
 
         log.info("Clientes retornados com sucesso.");
@@ -78,7 +78,7 @@ public class ClienteService {
 
         Page<Cliente> clientes = clienteRepository.buscarClientesParametrizado(id, nome, email, telefone, endereco, profissao, pageable);
 
-        Page<ClienteResponse> clienteResponsePage = clientes.map(ClienteAdapter::toClienteResponse);
+        Page<ClienteResponse> clienteResponsePage = clientes.map(ClienteAdapter::toResponse);
         PageResponse<ClienteResponse> pageResponse = PageResponse.
                 <ClienteResponse>builder()
                 .content(clienteResponsePage.getContent())
@@ -93,10 +93,10 @@ public class ClienteService {
         return pageResponse;
     }
 
-    public ClienteResponse buscarClientePorId(Long idCliente) {
-        log.info("Buscando cliente com ID:{}", idCliente);
-        Cliente clienteExistente = buscarEntidadeClientePorId(idCliente);
-        ClienteResponse clienteResponse = ClienteAdapter.toClienteResponse(clienteExistente);
+    public ClienteResponse buscarClientePorId(Long id) {
+        log.info("Buscando cliente com ID:{}", id);
+        Cliente clienteExistente = buscarEntidadeClientePorId(id);
+        ClienteResponse clienteResponse = ClienteAdapter.toResponse(clienteExistente);
         log.info("Cliente retornado com sucesso.");
         return clienteResponse;
     }
@@ -104,7 +104,7 @@ public class ClienteService {
     public List<ClienteResponse> buscarClientePorNome(String nome) {
         log.info("Buscando cliente com nome:{}", nome);
         List<Cliente> clientesPorNome = clienteRepository.findByNomeContaining(nome);
-        List<ClienteResponse> clientesResponse = ClienteAdapter.toClientesResponseList(clientesPorNome);
+        List<ClienteResponse> clientesResponse = ClienteAdapter.toResponseList(clientesPorNome);
         log.info("Cliente por nome retornados com sucesso.");
         return clientesResponse;
     }
@@ -112,7 +112,7 @@ public class ClienteService {
     public List<ClienteResponse> buscarClientePorEmail(String email) {
         log.info("Buscando cliente com email:{}", email);
         List<Cliente> clientesPorEmail = clienteRepository.findByEmailNative(email);
-        List<ClienteResponse> clientesResponse = ClienteAdapter.toClientesResponseList(clientesPorEmail);
+        List<ClienteResponse> clientesResponse = ClienteAdapter.toResponseList(clientesPorEmail);
         log.info("Cliente por email retornados com sucesso.");
         return clientesResponse;
     }
@@ -127,7 +127,7 @@ public class ClienteService {
     public List<ClienteResponse> buscarClientePorNomeEmailProfissao(String nome, String email, String profissao) {
         log.info("Buscando cliente por nome = " + nome, " email = " + email + " profissao = " + profissao);
         List<Cliente> clientes = clienteRepository.findByNomeEmailProfissao(nome, email, profissao);
-        List<ClienteResponse> clientesResponse = ClienteAdapter.toClientesResponseList(clientes);
+        List<ClienteResponse> clientesResponse = ClienteAdapter.toResponseList(clientes);
         log.info("Cliente  retornados com sucesso.");
         return clientesResponse;
     }
@@ -171,7 +171,7 @@ public class ClienteService {
         }
 
         clienteRepository.save(clienteExistente);
-        ClienteResponse clienteResponse = ClienteAdapter.toClienteResponse(clienteExistente);
+        ClienteResponse clienteResponse = ClienteAdapter.toResponse(clienteExistente);
 
         log.info("Cliente parcialmente atualizado com sucesso.");
 

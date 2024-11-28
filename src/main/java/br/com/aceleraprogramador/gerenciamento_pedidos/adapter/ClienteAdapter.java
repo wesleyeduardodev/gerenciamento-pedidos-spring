@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class ClienteAdapter {
 
-    public static Cliente toCliente(CreateClienteRequest request) {
+    public static Cliente toEntity(CreateClienteRequest request) {
         return Cliente
                 .builder()
                 .nome(request.getNome())
@@ -20,7 +20,7 @@ public class ClienteAdapter {
                 .build();
     }
 
-    public static ClienteResponse toClienteResponse(Cliente cliente) {
+    public static ClienteResponse toResponse(Cliente cliente) {
         return ClienteResponse
                 .builder()
                 .id(cliente.getId())
@@ -32,10 +32,10 @@ public class ClienteAdapter {
                 .build();
     }
 
-    public static List<ClienteResponse> toClientesResponseList(List<Cliente> clientes) {
+    public static List<ClienteResponse> toResponseList(List<Cliente> clientes) {
         return clientes
                 .stream()
-                .map(ClienteAdapter::toClienteResponse)
+                .map(ClienteAdapter::toResponse)
                 .collect(Collectors.toList());
     }
 }
