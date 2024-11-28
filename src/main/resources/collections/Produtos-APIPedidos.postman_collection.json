@@ -1,0 +1,288 @@
+{
+	"info": {
+		"_postman_id": "e4fc3a1c-3577-4ece-aade-0f7adf57ee1b",
+		"name": "Produtos - API Pedidos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39680100"
+	},
+	"item": [
+		{
+			"name": "criarProduto",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "administrador@administrador.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Smartphone Samsung Galaxy\",\r\n  \"descricao\": \"Smartphone com 128GB de armazenamento e 6GB de RAM\",\r\n  \"preco\": 1500,\r\n  \"idFornecedor\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/produtos/v1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"produtos",
+						"v1"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'http://localhost:8080/api/produtos/v1' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"nome\": \"Smartphone Samsung Galaxy\",\r\n  \"descricao\": \"Smartphone com 128GB de armazenamento e 6GB de RAM\",\r\n  \"preco\": 1500,\r\n  \"idFornecedor\": 2\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "buscarProdutoPorId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "administrador@administrador.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/produtos/v1/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"produtos",
+						"v1",
+						"2"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://localhost:8080/api/produtos/v1/2' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "atualizarTodosOsDadosDoProduto",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "administrador@administrador.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Smartphone Samsung Galaxy update\",\r\n  \"descricao\": \"Smartphone com 128GB de armazenamento e 6GB de RAM\",\r\n  \"preco\": 1500,\r\n  \"idFornecedor\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/produtos/v1/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"produtos",
+						"v1",
+						"2"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'PUT' \\\r\n  'http://localhost:8080/api/produtos/v1/2' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"nome\": \"Smartphone Samsung Galaxy update\",\r\n  \"descricao\": \"Smartphone com 128GB de armazenamento e 6GB de RAM\",\r\n  \"preco\": 1500,\r\n  \"idFornecedor\": 1\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "buscarTodosOsProdutosPorParametros",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "administrador@administrador.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/produtos/v1/buscarTodosOsProdutosPorParametros?id=2&nome=Smartphone%20Samsung%20Galaxy%20update&descricao=Smartphone%20com%20128GB%20de%20armazenamento%20e%206GB%20de%20RAM&preco=1500.00&idFornecedor=1&pageNumber=0&pageSize=10&sortBy=id&sortDirection=ASC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"produtos",
+						"v1",
+						"buscarTodosOsProdutosPorParametros"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						},
+						{
+							"key": "nome",
+							"value": "Smartphone%20Samsung%20Galaxy%20update"
+						},
+						{
+							"key": "descricao",
+							"value": "Smartphone%20com%20128GB%20de%20armazenamento%20e%206GB%20de%20RAM"
+						},
+						{
+							"key": "preco",
+							"value": "1500.00"
+						},
+						{
+							"key": "idFornecedor",
+							"value": "1"
+						},
+						{
+							"key": "pageNumber",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "sortDirection",
+							"value": "ASC"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://localhost:8080/api/produtos/v1/buscarTodosOsProdutosPorParametros?id=2&nome=Smartphone%20Samsung%20Galaxy%20update&descricao=Smartphone%20com%20128GB%20de%20armazenamento%20e%206GB%20de%20RAM&preco=1500.00&idFornecedor=1&pageNumber=0&pageSize=10&sortBy=1&sortDirection=ASC' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "removerProduto",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "administrador@administrador.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/produtos/v1/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"produtos",
+						"v1",
+						"1"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'DELETE' \\\r\n  'http://localhost:8080/api/produtos/v1/2' \\\r\n  -H 'accept: */*'"
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,288 @@
+{
+	"info": {
+		"_postman_id": "7bb8d08e-ee00-4d2b-84f7-2babc4099f97",
+		"name": "Fornecedores - API Pedidos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39680100"
+	},
+	"item": [
+		{
+			"name": "criarFornecedor",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "usuario@usuario.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"João Silva\",\r\n  \"cnpj\": \"12345678000200\",\r\n  \"contato\": \"(11) 98765-4321 / contato@fornecedores.com\",\r\n  \"endereco\": \"Avenida Central, São Paulo - SP\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/fornecedores/v1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"fornecedores",
+						"v1"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'http://localhost:8080/api/fornecedores/v1' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"nome\": \"João Silva\",\r\n  \"cnpj\": \"12345678000200\",\r\n  \"contato\": \"(11) 98765-4321 / contato@fornecedores.com\",\r\n  \"endereco\": \"Avenida Central, São Paulo - SP\"\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "buscarFornecedorPorId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "usuario@usuario.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/fornecedores/v1/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"fornecedores",
+						"v1",
+						"1"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://localhost:8080/api/fornecedores/v1/1' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "buscarTodosOsFornecedoresPorParametros",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "usuario@usuario.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/fornecedores/v1/buscarTodosOsFornecedoresPorParametros?id=1&nome=João Silva&cnpj=12345678000200&contato=contato@fornecedores.com&endereco=São Paulo&pageNumber=0&pageSize=10&sortBy=id&sortDirection=ASC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"fornecedores",
+						"v1",
+						"buscarTodosOsFornecedoresPorParametros"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						},
+						{
+							"key": "nome",
+							"value": "João Silva"
+						},
+						{
+							"key": "cnpj",
+							"value": "12345678000200"
+						},
+						{
+							"key": "contato",
+							"value": "contato@fornecedores.com"
+						},
+						{
+							"key": "endereco",
+							"value": "São Paulo"
+						},
+						{
+							"key": "pageNumber",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "sortDirection",
+							"value": "ASC"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://localhost:8080/api/fornecedores/v1/buscarTodosOsFornecedoresPorParametros?id=1&nome=Jo%C3%A3o%20Silva&cnpj=12345678000200&contato=contato%40fornecedores.com&endereco=S%C3%A3o%20Paulo&pageNumber=0&pageSize=10&sortBy=id&sortDirection=ASC' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "atualizarTodosOsDadosDoFornecedor",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "gerente@gerente.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"João Silva update teste\",\r\n  \"cnpj\": \"12345678000211\",\r\n  \"contato\": \"(11) 98765-4321 / up@fornecedores.com\",\r\n  \"endereco\": \"Avenida Central, São Paulo - UP\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/fornecedores/v1/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"fornecedores",
+						"v1",
+						"1"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'PUT' \\\r\n  'http://localhost:8080/api/fornecedores/v1/1' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"nome\": \"João Silva update\",\r\n  \"cnpj\": \"12345678000211\",\r\n  \"contato\": \"(11) 98765-4321 / up@fornecedores.com\",\r\n  \"endereco\": \"Avenida Central, São Paulo - UP\"\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "removerFornecedor",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "administrador@administrador.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/fornecedores/v1/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"fornecedores",
+						"v1",
+						"1"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'DELETE' \\\r\n  'http://localhost:8080/api/fornecedores/v1/1' \\\r\n  -H 'accept: */*'"
+			},
+			"response": []
+		}
+	]
+}

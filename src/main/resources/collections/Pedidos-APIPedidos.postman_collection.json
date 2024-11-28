@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "64b06768-ee77-4de4-adf8-f8f5061e9abf",
+		"name": "Pedidos - API Pedidos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39680100"
+	},
+	"item": [
+		{
+			"name": "criarPedido",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "administrador@administrador.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idCliente\": 1,\r\n  \"dataPedido\": \"31/12/2024 11:45:29\",\r\n  \"status\": \"CONCLUIDO\",\r\n  \"itens\": [\r\n    {\r\n      \"idProduto\": 2,\r\n      \"quantidade\": 3,\r\n      \"precoUnitario\": 50\r\n    },\r\n {\r\n      \"idProduto\": 3,\r\n      \"quantidade\": 3,\r\n      \"precoUnitario\": 50\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/v1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos",
+						"v1"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'http://localhost:8080/api/pedidos/v1' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"idCliente\": 1,\r\n  \"dataPedido\": \"31/12/2024 11:45:29\",\r\n  \"status\": \"CONCLUIDO\",\r\n  \"itens\": [\r\n    {\r\n      \"idProduto\": 2,\r\n      \"quantidade\": 3,\r\n      \"precoUnitario\": 50\r\n    },\r\n {\r\n      \"idProduto\": 3,\r\n      \"quantidade\": 3,\r\n      \"precoUnitario\": 50\r\n    }\r\n  ]\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "buscarPedidoPorId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "administrador@administrador.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/v1/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos",
+						"v1",
+						"4"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://localhost:8080/api/pedidos/v1/4' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "buscarTodosOsPedidosPorParametros",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "administrador@administrador.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/v1/buscarTodosOsPedidosPorParametros?id=4&idCliente=1&status=CONCLUIDO&dataPedido=31%2F12%2F2024&pageNumber=0&pageSize=10&sortBy=id&sortDirection=ASC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos",
+						"v1",
+						"buscarTodosOsPedidosPorParametros"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "4"
+						},
+						{
+							"key": "idCliente",
+							"value": "1"
+						},
+						{
+							"key": "status",
+							"value": "CONCLUIDO"
+						},
+						{
+							"key": "dataPedido",
+							"value": "31%2F12%2F2024"
+						},
+						{
+							"key": "pageNumber",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "sortBy",
+							"value": "id"
+						},
+						{
+							"key": "sortDirection",
+							"value": "ASC"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://localhost:8080/api/pedidos/v1/buscarTodosOsPedidosPorParametros?id=1&idCliente=4&status=CONCLUIDO&dataPedido=31%2F12%2F2024&pageNumber=0&pageSize=10&sortBy=id&sortDirection=ASC' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "atualizarStatusDoPedido",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "administrador@administrador.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/v1/4/status/CANCELADO",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos",
+						"v1",
+						"4",
+						"status",
+						"CANCELADO"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'PUT' \\\r\n  'http://localhost:8080/api/pedidos/v1/1/status/CANCELADO' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "removerPedido",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "administrador@administrador.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/v1/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos",
+						"v1",
+						"4"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'DELETE' \\\r\n  'http://localhost:8080/api/pedidos/v1/3' \\\r\n  -H 'accept: */*'"
+			},
+			"response": []
+		}
+	]
+}

@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "62051164-5634-4467-8caf-263c018950be",
-		"name": "CRUD Clientes",
+		"name": "Cliente - API Pedidos",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "39680100"
 	},
@@ -68,12 +68,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "admin",
+							"value": "password",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "admin",
+							"value": "gerente@gerente.com",
 							"type": "string"
 						}
 					]
@@ -147,12 +147,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "admin",
+							"value": "password",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "admin",
+							"value": "gerente@gerente.com",
 							"type": "string"
 						}
 					]
@@ -184,12 +184,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "admin",
+							"value": "password",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "admin",
+							"value": "gerente@gerente.com",
 							"type": "string"
 						}
 					]
@@ -227,12 +227,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "admin",
+							"value": "password",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "admin",
+							"value": "gerente@gerente.com",
 							"type": "string"
 						}
 					]
@@ -270,12 +270,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "admin",
+							"value": "password",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "admin",
+							"value": "gerente@gerente.com",
 							"type": "string"
 						}
 					]
@@ -313,12 +313,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "admin",
+							"value": "password",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "admin",
+							"value": "gerente@gerente.com",
 							"type": "string"
 						}
 					]
@@ -326,7 +326,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/clientes/v1/buscarPorNomeEmailProfissao?nome=Wesley&email=wesleyeduardo.dev%40gmail.com&profissao=Desenvolvedor",
+					"raw": "http://localhost:8080/api/clientes/v1/buscarPorNomeEmailProfissao?nome=Bruno&email=bruno.yara@exemplo.com&profissao=Jornalista",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -341,15 +341,15 @@
 					"query": [
 						{
 							"key": "nome",
-							"value": "Wesley"
+							"value": "Bruno"
 						},
 						{
 							"key": "email",
-							"value": "wesleyeduardo.dev%40gmail.com"
+							"value": "bruno.yara@exemplo.com"
 						},
 						{
 							"key": "profissao",
-							"value": "Desenvolvedor"
+							"value": "Jornalista"
 						}
 					]
 				}
@@ -364,12 +364,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "admin",
+							"value": "password",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "admin",
+							"value": "gerente@gerente.com",
 							"type": "string"
 						}
 					]
@@ -409,7 +409,7 @@
 					"basic": [
 						{
 							"key": "username",
-							"value": "manager@manager.com",
+							"value": "gerente@gerente.com",
 							"type": "string"
 						},
 						{
@@ -455,12 +455,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "admin",
+							"value": "password",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "admin",
+							"value": "gerente@gerente.com",
 							"type": "string"
 						}
 					]
@@ -469,7 +469,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nome\": \"Wesley Eduardo de Oliveira Melo\",\r\n    \"email\": \"wesleyeduardo.dev@gmail.com\",\r\n    \"telefone\": \"(98) 98165-0805\"\r\n}",
+					"raw": "{\r\n    \"nome\": \"Wesley Eduardo de Oliveira Melo update\",\r\n    \"email\": \"wesleyeduardo.dev@gmail.com\",\r\n    \"telefone\": \"(98) 98165-0805\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -501,7 +501,7 @@
 					"basic": [
 						{
 							"key": "username",
-							"value": "admin@admin.com",
+							"value": "administrador@administrador.com",
 							"type": "string"
 						},
 						{
