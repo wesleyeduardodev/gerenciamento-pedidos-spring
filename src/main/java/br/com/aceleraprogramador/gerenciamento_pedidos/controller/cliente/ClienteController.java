@@ -5,6 +5,7 @@ import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.ClienteRespo
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.service.ClienteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,7 +25,7 @@ public class ClienteController implements ClienteAPI {
     @PostMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
-    public ClienteResponse criarCliente(CreateClienteRequest request) {
+    public ClienteResponse criarCliente(@Valid @RequestBody CreateClienteRequest request) {
         return clienteService.criarCliente(request);
     }
 
@@ -106,7 +107,7 @@ public class ClienteController implements ClienteAPI {
     @PutMapping(value = "/v1/{idCliente}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ROLE_GERENTE')")
-    public void atualizarTodosOsDadosDoCliente(@PathVariable Long idCliente, UpdateClienteRequest request) {
+    public void atualizarTodosOsDadosDoCliente(@PathVariable Long idCliente, @Valid @RequestBody UpdateClienteRequest request) {
         clienteService.atualizarTodosOsDadosDoCliente(idCliente, request);
     }
 
@@ -114,7 +115,7 @@ public class ClienteController implements ClienteAPI {
     @PatchMapping(value = "/v1/{idCliente}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('ROLE_GERENTE')")
-    public ClienteResponse atualizarParcialmenteOsDadosDoCliente(@PathVariable Long idCliente, UpdateClienteRequest request) {
+    public ClienteResponse atualizarParcialmenteOsDadosDoCliente(@PathVariable Long idCliente, @Valid @RequestBody UpdateClienteRequest request) {
         return clienteService.atualizarParcialmenteOsDadosDoCliente(idCliente, request);
     }
 

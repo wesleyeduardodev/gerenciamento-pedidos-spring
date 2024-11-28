@@ -4,6 +4,7 @@ import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.ProdutoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.service.ProdutoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -54,14 +55,14 @@ public class ProdutoController implements ProdutoAPI {
     @Override
     @PutMapping(value = "/v1/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ROLE_GERENTE')")
-    public void atualizarTodosOsDadosDoProduto(@PathVariable Long id, ProdutoRequest request) {
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+    public void atualizarTodosOsDadosDoProduto(@PathVariable Long id, @Valid @RequestBody ProdutoRequest request) {
         produtoService.atualizarTodosOsDadosDoProduto(id, request);
     }
 
     @DeleteMapping(value = "/v1/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public void removerProduto(@PathVariable Long id) {
         produtoService.removerProduto(id);
     }

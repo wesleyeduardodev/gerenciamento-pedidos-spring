@@ -7,6 +7,7 @@ import br.com.aceleraprogramador.gerenciamento_pedidos.enuns.StatusPedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.exceptions.RecursoNaoEncontradoException;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Pedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.PedidoRepository;
+import br.com.aceleraprogramador.gerenciamento_pedidos.utils.DateUtil;
 import br.com.aceleraprogramador.gerenciamento_pedidos.utils.ObjectMapperUtilsConfig;
 import br.com.aceleraprogramador.gerenciamento_pedidos.utils.PaginacaoUtils;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ public class PedidoService {
     public PageResponse<PedidoResponse> buscarTodosOsPedidosPorParametros(Long id,
                                                                           Long idCliente,
                                                                           String status,
-                                                                          LocalDateTime dataPedido,
+                                                                          String dataPedido,
                                                                           Integer pageNumber,
                                                                           Integer pageSize,
                                                                           String sortBy,
@@ -46,7 +47,7 @@ public class PedidoService {
 
         Pageable pageable = PaginacaoUtils.criarPageable(pageNumber, pageSize, sortBy, sortDirection);
 
-        Page<Pedido> pedidos = pedidoRepository.findByFilters(id, status, dataPedido, idCliente, pageable);
+        Page<Pedido> pedidos = pedidoRepository.findByFilters(id, status, DateUtil.toLocalDate(dataPedido), idCliente, pageable);
 
         Page<PedidoResponse> responsePage = pedidos.map(PedidoAdapter::toResponse);
 

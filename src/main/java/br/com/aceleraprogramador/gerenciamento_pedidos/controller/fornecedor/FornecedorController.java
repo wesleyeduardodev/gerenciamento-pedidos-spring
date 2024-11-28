@@ -55,7 +55,7 @@ public class FornecedorController implements FornecedorAPI {
     @PutMapping(value = "/v1/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ROLE_GERENTE')")
-    public void atualizarTodosOsDadosDoFornecedor(@PathVariable Long id, FornecedorRequest request) {
+    public void atualizarTodosOsDadosDoFornecedor(@PathVariable Long id, @Valid @RequestBody FornecedorRequest request) {
         fornecedorService.atualizarTodosOsDadosDoFornecedor(id, request);
     }
 

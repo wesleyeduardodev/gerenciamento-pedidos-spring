@@ -10,9 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
 import java.math.BigDecimal;
 
 public interface ProdutoAPI {
@@ -52,7 +50,7 @@ public interface ProdutoAPI {
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
             @ApiResponse(responseCode = "400", description = "Bad Request - Requisição inválida", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErroResponse.class)))
     })
-    void atualizarTodosOsDadosDoProduto(@Parameter(description = "Id do Produto", required = true) Long id, @Valid @RequestBody ProdutoRequest request);
+    void atualizarTodosOsDadosDoProduto(@Parameter(description = "Id do Produto", required = true) Long id, ProdutoRequest request);
 
     @Operation(summary = "Remover Produto por ID")
     @ApiResponse(responseCode = "204", description = "Produto removido com sucesso.")

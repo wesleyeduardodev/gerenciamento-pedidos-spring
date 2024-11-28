@@ -6,22 +6,22 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
     @Query("""
-        SELECT p FROM Pedido p 
-        WHERE (:id IS NULL OR p.id = :id)
-          AND (:status IS NULL OR LOWER(p.status) LIKE LOWER(CONCAT('%', :status, '%')))
-          AND (:dataPedido IS NULL OR p.dataPedido = :dataPedido)
-          AND (:clienteId IS NULL OR p.cliente.id = :idCliente)
-    """)
+                SELECT p FROM Pedido p 
+                WHERE (:id IS NULL OR p.id = :id)
+                  AND (:status IS NULL OR LOWER(p.status) LIKE LOWER(CONCAT('%', :status, '%')))
+                  AND (:dataPedido IS NULL OR FUNCTION('DATE', p.dataPedido) = :dataPedido)
+                  AND (:clienteId IS NULL OR p.cliente.id = :idCliente)
+            """)
     Page<Pedido> findByFilters(
             @Param("id") Long id,
             @Param("status") String status,
-            @Param("dataPedido") LocalDateTime dataPedido,
+            @Param("dataPedido") LocalDate dataPedido,
             @Param("idCliente") Long idCliente,
             Pageable pageable
     );

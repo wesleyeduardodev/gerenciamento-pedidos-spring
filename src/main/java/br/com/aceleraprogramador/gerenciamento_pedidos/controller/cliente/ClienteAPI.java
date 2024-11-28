@@ -11,9 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 public interface ClienteAPI {
@@ -25,7 +23,7 @@ public interface ClienteAPI {
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ClienteResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request - Requisição inválida", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErroResponse.class)))
     })
-    ClienteResponse criarCliente(@Valid @RequestBody CreateClienteRequest request);
+    ClienteResponse criarCliente(CreateClienteRequest request);
 
     @Operation(summary = "Buscar todos os cliente")
     @ApiResponse(responseCode = "200", description = "Clientes Retornados com sucesso.",
@@ -80,7 +78,7 @@ public interface ClienteAPI {
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ClienteResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request - Requisição inválida", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErroResponse.class)))
     })
-    void atualizarTodosOsDadosDoCliente(@Parameter(description = "Id do cliente", required = true) Long idCliente, @Valid @RequestBody UpdateClienteRequest request);
+    void atualizarTodosOsDadosDoCliente(@Parameter(description = "Id do cliente", required = true) Long idCliente, UpdateClienteRequest request);
 
     @Operation(summary = "Atualizar parcialmente os dados do cliente")
     @ApiResponses({
@@ -88,7 +86,7 @@ public interface ClienteAPI {
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ClienteResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request - Requisição inválida", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErroResponse.class)))
     })
-    ClienteResponse atualizarParcialmenteOsDadosDoCliente(@Parameter(description = "Id do cliente", required = true) Long idCliente, @Valid @RequestBody UpdateClienteRequest request);
+    ClienteResponse atualizarParcialmenteOsDadosDoCliente(@Parameter(description = "Id do cliente", required = true) Long idCliente, UpdateClienteRequest request);
 
     @Operation(summary = "Remover cliente por ID")
     @ApiResponse(responseCode = "204", description = "Cliente removido com sucesso.")
