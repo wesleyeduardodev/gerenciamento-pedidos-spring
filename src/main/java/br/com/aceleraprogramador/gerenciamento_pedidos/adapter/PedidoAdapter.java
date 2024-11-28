@@ -18,7 +18,6 @@ public class PedidoAdapter {
                 .cliente(Cliente.builder().id(request.getIdCliente()).build())
                 .dataPedido(DateTimeUtil.toLocalDateTime(request.getDataPedido()))
                 .status(StatusPedido.valueOf(request.getStatus()))
-                .itens(ItemPedidoAdapter.toEntities(request.getItens()))
                 .build();
     }
 
@@ -29,7 +28,6 @@ public class PedidoAdapter {
                 .cliente(ClienteAdapter.toResponse(entity.getCliente()))
                 .dataPedido(DateTimeUtil.toString(entity.getDataPedido()))
                 .status(entity.getStatus().name())
-                .itens(ItemPedidoAdapter.toResponseList(entity.getItens()))
                 .build();
     }
 

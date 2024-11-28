@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 @Builder
 public class ItemPedidoResponse {
     private Long id;
-    private PedidoResponse pedido;
-    private ProdutoResponse produto;
+    private Long idPedido;
+    private Long idProduto;
     private Integer quantidade;
     private BigDecimal precoUnitario;
 }

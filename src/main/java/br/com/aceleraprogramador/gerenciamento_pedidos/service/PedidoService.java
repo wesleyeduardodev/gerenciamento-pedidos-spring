@@ -1,11 +1,15 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.service;
+
+import br.com.aceleraprogramador.gerenciamento_pedidos.adapter.ItemPedidoAdapter;
 import br.com.aceleraprogramador.gerenciamento_pedidos.adapter.PedidoAdapter;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.PedidoRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PedidoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.enuns.StatusPedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.exceptions.RecursoNaoEncontradoException;
+import br.com.aceleraprogramador.gerenciamento_pedidos.model.ItemPedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Pedido;
+import br.com.aceleraprogramador.gerenciamento_pedidos.repository.ItemPedidoRepository;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.PedidoRepository;
 import br.com.aceleraprogramador.gerenciamento_pedidos.utils.DateUtil;
 import br.com.aceleraprogramador.gerenciamento_pedidos.utils.ObjectMapperUtilsConfig;
@@ -15,7 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,13 +29,24 @@ import java.util.Optional;
 public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
+    private final ItemPedidoRepository itemPedidoRepository;
 
     public PedidoResponse criarPedido(PedidoRequest request) {
+
         log.info("Criando um novo Pedido...");
         log.info("JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(request));
+
         Pedido pedido = PedidoAdapter.toEntity(request);
+        List<ItemPedido> itens = ItemPedidoAdapter.toEntities(pedido, request.getItens());
+        pedido.setItens(itens);
+
         pedidoRepository.save(pedido);
+
         PedidoResponse pedidoResponse = PedidoAdapter.toResponse(pedido);
+
+        List<ItemPedido> itensSalvos = itemPedidoRepository.findByPedidoId(pedido.getId());
+        pedidoResponse.setItens(ItemPedidoAdapter.toResponseList(itensSalvos));
+
         log.info("Pedido criado com sucesso...");
         return pedidoResponse;
     }

@@ -1,9 +1,12 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.adapter;
+
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.ItemPedidoRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.ItemPedidoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.ItemPedido;
+import br.com.aceleraprogramador.gerenciamento_pedidos.model.Pedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Produto;
 import lombok.experimental.UtilityClass;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +22,16 @@ public class ItemPedidoAdapter {
                 .build();
     }
 
+    public static ItemPedido toEntity(Pedido pedido, ItemPedidoRequest request) {
+        return ItemPedido
+                .builder()
+                .produto(Produto.builder().id(request.getIdProduto()).build())
+                .quantidade(request.getQuantidade())
+                .precoUnitario(request.getPrecoUnitario())
+                .pedido(pedido)
+                .build();
+    }
+
     public static List<ItemPedido> toEntities(List<ItemPedidoRequest> requests) {
         return requests
                 .stream()
@@ -26,12 +39,19 @@ public class ItemPedidoAdapter {
                 .collect(Collectors.toList());
     }
 
+    public static List<ItemPedido> toEntities(Pedido pedido, List<ItemPedidoRequest> requests) {
+        return requests
+                .stream()
+                .map(i -> toEntity(pedido, i))
+                .collect(Collectors.toList());
+    }
+
     public static ItemPedidoResponse toResponse(ItemPedido entity) {
         return ItemPedidoResponse
                 .builder()
                 .id(entity.getId())
-                .pedido(PedidoAdapter.toResponse(entity.getPedido()))
-                .produto(ProdutoAdapter.toResponse(entity.getProduto()))
+                .idPedido(entity.getPedido().getId())
+                .idProduto(entity.getProduto().getId())
                 .quantidade(entity.getQuantidade())
                 .precoUnitario(entity.getPrecoUnitario())
                 .build();

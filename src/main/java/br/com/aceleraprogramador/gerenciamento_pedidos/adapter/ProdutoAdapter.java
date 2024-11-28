@@ -1,6 +1,6 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.adapter;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.ProdutoRequest;
-import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.ProdutoResponse;
+import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.Lo;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Fornecedor;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Produto;
 import lombok.experimental.UtilityClass;
@@ -20,8 +20,8 @@ public class ProdutoAdapter {
                 .build();
     }
 
-    public static ProdutoResponse toResponse(Produto entity) {
-        return ProdutoResponse
+    public static Lo toResponse(Produto entity) {
+        return Lo
                 .builder()
                 .id(entity.getId())
                 .nome(entity.getNome())
@@ -38,7 +38,7 @@ public class ProdutoAdapter {
         entity.setFornecedor(Fornecedor.builder().id(request.getIdFornecedor()).build());
     }
 
-    public static List<ProdutoResponse> toResponseList(List<Produto> entities) {
+    public static List<Lo> toResponseList(List<Produto> entities) {
         return entities
                 .stream()
                 .map(ProdutoAdapter::toResponse)

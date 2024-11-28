@@ -1,7 +1,7 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.controller.produto;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.ProdutoRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
-import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.ProdutoResponse;
+import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.Lo;
 import br.com.aceleraprogramador.gerenciamento_pedidos.service.ProdutoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -24,7 +24,7 @@ public class ProdutoController implements ProdutoAPI {
     @PostMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
-    public ProdutoResponse criarProduto(@Valid @RequestBody ProdutoRequest request) {
+    public Lo criarProduto(@Valid @RequestBody ProdutoRequest request) {
         return produtoService.criarProduto(request);
     }
 
@@ -32,15 +32,15 @@ public class ProdutoController implements ProdutoAPI {
     @GetMapping(value = "/v1/buscarTodosOsProdutosPorParametros", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
-    public PageResponse<ProdutoResponse> buscarTodosOsProdutosPorParametros(@RequestParam(required = false) Long id,
-                                                                            @RequestParam(required = false) String nome,
-                                                                            @RequestParam(required = false) String descricao,
-                                                                            @RequestParam(required = false) BigDecimal preco,
-                                                                            @RequestParam(required = false) Long idFornecedor,
-                                                                            @RequestParam(required = false) Integer pageNumber,
-                                                                            @RequestParam(required = false) Integer pageSize,
-                                                                            @RequestParam(required = false) String sortBy,
-                                                                            @RequestParam(required = false) String sortDirection) {
+    public PageResponse<Lo> buscarTodosOsProdutosPorParametros(@RequestParam(required = false) Long id,
+                                                               @RequestParam(required = false) String nome,
+                                                               @RequestParam(required = false) String descricao,
+                                                               @RequestParam(required = false) BigDecimal preco,
+                                                               @RequestParam(required = false) Long idFornecedor,
+                                                               @RequestParam(required = false) Integer pageNumber,
+                                                               @RequestParam(required = false) Integer pageSize,
+                                                               @RequestParam(required = false) String sortBy,
+                                                               @RequestParam(required = false) String sortDirection) {
         return produtoService.buscarTodosOsProdutosPorParametros(id, nome, descricao, preco, idFornecedor, pageNumber, pageSize, sortBy, sortDirection);
     }
 
@@ -48,7 +48,7 @@ public class ProdutoController implements ProdutoAPI {
     @GetMapping(value = "/v1/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
-    public ProdutoResponse buscarProdutoPorId(@PathVariable Long id) {
+    public Lo buscarProdutoPorId(@PathVariable Long id) {
         return produtoService.buscarProdutoPorId(id);
     }
 
