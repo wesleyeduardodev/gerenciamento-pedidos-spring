@@ -24,7 +24,7 @@ public class ProdutoController implements ProdutoAPI {
     @PostMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
-    public ProdutoResponse criarProduto(ProdutoRequest request) {
+    public ProdutoResponse criarProduto(@Valid @RequestBody ProdutoRequest request) {
         return produtoService.criarProduto(request);
     }
 
