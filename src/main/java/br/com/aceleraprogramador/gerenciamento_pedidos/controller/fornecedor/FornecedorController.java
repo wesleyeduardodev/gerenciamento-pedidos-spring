@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/fornecedores")
 @RequiredArgsConstructor
-public class ForncedorController implements FornecedorAPI {
+public class FornecedorController implements FornecedorAPI {
 
     private final FornecedorService fornecedorService;
 
