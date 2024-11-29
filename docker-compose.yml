@@ -1,0 +1,22 @@
+version: '3'
+
+services:  
+
+  pedidos-api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: pedidos-api
+    image: pedidos-api:latest
+    environment:
+      SERVER_PORT: 8080
+      TZ: "America/Sao_Paulo"
+    ports:
+      - "8080:8080"
+    networks:
+      - docker-network
+    restart: always
+
+networks:
+  docker-network:
+    driver: bridge
