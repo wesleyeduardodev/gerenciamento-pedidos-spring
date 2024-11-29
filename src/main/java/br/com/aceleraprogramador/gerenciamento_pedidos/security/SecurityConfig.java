@@ -28,6 +28,7 @@ public class SecurityConfig {
         return httpSecurity
                 .securityMatcher(new AntPathRequestMatcher("/api/**"))
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable) // Desativa CORS
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
                 .userDetailsService(usuarioService)
                 .httpBasic(withDefaults())
