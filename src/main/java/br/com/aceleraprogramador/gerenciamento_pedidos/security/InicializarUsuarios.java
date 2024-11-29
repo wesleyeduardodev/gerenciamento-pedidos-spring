@@ -1,3 +1,4 @@
+/*
 package br.com.aceleraprogramador.gerenciamento_pedidos.security;
 import br.com.aceleraprogramador.gerenciamento_pedidos.adapter.UsuarioAdapter;
 import br.com.aceleraprogramador.gerenciamento_pedidos.enuns.RoleType;
@@ -25,4 +26,4 @@ public class InicializarUsuarios implements CommandLineRunner {
         Usuario administrador = UsuarioAdapter.criarPerfilDeUsuario("Administrador", passwordEncoder.encode("password"), "administrador@administrador.com", RoleType.ROLE_ADMINISTRADOR);
         usuarioRepository.saveAll(List.of(usuario, gerente, administrador));
     }
-}
+}*/
