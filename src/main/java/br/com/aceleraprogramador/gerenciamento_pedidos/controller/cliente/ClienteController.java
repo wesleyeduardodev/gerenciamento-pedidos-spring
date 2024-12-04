@@ -106,7 +106,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @PutMapping(value = "/v1/{idCliente}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ROLE_GERENTE')")
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public void atualizarTodosOsDadosDoCliente(@PathVariable Long idCliente, @Valid @RequestBody UpdateClienteRequest request) {
         clienteService.atualizarTodosOsDadosDoCliente(idCliente, request);
     }
@@ -114,7 +114,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @PatchMapping(value = "/v1/{idCliente}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ROLE_GERENTE')")
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public ClienteResponse atualizarParcialmenteOsDadosDoCliente(@PathVariable Long idCliente, @Valid @RequestBody UpdateClienteRequest request) {
         return clienteService.atualizarParcialmenteOsDadosDoCliente(idCliente, request);
     }
@@ -122,7 +122,7 @@ public class ClienteController implements ClienteAPI {
     @Override
     @DeleteMapping(value = "/v1/{idCliente}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public void removerCliente(@PathVariable Long idCliente) {
         clienteService.removerCliente(idCliente);
     }
