@@ -1,5 +1,5 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.security;
-import br.com.aceleraprogramador.gerenciamento_pedidos.service.UsuarioService;
+import br.com.aceleraprogramador.gerenciamento_pedidos.service.UsuarioAutenticacaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UsuarioService usuarioService;
+    private final UsuarioAutenticacaoService usuarioAutenticacaoService;
 
     @Order(1)
     @Bean
@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable) // Desativa CORS
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .userDetailsService(usuarioService)
+                .userDetailsService(usuarioAutenticacaoService)
                 .httpBasic(withDefaults())
                 .build();
     }
