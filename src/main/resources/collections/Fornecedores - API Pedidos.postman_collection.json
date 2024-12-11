@@ -13,13 +13,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "usuario@usuario.com",
+							"key": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -37,7 +37,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"nome\": \"João Silva\",\r\n  \"cnpj\": \"12345678000200\",\r\n  \"contato\": \"(11) 98765-4321 / contato@fornecedores.com\",\r\n  \"endereco\": \"Avenida Central, São Paulo - SP\"\r\n}",
+					"raw": "{\r\n  \"nome\": \"Distribuidora teste 02\",\r\n  \"cnpj\": \"12345678000200\",\r\n  \"contato\": \"(11) 98765-4321 / contato@fornecedores.com\",\r\n  \"endereco\": \"Avenida Central, Sao Luis - MA\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -45,12 +45,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/fornecedores/v1",
-					"protocol": "http",
+					"raw": "{{local}}/api/fornecedores/v1",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"fornecedores",
@@ -68,13 +66,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "usuario@usuario.com",
+							"key": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -87,12 +85,10 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/fornecedores/v1/1",
-					"protocol": "http",
+					"raw": "{{local}}/api/fornecedores/v1/1",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"fornecedores",
@@ -111,13 +107,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "usuario@usuario.com",
+							"key": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -130,7 +126,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/fornecedores/v1/buscarTodosOsFornecedoresPorParametros?id=1&nome=João Silva&cnpj=12345678000200&contato=contato@fornecedores.com&endereco=São Paulo&pageNumber=0&pageSize=10&sortBy=id&sortDirection=ASC",
+					"raw": "http://localhost:8080/api/fornecedores/v1/buscarTodosOsFornecedoresPorParametros",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -145,39 +141,48 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "1"
+							"value": "1",
+							"disabled": true
 						},
 						{
 							"key": "nome",
-							"value": "João Silva"
+							"value": "João Silva",
+							"disabled": true
 						},
 						{
 							"key": "cnpj",
-							"value": "12345678000200"
+							"value": "12345678000200",
+							"disabled": true
 						},
 						{
 							"key": "contato",
-							"value": "contato@fornecedores.com"
+							"value": "contato@fornecedores.com",
+							"disabled": true
 						},
 						{
 							"key": "endereco",
-							"value": "São Paulo"
+							"value": "São Paulo",
+							"disabled": true
 						},
 						{
 							"key": "pageNumber",
-							"value": "0"
+							"value": "0",
+							"disabled": true
 						},
 						{
 							"key": "pageSize",
-							"value": "10"
+							"value": "10",
+							"disabled": true
 						},
 						{
 							"key": "sortBy",
-							"value": "id"
+							"value": "id",
+							"disabled": true
 						},
 						{
 							"key": "sortDirection",
-							"value": "ASC"
+							"value": "ASC",
+							"disabled": true
 						}
 					]
 				},
@@ -192,13 +197,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "gerente@gerente.com",
+							"key": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -224,12 +229,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/fornecedores/v1/1",
-					"protocol": "http",
+					"raw": "{{local}}/api/fornecedores/v1/1",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"fornecedores",
@@ -248,13 +251,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "administrador@administrador.com",
+							"key": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -267,17 +270,15 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/fornecedores/v1/1",
-					"protocol": "http",
+					"raw": "{{local}}/api/fornecedores/v1/5",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"fornecedores",
 						"v1",
-						"1"
+						"5"
 					]
 				},
 				"description": "Generated from cURL: curl -X 'DELETE' \\\r\n  'http://localhost:8080/api/fornecedores/v1/1' \\\r\n  -H 'accept: */*'"

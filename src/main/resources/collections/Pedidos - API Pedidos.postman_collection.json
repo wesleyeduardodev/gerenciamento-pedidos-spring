@@ -13,13 +13,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "administrador@administrador.com",
+							"key": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -37,7 +37,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"idCliente\": 1,\r\n  \"dataPedido\": \"31/12/2024 11:45:29\",\r\n  \"status\": \"CONCLUIDO\",\r\n  \"itens\": [\r\n    {\r\n      \"idProduto\": 2,\r\n      \"quantidade\": 3,\r\n      \"precoUnitario\": 50\r\n    },\r\n {\r\n      \"idProduto\": 3,\r\n      \"quantidade\": 3,\r\n      \"precoUnitario\": 50\r\n    }\r\n  ]\r\n}",
+					"raw": "{\r\n    \"idCliente\": 1,\r\n    \"dataPedido\": \"31/12/2024 11:45:29\",\r\n    \"status\": \"PENDENTE\",\r\n    \"itens\": [\r\n        {\r\n            \"idProduto\": 1,\r\n            \"quantidade\": 10,\r\n            \"precoUnitario\": 30\r\n        },\r\n        {\r\n            \"idProduto\": 2,\r\n            \"quantidade\": 15,\r\n            \"precoUnitario\": 10\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -45,12 +45,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/pedidos/v1",
-					"protocol": "http",
+					"raw": "{{local}}/api/pedidos/v1",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"pedidos",
@@ -68,13 +66,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "administrador@administrador.com",
+							"key": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -87,17 +85,15 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/pedidos/v1/4",
-					"protocol": "http",
+					"raw": "{{local}}/api/pedidos/v1/2",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"pedidos",
 						"v1",
-						"4"
+						"2"
 					]
 				},
 				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://localhost:8080/api/pedidos/v1/4' \\\r\n  -H 'accept: application/json'"
@@ -111,13 +107,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "administrador@administrador.com",
+							"key": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -130,12 +126,10 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/pedidos/v1/buscarTodosOsPedidosPorParametros?id=4&idCliente=1&status=CONCLUIDO&dataPedido=31%2F12%2F2024&pageNumber=0&pageSize=10&sortBy=id&sortDirection=ASC",
-					"protocol": "http",
+					"raw": "{{local}}/api/pedidos/v1/buscarTodosOsPedidosPorParametros",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"pedidos",
@@ -145,39 +139,46 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "4"
+							"value": "4",
+							"disabled": true
 						},
 						{
 							"key": "idCliente",
-							"value": "1"
+							"value": "1",
+							"disabled": true
 						},
 						{
 							"key": "status",
-							"value": "CONCLUIDO"
+							"value": "CONCLUIDO",
+							"disabled": true
 						},
 						{
 							"key": "dataPedido",
-							"value": "31%2F12%2F2024"
+							"value": "31%2F12%2F2024",
+							"disabled": true
 						},
 						{
 							"key": "pageNumber",
-							"value": "0"
+							"value": "0",
+							"disabled": true
 						},
 						{
 							"key": "pageSize",
-							"value": "10"
+							"value": "10",
+							"disabled": true
 						},
 						{
 							"key": "sortBy",
-							"value": "id"
+							"value": "id",
+							"disabled": true
 						},
 						{
 							"key": "sortDirection",
-							"value": "ASC"
+							"value": "ASC",
+							"disabled": true
 						}
 					]
-				},
-				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://localhost:8080/api/pedidos/v1/buscarTodosOsPedidosPorParametros?id=1&idCliente=4&status=CONCLUIDO&dataPedido=31%2F12%2F2024&pageNumber=0&pageSize=10&sortBy=id&sortDirection=ASC' \\\r\n  -H 'accept: application/json'"
+				}
 			},
 			"response": []
 		},
@@ -188,13 +189,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "administrador@administrador.com",
+							"key": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -207,17 +208,15 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/pedidos/v1/4/status/CANCELADO",
-					"protocol": "http",
+					"raw": "{{local}}/api/pedidos/v1/2/status/CANCELADO",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"pedidos",
 						"v1",
-						"4",
+						"2",
 						"status",
 						"CANCELADO"
 					]
@@ -233,13 +232,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "administrador@administrador.com",
+							"key": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -252,12 +251,10 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/pedidos/v1/4",
-					"protocol": "http",
+					"raw": "{{local}}/api/pedidos/v1/4",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"pedidos",

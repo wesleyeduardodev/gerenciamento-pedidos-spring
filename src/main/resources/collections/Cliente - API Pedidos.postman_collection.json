@@ -13,13 +13,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "gerente@gerente.com",
+							"key": "password",
+							"value": "123456",
 							"type": "string"
 						}
 					]
@@ -27,12 +27,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/clientes/v1?pageNumber=0&pageSize=10&sortBy=id&sortDirection=ASC",
-					"protocol": "http",
+					"raw": "{{local}}/api/clientes/v1?pageSize=10&sortBy=nome&sortDirection=DESC&pageNumber=0",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"clientes",
@@ -40,20 +38,20 @@
 					],
 					"query": [
 						{
-							"key": "pageNumber",
-							"value": "0"
-						},
-						{
 							"key": "pageSize",
 							"value": "10"
 						},
 						{
 							"key": "sortBy",
-							"value": "id"
+							"value": "nome"
 						},
 						{
 							"key": "sortDirection",
-							"value": "ASC"
+							"value": "DESC"
+						},
+						{
+							"key": "pageNumber",
+							"value": "0"
 						}
 					]
 				}
@@ -68,12 +66,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "gerente@gerente.com",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -81,12 +79,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/clientes/v1/buscarTodosOsClientesPorParametros?id=1&nome=Bruno&email=bruno.yara@exemplo.com&telefone=(55) 96791-3201&endereco=Rua Xavier&profissao=Jornalista&pageNumber=0&pageSize=10&sortBy=id&sortDirection=ASC",
-					"protocol": "http",
+					"raw": "{{local}}/api/clientes/v1/buscarTodosOsClientesPorParametros",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"clientes",
@@ -96,43 +92,53 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "1"
+							"value": "1",
+							"disabled": true
 						},
 						{
 							"key": "nome",
-							"value": "Bruno"
+							"value": "andre",
+							"disabled": true
 						},
 						{
 							"key": "email",
-							"value": "bruno.yara@exemplo.com"
+							"value": "gabriel@gmail.com",
+							"disabled": true
 						},
 						{
 							"key": "telefone",
-							"value": "(55) 96791-3201"
+							"value": "(55) 96791-3201",
+							"disabled": true
 						},
 						{
 							"key": "endereco",
-							"value": "Rua Xavier"
+							"value": "Rua Xavier",
+							"disabled": true
 						},
 						{
 							"key": "profissao",
-							"value": "Jornalista"
+							"value": "Jornalista",
+							"disabled": true
 						},
 						{
 							"key": "pageNumber",
-							"value": "0"
+							"value": "0",
+							"disabled": true
 						},
 						{
 							"key": "pageSize",
-							"value": "10"
+							"value": "10",
+							"disabled": true
 						},
 						{
 							"key": "sortBy",
-							"value": "id"
+							"value": "id",
+							"disabled": true
 						},
 						{
 							"key": "sortDirection",
-							"value": "ASC"
+							"value": "ASC",
+							"disabled": true
 						}
 					]
 				}
@@ -147,12 +153,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "gerente@gerente.com",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -160,12 +166,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/clientes/v1/1",
-					"protocol": "http",
+					"raw": "{{local}}/api/clientes/v1/1",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"clientes",
@@ -184,12 +188,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "gerente@gerente.com",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -197,12 +201,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/clientes/v1/buscarPorNome?nome=Bruno",
-					"protocol": "http",
+					"raw": "{{local}}/api/clientes/v1/buscarPorNome?nome=Bruno",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"clientes",
@@ -227,12 +229,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "gerente@gerente.com",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -240,12 +242,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/clientes/v1/buscarPorEmail?email=bruno.yara@exemplo.com",
-					"protocol": "http",
+					"raw": "{{local}}/api/clientes/v1/buscarPorEmail?email=bruno.yara@exemplo.com",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"clientes",
@@ -270,12 +270,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "gerente@gerente.com",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -283,12 +283,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/clientes/v1/buscarPorProfissao?profissao=Jornalista",
-					"protocol": "http",
+					"raw": "{{local}}/api/clientes/v1/buscarPorProfissao?profissao=Jornalista",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"clientes",
@@ -313,12 +311,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "gerente@gerente.com",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -326,12 +324,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/clientes/v1/buscarPorNomeEmailProfissao?nome=Bruno&email=bruno.yara@exemplo.com&profissao=Jornalista",
-					"protocol": "http",
+					"raw": "{{local}}/api/clientes/v1/buscarPorNomeEmailProfissao?nome=Bruno&email=bruno.yara@exemplo.com&profissao=Jornalista",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"clientes",
@@ -378,7 +374,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nome\": \"Wesley Eduardo de Oliveira Melo\",\r\n    \"email\": \"wesleyeduardo.dev@gmail.com\",\r\n    \"telefone\": \"(11) 98765-4321\",\r\n    \"endereco\": \"Rua A, Santa Luzia - MA\",\r\n    \"profissao\": \"Desenvolvedor\"\r\n}",
+					"raw": "{\r\n    \"nome\": \"Wesley Eduardo\",\r\n    \"email\": \"Wesley@gmail.com\",\r\n    \"telefone\": \"(11) 98765-4321\",\r\n    \"endereco\": \"itaperuna - SA\",\r\n    \"profissao\": \"Desenvolvedor\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -386,12 +382,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/clientes/v1",
-					"protocol": "http",
+					"raw": "{{local}}/api/clientes/v1",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"clientes",
@@ -408,13 +402,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "gerente@gerente.com",
+							"key": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -431,17 +425,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/clientes/v1/1",
-					"protocol": "http",
+					"raw": "{{local}}/api/clientes/v1/2",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"clientes",
 						"v1",
-						"1"
+						"2"
 					]
 				}
 			},
@@ -455,12 +447,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "gerente@gerente.com",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -477,12 +469,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/clientes/v1/1",
-					"protocol": "http",
+					"raw": "{{local}}/api/clientes/v1/1",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"clientes",
@@ -500,13 +490,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "username",
-							"value": "administrador@administrador.com",
+							"key": "password",
+							"value": "123456",
 							"type": "string"
 						},
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "wesley@gmail.com",
 							"type": "string"
 						}
 					]
@@ -514,17 +504,15 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/clientes/v1/1",
-					"protocol": "http",
+					"raw": "{{local}}/api/clientes/v1/7",
 					"host": [
-						"localhost"
+						"{{local}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"clientes",
 						"v1",
-						"1"
+						"7"
 					]
 				}
 			},

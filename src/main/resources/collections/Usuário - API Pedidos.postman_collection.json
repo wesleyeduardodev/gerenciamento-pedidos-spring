@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "1f10f39c-46e0-469d-8622-e7d1da58bfad",
+		"name": "Usuário - API Pedidos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39680100"
+	},
+	"item": [
+		{
+			"name": "Criar usuario",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "wesley@gmail.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Josão Victor acelera\",\r\n    \"email\": \"joao@acelera.com\",\r\n    \"senha\": \"joao123\",\r\n    \"roles\": [\r\n        \"ROLE_USUARIO\",\r\n        \"ROLE_ADMINISTRADOR\",\r\n        \"ROLE_GERENTE\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/api/usuarios/v1",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"usuarios",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar todos os usuário",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "wesley@gmail.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/api/usuarios/v1",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"usuarios",
+						"v1"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "0",
+							"disabled": true
+						},
+						{
+							"key": "pageSize",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "sortBy",
+							"value": "id",
+							"disabled": true
+						},
+						{
+							"key": "sortDirection",
+							"value": "ASC",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar usuario por id",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "wesley@gmail.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/api/usuarios/v1/4",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"usuarios",
+						"v1",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar todos os dados do usuario",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "wesley@gmail.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Josão Victor acelera\",\r\n    \"email\": \"joao@acelera.com\",\r\n    \"senha\": \"12d\",\r\n    \"roles\": [\r\n        \"ROLE_USUARIO\",\r\n        \"ROLE_ADMINISTRADOR\",\r\n        \"ROLE_GERENTE\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/api/usuarios/v1/1",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"usuarios",
+						"v1",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar usuário",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "wesley@gmail.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/api/usuarios/v1/2",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"usuarios",
+						"v1",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
