@@ -7,5 +7,5 @@ public enum StatusPedido {
     CONCLUIDO,
     CANCELADO,
     DEVOLVIDO,
-    FALHA_NA_ENTREGA;
+    FALHA_NA_ENTREGA,
 }

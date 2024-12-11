@@ -40,6 +40,9 @@ public class Cliente {
     @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
 
+    @Column(name = "cpf", nullable = false, unique = true, length = 11)
+    private String cpf;
+
     @Column(name = "telefone")
     private String telefone;
 

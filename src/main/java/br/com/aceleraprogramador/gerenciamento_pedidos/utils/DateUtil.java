@@ -23,6 +23,14 @@ public class DateUtil {
         }
     }
 
+    public static String convertLocalDateToString(LocalDate localDate) {
+        if (localDate == null) {
+            throw new IllegalArgumentException("A data não pode ser nula.");
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return localDate.format(formatter);
+    }
+
     public static String toString(LocalDate date) {
         if (Objects.isNull(date)) {
             throw new IllegalArgumentException("O objeto LocalDateTime não pode ser nulo.");

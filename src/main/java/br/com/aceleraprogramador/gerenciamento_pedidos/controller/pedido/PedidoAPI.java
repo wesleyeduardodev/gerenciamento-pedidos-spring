@@ -1,5 +1,6 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.controller.pedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.PedidoRequest;
+import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PagamentoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PedidoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.exceptions.ErroResponse;
@@ -52,4 +53,9 @@ public interface PedidoAPI {
     @Operation(summary = "Remover Pedido por ID")
     @ApiResponse(responseCode = "204", description = "Pedido removido com sucesso.")
     void removerPedido(@Parameter(description = "Id do Pedido", required = true) Long id);
+
+    @Operation(summary = "Registrar Pagamento Pedido ")
+    @ApiResponse(responseCode = "200", description = "Pagamento registrado com sucesso.",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = PagamentoResponse.class)))
+    PagamentoResponse registrarPagamentoPedido(@Parameter(description = "Id do Pedido", required = true) Long id);
 }

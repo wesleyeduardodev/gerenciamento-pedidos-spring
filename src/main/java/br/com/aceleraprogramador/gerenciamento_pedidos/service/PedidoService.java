@@ -1,12 +1,19 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.service;
-
 import br.com.aceleraprogramador.gerenciamento_pedidos.adapter.ItemPedidoAdapter;
 import br.com.aceleraprogramador.gerenciamento_pedidos.adapter.PedidoAdapter;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.PedidoRequest;
+import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PagamentoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PedidoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.enuns.StatusPedido;
+import br.com.aceleraprogramador.gerenciamento_pedidos.enuns.TipoPagamento;
 import br.com.aceleraprogramador.gerenciamento_pedidos.exceptions.RecursoNaoEncontradoException;
+import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.dto.request.ClienteIntegracaoRequest;
+import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.dto.request.PagamentoIntegracaoRequest;
+import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.dto.response.ClienteIntegracaoResponse;
+import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.dto.response.PagamentoIntegracaoResponse;
+import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.service.IntegracaoClienteService;
+import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.service.IntegracaoPagamentoService;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.ItemPedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Pedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.ItemPedidoRepository;
@@ -19,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +37,8 @@ public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
     private final ItemPedidoRepository itemPedidoRepository;
+    private final IntegracaoClienteService integracaoClienteService;
+    private final IntegracaoPagamentoService integracaoPagamentoService;
 
     public PedidoResponse criarPedido(PedidoRequest request) {
 
@@ -114,5 +123,59 @@ public class PedidoService {
         } else {
             return pedido.get();
         }
+    }
+
+    public PagamentoResponse registrarPagamentoPedido(Long id) {
+
+        log.info("Registrando pagamento do pedido com ID: {}", id);
+
+        Pedido pedido = pedidoRepository.getReferenceById(id);
+        PedidoResponse pedidoResponse = PedidoAdapter.toResponse(pedido);
+
+        ClienteIntegracaoRequest clienteIntegracaoRequest = preencherClienteRequest(pedido);
+        ClienteIntegracaoResponse clienteIntegracaoResponse = integracaoClienteService.criarCliente(clienteIntegracaoRequest);
+
+        PagamentoIntegracaoRequest pagamentoIntegracaoRequest = preencherPagamentoRequest(clienteIntegracaoResponse, pedidoResponse);
+        PagamentoIntegracaoResponse pagamentoIntegracaoResponse = integracaoPagamentoService.criarPagamento(pagamentoIntegracaoRequest);
+
+        PagamentoResponse pagamentoResponse = preencherRespostaRegistroPagamento(pagamentoIntegracaoResponse);
+
+        pedido.setStatus(StatusPedido.PROCESSANDO);
+        pedidoRepository.save(pedido);
+
+        log.info("Pagamento do pedido registrado com sucesso");
+
+        return pagamentoResponse;
+    }
+
+    private PagamentoResponse preencherRespostaRegistroPagamento(PagamentoIntegracaoResponse pagamentoIntegracaoResponse) {
+        return PagamentoResponse
+                .builder()
+                .status(pagamentoIntegracaoResponse.getStatus())
+                .urlPagamento(pagamentoIntegracaoResponse.getInvoiceUrl())
+                .pixCopiaECola(pagamentoIntegracaoResponse.getPixCopiaECola())
+                .build();
+    }
+
+    private PagamentoIntegracaoRequest preencherPagamentoRequest(ClienteIntegracaoResponse clienteIntegracaoResponse, PedidoResponse pedidoResponse) {
+        return PagamentoIntegracaoRequest
+                .builder()
+                .customer(clienteIntegracaoResponse.getId())
+                .billingType(TipoPagamento.PIX.name())
+                .value(pedidoResponse.getValorTotal())
+                .dueDate(DateUtil.convertLocalDateToString(LocalDate.now()))
+                .build();
+    }
+
+    private ClienteIntegracaoRequest preencherClienteRequest(Pedido pedido) {
+        return ClienteIntegracaoRequest
+                .builder()
+                .externalReference(pedido.getId().toString())
+                .name(pedido.getCliente().getNome())
+                .cpfCnpj(pedido.getCliente().getCpf())
+                .email(pedido.getCliente().getEmail())
+                .mobilePhone(pedido.getCliente().getTelefone())
+                .notificationDisabled(true)
+                .build();
     }
 }

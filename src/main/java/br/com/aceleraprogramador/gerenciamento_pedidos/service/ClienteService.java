@@ -158,6 +158,10 @@ public class ClienteService {
             clienteExistente.setEmail(request.getEmail());
         }
 
+        if (StringUtils.isNotBlank(request.getCpf())) {
+            clienteExistente.setCpf(request.getCpf());
+        }
+
         if (StringUtils.isNotBlank(request.getEndereco())) {
             clienteExistente.setEndereco(request.getEndereco());
         }
