@@ -14,7 +14,6 @@ import org.springframework.http.MediaType;
 
 public interface PedidoAPI {
 
-
     @Operation(summary = "Criar um Pedido")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Pedido criado com sucesso.",

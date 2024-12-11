@@ -13,5 +13,5 @@ public class ProdutoResponse {
     private String nome;
     private String descricao;
     private BigDecimal preco;
-    private FornecedorResponse fornecedor;
+    private Long idFornecedor;
 }

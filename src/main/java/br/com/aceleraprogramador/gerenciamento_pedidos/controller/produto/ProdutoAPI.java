@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 
 public interface ProdutoAPI {
 
-
     @Operation(summary = "Criar um Produto")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Produto criado com sucesso.",

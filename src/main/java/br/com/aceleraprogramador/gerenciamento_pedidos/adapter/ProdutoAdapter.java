@@ -27,7 +27,7 @@ public class ProdutoAdapter {
                 .nome(entity.getNome())
                 .descricao(entity.getDescricao())
                 .preco(entity.getPreco())
-                .fornecedor(FornecedorAdapter.toResponse(entity.getFornecedor()))
+                .idFornecedor(entity.getFornecedor().getId())
                 .build();
     }
 

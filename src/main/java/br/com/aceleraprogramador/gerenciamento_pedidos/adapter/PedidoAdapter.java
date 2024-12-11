@@ -25,9 +25,10 @@ public class PedidoAdapter {
         return PedidoResponse
                 .builder()
                 .id(entity.getId())
-                .cliente(ClienteAdapter.toResponse(entity.getCliente()))
+                .idCliente(entity.getCliente().getId())
                 .dataPedido(DateTimeUtil.toString(entity.getDataPedido()))
                 .status(entity.getStatus().name())
+                .itens(ItemPedidoAdapter.toResponseList(entity.getItens()))
                 .build();
     }
 

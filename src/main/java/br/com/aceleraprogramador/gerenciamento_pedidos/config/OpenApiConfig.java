@@ -3,6 +3,7 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
@@ -11,16 +12,30 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.HandlerMethod;
 
+@Configuration
 @OpenAPIDefinition(
         info = @Info(
                 title = "API Gerenciamento de Pedidos",
-                version = "0.0.1",
-                description = "API para gerenciar pedidos",
-                contact = @Contact(name = "Acelera Programador", email = "wesley@aceleraprogramador.com.br", url = "https://multt.digital/area-de-membros/aceleraprogramador"),
-                license = @License(name = "Licença MIT", url = "https://opensource.org/licenses/MIT")
-        )
+                version = "${api.version}",
+                description = """
+                        **Versão:** ${api.version}  
+                        
+                        **Data:** ${api.release.date}
+                        """,
+                contact = @Contact(
+                        name = "Acelera Programador",
+                        email = "wesley@aceleraprogramador.com.br",
+                        url = "https://multt.digital/area-de-membros/aceleraprogramador"
+                ),
+                license = @License(
+                        name = "Licença MIT",
+                        url = "https://opensource.org/licenses/MIT"
+                )
+        ),
+        servers = {
+                @Server(url = "/", description = "Default Server URL")
+        }
 )
-@Configuration
 public class OpenApiConfig {
 
     @Bean
