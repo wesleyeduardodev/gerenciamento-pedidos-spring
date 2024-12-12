@@ -24,8 +24,8 @@ public class UpdateClienteRequest {
     @Email(message = "O email deve ser válido")
     private String email;
 
-    @Schema(description = "CPF do cliente no formato XXX.XXX.XXX-XX", example = "065.165.124-41")
-    @Pattern(regexp = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}", message = "O CPF deve estar no formato XXX.XXX.XXX-XX.")
+    @Schema(description = "CPF do cliente", example = "06516512441")
+    @Size(min =11, max = 11, message = "O cpf deve ter entre 11 caracteres.")
     private String cpf;
 
     @Pattern(regexp = "\\(\\d{2}\\) \\d{4,5}-\\d{4}", message = "O telefone deve estar no formato (XX) XXXXX-XXXX.")
