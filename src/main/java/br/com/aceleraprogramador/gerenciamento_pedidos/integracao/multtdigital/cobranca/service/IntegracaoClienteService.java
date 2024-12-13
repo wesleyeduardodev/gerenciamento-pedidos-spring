@@ -28,7 +28,7 @@ public class IntegracaoClienteService {
     public ClienteIntegracaoResponse criarCliente(ClienteIntegracaoRequest request) {
         try {
             log.info("Criando cliente no ambiente de integração de pagamentos...");
-            log.info("JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(request));
+            log.info("Request criarCliente JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(request));
 
             HttpHeaders headers = new HttpHeaders();
             headers.add("accept", "application/json");
@@ -46,9 +46,11 @@ public class IntegracaoClienteService {
                     ClienteIntegracaoResponse.class
             );
 
+            ClienteIntegracaoResponse responseBody = response.getBody();
             log.info("Cliente criado com sucesso no ambiente de integração de pagamentos.");
+            log.info("Response criarCliente JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(request));
+            return responseBody;
 
-            return response.getBody();
         } catch (Exception e) {
             log.error("Erro ao criar cliente no ambiente de pagamentos. {}", e.getMessage());
             throw new RuntimeException(e);

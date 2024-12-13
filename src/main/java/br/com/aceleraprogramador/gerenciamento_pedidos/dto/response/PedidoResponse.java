@@ -14,6 +14,7 @@ public class PedidoResponse {
     private Long id;
     private Long idCliente;
     private String dataPedido;
+    private String dataAtualizacao;
     private String status;
     private List<ItemPedidoResponse> itens;
 

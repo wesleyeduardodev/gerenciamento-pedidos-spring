@@ -27,6 +27,7 @@ public class PedidoAdapter {
                 .id(entity.getId())
                 .idCliente(entity.getCliente().getId())
                 .dataPedido(DateTimeUtil.toString(entity.getDataPedido()))
+                .dataAtualizacao(DateTimeUtil.toString(entity.getDataAtualizacao()))
                 .status(entity.getStatus().name())
                 .itens(ItemPedidoAdapter.toResponseList(entity.getItens()))
                 .build();

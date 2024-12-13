@@ -22,9 +22,13 @@ public class Pedido {
     @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
 
-    @Column(name = "data_pedido", nullable = false, length = 100)
+    @Column(name = "data_pedido", nullable = false)
     private LocalDateTime dataPedido;
 
+    @Column(name = "data_atualizacao")
+    private LocalDateTime dataAtualizacao;
+
+    @Column(name = "status", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 

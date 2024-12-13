@@ -29,7 +29,7 @@ public class IntegracaoPagamentoService {
         try {
 
             log.info("Criando pagamento no ambiente de integração de pagamentos...");
-            log.info("JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(pagamentoIntegracaoRequest));
+            log.info("Request criarPagamento JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(pagamentoIntegracaoRequest));
 
             HttpHeaders headers = new HttpHeaders();
             headers.add("accept", "application/json");
@@ -47,9 +47,11 @@ public class IntegracaoPagamentoService {
                     PagamentoIntegracaoResponse.class
             );
 
+            PagamentoIntegracaoResponse responseBody = response.getBody();
             log.info("Pagamento registrado com sucesso no ambiente de integração de pagamentos.");
+            log.info("Response criarPagamento JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(pagamentoIntegracaoRequest));
 
-            return response.getBody();
+            return responseBody;
 
         } catch (Exception e) {
             log.error("Erro ao criar pagamento no ambiente de pagamentos. {}", e.getMessage());
