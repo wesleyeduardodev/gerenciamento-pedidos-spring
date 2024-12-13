@@ -68,9 +68,6 @@ INSERT INTO roles_usuario (usuario_id, role_id) VALUES (1, 3);
 ## Swagger Integração pagamentos
 https://api.multt.digital/swagger
 
-## URL BASE PRODUCAO
-jdbc:mysql://database-1.cn6i4yuemxxx.us-east-1.rds.amazonaws.com:3306/api_pedidos
-
 ## Contato
 Para dúvidas ou sugestões, entre em contato:
 - Email: wesley@aceleraprogramador.com.br
