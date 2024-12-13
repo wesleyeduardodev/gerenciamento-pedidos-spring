@@ -25,7 +25,7 @@ public class DateTimeUtil {
 
     public static String toString(LocalDateTime dateTime) {
         if (Objects.isNull(dateTime)) {
-            throw new IllegalArgumentException("O objeto LocalDateTime não pode ser nulo.");
+          return null;
         }
         return dateTime.format(FORMATTER);
     }
