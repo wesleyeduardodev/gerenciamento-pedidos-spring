@@ -1,82 +1,76 @@
-# Projeto Cliente API
+# Projeto Pedidos API
 
-Este projeto é uma API para gerenciar dados de clientes. Ele fornece funcionalidades para realizar buscas com filtros personalizados, usando JPQL para consultas dinâmicas. O objetivo é facilitar a busca de clientes usando múltiplos critérios de forma opcional.
+## Descrição
+O projeto **Pedidos API** é uma aplicação desenvolvida para gerenciamento de pedidos. Este README contém as instruções para configuração e inicialização da aplicação, bem como exemplos de configuração do banco de dados.
 
-## Tecnologias Utilizadas
+---
 
-- **Java 17+**: Linguagem de programação principal.
-- **Spring Boot**: Framework utilizado para simplificar a criação de APIs REST.
-- **Spring Data JPA**: Para interagir com o banco de dados usando ORM.
-- **H2 Database**: Banco de dados em memória para testes.
-- **Maven**: Ferramenta de automação e gerenciamento de dependências.
+## Iniciando o Projeto
 
-## Estrutura do Projeto
+### Executando o JAR
+Execute o comando abaixo para iniciar a aplicação com as variáveis de configuração:
 
-O projeto possui as seguintes camadas principais:
-
-1. **Camada de Repositório** (`ClienteRepository`):
-   - Utiliza o `JpaRepository` para acesso aos dados.
-   - Inclui um método customizado com uma consulta JPQL para buscar clientes com base em critérios opcionais.
-
-2. **Camada de Serviço** (`ClienteService`):
-   - Responsável pela lógica de negócios.
-   - Utiliza o repositório para realizar operações no banco de dados.
-
-## Funcionalidades
-
-- **Busca de Clientes**: O projeto permite buscar clientes por diferentes atributos, todos de forma opcional, como `id`, `nome`, `email`, `telefone`, `endereço`, e `profissão`. A busca utiliza a cláusula `LIKE` para os atributos do tipo `String`, permitindo buscar parcialmente pelos valores informados.
-- **Paginação**: A funcionalidade de paginação está disponível para retornar os resultados de maneira organizada e eficiente, utilizando o objeto `Pageable`.
-
-## Exemplo de Uso
-
-Abaixo um exemplo de uso do serviço para buscar clientes:
-
-```java
-@Autowired
-private ClienteService clienteService;
-
-public void exemploDeUso() {
-    Pageable pageable = PageRequest.of(0, 10);
-    Page<Cliente> clientes = clienteService.buscarClientes(null, "João", null, null, null, null, pageable);
-    clientes.forEach(cliente -> System.out.println(cliente.getNome()));
-}
+```bash
+java -jar -Dserver.port=8080 \
+  -DDB_URL="jdbc:mysql://localhost:3306/api_pedidos?useSSL=false&serverTimezone=UTC" \
+  -DDB_USERNAME=acelera \
+  -DDB_PASSWORD=programador \
+  -DBASE_URL_MULTT=https://api.multt.digital/api/pagamentos \
+  -DTOKEN_MULTT=59c6d7b0-1180-4aeb-ae0a-c7d30f464a73 \
+  gerenciamento-pedidos-0.0.1-SNAPSHOT.jar
 ```
 
-## Executando o Projeto
+### Configurações do Ambiente
+Para configurar as variáveis de ambiente, use o formato abaixo:
 
-1. Clone o repositório:
-   ```bash
-   git clone <URL_DO_REPOSITORIO>
-   ```
+```bash
+DB_PASSWORD=programador;
+DB_URL=jdbc:mysql://localhost:3306/api_pedidos?useSSL=false&serverTimezone=UTC;
+DB_USERNAME=acelera;
+BASE_URL_MULTT=https://api.multt.digital/api/pagamentos;
+TOKEN_MULTT=59c6d7b0-1180-4aeb-ae0a-c7d30f464a73;
+SERVER_PORT=8080
+```
 
-2. Navegue até a pasta do projeto:
-   ```bash
-   cd cliente-api
-   ```
+---
 
-3. Execute o projeto com o Maven:
-   ```bash
-   mvn spring-boot:run
-   ```
+## Configuração Inicial do Banco de Dados
 
-## Endpoints Disponíveis
+### Inserindo Usuário Padrão
+Use o comando abaixo para criar um usuário inicial no banco de dados:
 
-Atualmente, a principal funcionalidade disponível é a busca de clientes. Para acessar a API, é necessário enviar uma requisição para o endpoint de busca, utilizando os parâmetros desejados.
+```sql
+INSERT INTO usuario (id, email, nome, senha) 
+VALUES (1, 'wesley@gmail.com', 'Wesley Eduardo', '$2a$10$4wwRH6NMIEHLc7D7Inf11ub1sC4/cMTwdhHEsbcCq6kIwUcE1F7dK');
+```
 
-- **GET /clientes**: Busca clientes com os parâmetros opcionais, por exemplo:
-  ```
-  GET /clientes?id=1&nome=João
-  ```
+### Inserindo Perfis de Usuário
+Adicione os perfis de usuário com os seguintes comandos:
 
-## Contribuições
+```sql
+INSERT INTO role (id, role_type) VALUES (1, 'ROLE_USUARIO');
+INSERT INTO role (id, role_type) VALUES (2, 'ROLE_ADMINISTRADOR');
+INSERT INTO role (id, role_type) VALUES (3, 'ROLE_GERENTE');
+```
 
-Sinta-se à vontade para contribuir com o projeto enviando pull requests ou abrindo issues no repositório.
+### Associando Perfis ao Usuário
+Associe os perfis ao usuário criado anteriormente com os comandos:
+
+```sql
+INSERT INTO roles_usuario (usuario_id, role_id) VALUES (1, 1);
+INSERT INTO roles_usuario (usuario_id, role_id) VALUES (1, 2);
+INSERT INTO roles_usuario (usuario_id, role_id) VALUES (1, 3);
+```
+
+---
+
+
+## Swagger Integração pagamentos
+https://api.multt.digital/swagger
+
+## URL BASE PRODUCAO
+jdbc:mysql://database-1.cn6i4yuemxxx.us-east-1.rds.amazonaws.com:3306/api_pedidos
 
 ## Contato
-
-Caso tenha dúvidas ou sugestões, entre em contato:
-- **Email**: [wesley@exemplo.com](mailto:wesley@exemplo.com)
-
-## Licença
-
-Este projeto está licenciado sob a MIT License - veja o arquivo LICENSE para mais detalhes.
+Para dúvidas ou sugestões, entre em contato:
+- Email: wesley@aceleraprogramador.com.br
