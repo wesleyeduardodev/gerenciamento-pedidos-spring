@@ -1,6 +1,6 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.controller.pedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.PedidoRequest;
-import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PagamentoResponse;
+import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.CobrancaResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PedidoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.exceptions.ErroResponse;
@@ -56,6 +56,6 @@ public interface PedidoAPI {
 
     @Operation(summary = "Registrar Pagamento Pedido ")
     @ApiResponse(responseCode = "200", description = "Pagamento registrado com sucesso.",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = PagamentoResponse.class)))
-    PagamentoResponse registrarPagamentoPedido(@Parameter(description = "Id do Pedido", required = true) Long id);
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = CobrancaResponse.class)))
+    CobrancaResponse registrarCobrancaPedido(@Parameter(description = "Id do Pedido", required = true) Long id);
 }

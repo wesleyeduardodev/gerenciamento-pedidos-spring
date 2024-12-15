@@ -1,6 +1,6 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.service;
-import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.dto.request.ClienteIntegracaoRequest;
-import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.dto.response.ClienteIntegracaoResponse;
+import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.dto.request.ClienteCobrancaRequest;
+import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.dto.response.ClienteCobrancaResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.utils.ObjectMapperUtilsConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class IntegracaoClienteService {
+public class ClienteCobrancaService {
 
     @Value("${api.multt.base-url}")
     private String baseUrl;
@@ -25,7 +25,7 @@ public class IntegracaoClienteService {
 
     private final RestTemplate restTemplate;
 
-    public ClienteIntegracaoResponse criarCliente(ClienteIntegracaoRequest request) {
+    public ClienteCobrancaResponse criarCliente(ClienteCobrancaRequest request) {
         try {
             log.info("Criando cliente no ambiente de integração de pagamentos...");
             log.info("Request criarCliente JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(request));
@@ -35,18 +35,18 @@ public class IntegracaoClienteService {
             headers.add("Authorization", "Bearer " + token);
             headers.add("Content-Type", "application/json");
 
-            HttpEntity<ClienteIntegracaoRequest> requestEntity = new HttpEntity<>(request, headers);
+            HttpEntity<ClienteCobrancaRequest> requestEntity = new HttpEntity<>(request, headers);
 
             String url = baseUrl + "/clientes/v1";
 
-            ResponseEntity<ClienteIntegracaoResponse> response = restTemplate.exchange(
+            ResponseEntity<ClienteCobrancaResponse> response = restTemplate.exchange(
                     url,
                     HttpMethod.POST,
                     requestEntity,
-                    ClienteIntegracaoResponse.class
+                    ClienteCobrancaResponse.class
             );
 
-            ClienteIntegracaoResponse responseBody = response.getBody();
+            ClienteCobrancaResponse responseBody = response.getBody();
             log.info("Cliente criado com sucesso no ambiente de integração de pagamentos.");
             log.info("Response criarCliente JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(request));
             return responseBody;

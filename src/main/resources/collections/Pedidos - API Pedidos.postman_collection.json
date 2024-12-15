@@ -265,6 +265,49 @@
 				"description": "Generated from cURL: curl -X 'DELETE' \\\r\n  'http://localhost:8080/api/pedidos/v1/3' \\\r\n  -H 'accept: */*'"
 			},
 			"response": []
+		},
+		{
+			"name": "registrarCobrancaPedido",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "wesley@gmail.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{local}}/api/pedidos/v1/registrarPagamento/pedido/2",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"pedidos",
+						"v1",
+						"registrarPagamento",
+						"pedido",
+						"2"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'http://localhost:8080/api/pedidos/v1/registrarPagamento/pedido/2' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
 		}
 	]
 }

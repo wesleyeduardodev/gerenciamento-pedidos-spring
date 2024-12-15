@@ -1,6 +1,6 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.controller.pedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.PedidoRequest;
-import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PagamentoResponse;
+import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.CobrancaResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PedidoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.service.PedidoService;
@@ -67,10 +67,10 @@ public class PedidoController implements PedidoAPI {
     }
 
     @Override
-    @PutMapping(value = "/v1/registrarPagamento/pedido/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/v1/registrarCobrancaPedido/pedido/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
-    public PagamentoResponse registrarPagamentoPedido(@PathVariable Long id) {
-        return pedidoService.registrarPagamentoPedido(id);
+    public CobrancaResponse registrarCobrancaPedido(@PathVariable Long id) {
+        return pedidoService.registrarCobrancaPedido(id);
     }
 }

@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PagamentoIntegracaoResponse {
+public class RegistraCobrancaResponse {
 
     @JsonProperty("id")
     private String id;

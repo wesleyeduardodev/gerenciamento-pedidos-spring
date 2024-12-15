@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PagamentoIntegracaoRequest {
+public class RegistraCobrancaRequest {
 
     @JsonProperty("customer")
     private String customer;

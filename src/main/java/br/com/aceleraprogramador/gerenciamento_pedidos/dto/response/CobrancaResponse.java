@@ -6,7 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PagamentoResponse {
+public class CobrancaResponse {
     private String status;
     private String urlPagamento;
     private String pixCopiaECola;
