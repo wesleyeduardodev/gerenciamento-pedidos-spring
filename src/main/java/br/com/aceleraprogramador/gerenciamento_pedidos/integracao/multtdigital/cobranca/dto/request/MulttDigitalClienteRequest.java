@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ClienteCobrancaRequest {
+public class MulttDigitalClienteRequest {
 
     @JsonProperty("externalReference")
     private String externalReference;

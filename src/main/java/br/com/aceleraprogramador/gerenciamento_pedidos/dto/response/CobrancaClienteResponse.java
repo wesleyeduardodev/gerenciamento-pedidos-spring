@@ -6,8 +6,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CobrancaResponse {
+public class CobrancaClienteResponse {
     private String status;
     private String urlPagamento;
     private String pixCopiaECola;
+    private String qrCode;
 }

@@ -1,7 +1,6 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.dto.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-
 import java.math.BigDecimal;
 
 @Getter
@@ -9,7 +8,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RegistraCobrancaRequest {
+public class MulttDigitalCobrancaRequest {
 
     @JsonProperty("customer")
     private String customer;

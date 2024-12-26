@@ -29,4 +29,8 @@ public class ItemPedido {
 
     @Column(name = "preco_unitario", precision = 10, scale = 2, nullable = false)
     private BigDecimal precoUnitario;
+
+    public BigDecimal getValorTotal(){
+        return precoUnitario.multiply(new BigDecimal(quantidade));
+    }
 }

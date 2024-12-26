@@ -1,19 +1,13 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.service;
 import br.com.aceleraprogramador.gerenciamento_pedidos.adapter.ItemPedidoAdapter;
-import br.com.aceleraprogramador.gerenciamento_pedidos.adapter.PagamentoAdapter;
 import br.com.aceleraprogramador.gerenciamento_pedidos.adapter.PedidoAdapter;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.PedidoRequest;
-import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.CobrancaResponse;
+import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.CobrancaClienteResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PedidoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.enuns.StatusPedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.exceptions.RecursoNaoEncontradoException;
-import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.dto.request.ClienteCobrancaRequest;
-import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.dto.request.RegistraCobrancaRequest;
-import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.dto.response.ClienteCobrancaResponse;
-import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.dto.response.RegistraCobrancaResponse;
-import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.service.ClienteCobrancaService;
-import br.com.aceleraprogramador.gerenciamento_pedidos.integracao.multtdigital.cobranca.service.RegistraCobrancaService;
+import br.com.aceleraprogramador.gerenciamento_pedidos.exceptions.RegistrarCobrancaClientePedidoException;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.ItemPedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Pedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.ItemPedidoRepository;
@@ -27,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -36,8 +31,7 @@ public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
     private final ItemPedidoRepository itemPedidoRepository;
-    private final ClienteCobrancaService clienteCobrancaService;
-    private final RegistraCobrancaService registraCobrancaService;
+    private final RegistrarCobrancaClientePedidoService registrarCobrancaClientePedidoService;
 
     public PedidoResponse criarPedido(PedidoRequest request) {
 
@@ -103,7 +97,6 @@ public class PedidoService {
         log.info("Atualizando status do pedido com ID : {} para Status = {}", id, status);
         Pedido pedido = buscarEntidadePedidoPorId(id);
         pedido.setStatus(StatusPedido.valueOf(status));
-        pedido.setDataAtualizacao(LocalDateTime.now());
         pedidoRepository.save(pedido);
         log.info("Status do pedido atualizado com sucesso.");
     }
@@ -115,6 +108,31 @@ public class PedidoService {
         log.info("Pedido removido com sucesso.");
     }
 
+    public CobrancaClienteResponse registrarCobrancaClientePedido(Long id) {
+        log.info("Registrando cobrança do pedido com ID: {}", id);
+        Pedido pedido = buscarEntidadePedidoPorId(id);
+        validarCobranca(pedido);
+        CobrancaClienteResponse cobrancaClienteResponse = registrarCobrancaClientePedidoService.registrarCobrancaClientePedido(pedido);
+        atualizarStatusPedido(pedido);
+        log.info("Registro de cobrança realizado com sucesso");
+        return cobrancaClienteResponse;
+    }
+
+    private void validarCobranca(Pedido pedido) {
+        if (Objects.isNull(pedido)) {
+            throw new RegistrarCobrancaClientePedidoException("Número do pedido não encontrado.");
+        }
+        if (pedido.getStatus().equals(StatusPedido.COBRANCA_REGISTRADA)) {
+            throw new RegistrarCobrancaClientePedidoException("O pedido já tem uma cobrança registrada.");
+        }
+    }
+
+    private void atualizarStatusPedido(Pedido pedido) {
+        pedido.setStatus(StatusPedido.COBRANCA_REGISTRADA);
+        pedido.setDataAtualizacao(LocalDateTime.now());
+        pedidoRepository.save(pedido);
+    }
+
     private Pedido buscarEntidadePedidoPorId(Long id) {
         Optional<Pedido> pedido = pedidoRepository.findById(id);
         if (pedido.isEmpty()) {
@@ -123,29 +141,5 @@ public class PedidoService {
         } else {
             return pedido.get();
         }
-    }
-
-    public CobrancaResponse registrarCobrancaPedido(Long id) {
-
-        log.info("Registrando pagamento do pedido com ID: {}", id);
-
-        Pedido pedido = pedidoRepository.getReferenceById(id);
-        PedidoResponse pedidoResponse = PedidoAdapter.toResponse(pedido);
-
-        ClienteCobrancaRequest clienteCobrancaRequest = PagamentoAdapter.preencherClienteRequest(pedido);
-        ClienteCobrancaResponse clienteCobrancaResponse = clienteCobrancaService.criarCliente(clienteCobrancaRequest);
-
-        RegistraCobrancaRequest registraCobrancaRequest = PagamentoAdapter.preencherPagamentoRequest(clienteCobrancaResponse, pedidoResponse);
-        RegistraCobrancaResponse registraCobrancaResponse = registraCobrancaService.criarCobranca(registraCobrancaRequest);
-
-        CobrancaResponse cobrancaResponse = PagamentoAdapter.preencherRespostaRegistroPagamento(registraCobrancaResponse);
-
-        pedido.setStatus(StatusPedido.AGUARDANDO_PAGAMENTO);
-        pedido.setDataAtualizacao(LocalDateTime.now());
-        pedidoRepository.save(pedido);
-
-        log.info("Pagamento do pedido registrado com sucesso");
-
-        return cobrancaResponse;
     }
 }

@@ -7,6 +7,7 @@ import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
 import lombok.experimental.UtilityClass;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @UtilityClass
 public class UsuarioAdapter {
@@ -66,5 +67,20 @@ public class UsuarioAdapter {
                 .roleType(roleType)
                 .build()));
         return roles;
+    }
+
+    public static List<RoleType> convertStringsToRoleTypes(List<String> roles) {
+        if (roles == null || roles.isEmpty()) {
+            return List.of();
+        }
+        return roles.stream()
+                .map(role -> {
+                    try {
+                        return RoleType.valueOf(role);
+                    } catch (IllegalArgumentException e) {
+                        throw new IllegalArgumentException("Role inválida: " + role);
+                    }
+                })
+                .collect(Collectors.toList());
     }
 }

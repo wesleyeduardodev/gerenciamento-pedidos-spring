@@ -54,14 +54,14 @@ public class FornecedorController implements FornecedorAPI {
     @Override
     @PutMapping(value = "/v1/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+    @PreAuthorize("hasRole('ROLE_GERENTE')")
     public void atualizarTodosOsDadosDoFornecedor(@PathVariable Long id, @Valid @RequestBody FornecedorRequest request) {
         fornecedorService.atualizarTodosOsDadosDoFornecedor(id, request);
     }
 
     @DeleteMapping(value = "/v1/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     public void removerFornecedor(@PathVariable Long id) {
         fornecedorService.removerFornecedor(id);
     }

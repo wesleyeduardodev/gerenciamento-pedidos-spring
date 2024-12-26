@@ -1,14 +1,9 @@
-FROM eclipse-temurin:17-jdk-jammy as builder
-WORKDIR /opt/app
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-RUN ./mvnw dependency:go-offline
-COPY ./src ./src
-RUN ./mvnw clean package -DskipTests
+FROM maven:3.8-amazoncorretto-17 AS build
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
+RUN mvn -f /usr/src/app/pom.xml clean package
 
-FROM eclipse-temurin:17-jre-jammy
-WORKDIR /opt/app
-EXPOSE 8080
-
-COPY --from=builder /opt/app/target/gerenciamento-pedidos-0.0.1-SNAPSHOT.jar /opt/app/app.jar
-ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "/opt/app/app.jar"]
+FROM eclipse-temurin:17-jdk-alpine
+VOLUME /tmp
+COPY --from=build /usr/src/app/target/gerenciamento-pedidos-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]

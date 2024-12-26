@@ -1,6 +1,6 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.controller.pedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.PedidoRequest;
-import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.CobrancaResponse;
+import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.CobrancaClienteResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PedidoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.service.PedidoService;
@@ -70,7 +70,7 @@ public class PedidoController implements PedidoAPI {
     @PutMapping(value = "/v1/registrarCobrancaPedido/pedido/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
-    public CobrancaResponse registrarCobrancaPedido(@PathVariable Long id) {
-        return pedidoService.registrarCobrancaPedido(id);
+    public CobrancaClienteResponse registrarCobrancaPedido(@PathVariable Long id) {
+        return pedidoService.registrarCobrancaClientePedido(id);
     }
 }

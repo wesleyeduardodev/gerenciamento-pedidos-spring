@@ -64,6 +64,9 @@ INSERT INTO roles_usuario (usuario_id, role_id) VALUES (1, 3);
 
 ---
 
+## Executar API via Docker
+- Acessar via terminar a raiz do projeto e executar o comando abaixo
+- docker compose up -d
 
 ## Swagger Integração pagamentos
 https://api.multt.digital/swagger

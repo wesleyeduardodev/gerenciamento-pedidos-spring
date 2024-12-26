@@ -3,8 +3,11 @@ import br.com.aceleraprogramador.gerenciamento_pedidos.adapter.UsuarioAdapter;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.UsuarioRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.UsuarioResponse;
+import br.com.aceleraprogramador.gerenciamento_pedidos.enuns.RoleType;
 import br.com.aceleraprogramador.gerenciamento_pedidos.exceptions.RecursoNaoEncontradoException;
+import br.com.aceleraprogramador.gerenciamento_pedidos.model.Role;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
+import br.com.aceleraprogramador.gerenciamento_pedidos.repository.RoleRepository;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.UsuarioRepository;
 import br.com.aceleraprogramador.gerenciamento_pedidos.utils.ObjectMapperUtilsConfig;
 import br.com.aceleraprogramador.gerenciamento_pedidos.utils.PaginacaoUtils;
@@ -14,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,6 +27,7 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
     public UsuarioResponse criarUsuario(UsuarioRequest request) {
 
@@ -30,6 +35,10 @@ public class UsuarioService {
         log.info("JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(request));
 
         Usuario usuario = UsuarioAdapter.toEntity(request, passwordEncoder.encode(request.getSenha()));
+
+        List<RoleType> roleTypes = UsuarioAdapter.convertStringsToRoleTypes(request.getRoles());
+        List<Role> roles = roleRepository.findAllByRoleTypeIn(roleTypes);
+        usuario.setRoles(roles);
 
         usuarioRepository.save(usuario);
         UsuarioResponse usuarioResponse = UsuarioAdapter.toResponse(usuario);

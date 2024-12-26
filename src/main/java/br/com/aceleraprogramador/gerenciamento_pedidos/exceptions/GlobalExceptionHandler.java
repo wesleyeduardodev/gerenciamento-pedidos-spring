@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
                 .builder()
                 .status(HttpStatus.NOT_FOUND.value())
                 .mensagem(ex.getMessage())
-                .data(LocalDateTime.now())
+                .dateTime(LocalDateTime.now())
                 .path(request.getDescription(false))
                 .build();
 
@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
                 .builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .mensagem(ex.getMessage())
-                .data(LocalDateTime.now())
+                .dateTime(LocalDateTime.now())
                 .path(request.getDescription(false))
                 .build();
 
@@ -75,7 +75,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST.value())
                 .mensagem("Erro na validação de campos.")
                 .camposErroResponse(fieldErrors)
-                .data(LocalDateTime.now())
+                .dateTime(LocalDateTime.now())
                 .path(request.getDescription(false))
                 .build();
 
@@ -91,7 +91,7 @@ public class GlobalExceptionHandler {
                 .builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .mensagem(ex.getMessage())
-                .data(LocalDateTime.now())
+                .dateTime(LocalDateTime.now())
                 .path(request.getDescription(false))
                 .build();
 
@@ -107,7 +107,7 @@ public class GlobalExceptionHandler {
                 .builder()
                 .status(HttpStatus.FORBIDDEN.value())
                 .mensagem(ex.getMessage())
-                .data(LocalDateTime.now())
+                .dateTime(LocalDateTime.now())
                 .path(request.getDescription(false))
                 .build();
 

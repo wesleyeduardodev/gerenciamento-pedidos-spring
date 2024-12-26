@@ -25,7 +25,7 @@ public class DateTimeUtil {
 
     public static String toString(LocalDateTime dateTime) {
         if (Objects.isNull(dateTime)) {
-          return null;
+            return null;
         }
         return dateTime.format(FORMATTER);
     }

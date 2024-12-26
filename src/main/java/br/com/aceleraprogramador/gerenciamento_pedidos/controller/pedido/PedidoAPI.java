@@ -1,6 +1,6 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.controller.pedido;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.PedidoRequest;
-import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.CobrancaResponse;
+import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.CobrancaClienteResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PedidoResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.exceptions.ErroResponse;
@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.MediaType;
 
 public interface PedidoAPI {
+
 
     @Operation(summary = "Criar um Pedido")
     @ApiResponses({
@@ -54,8 +55,8 @@ public interface PedidoAPI {
     @ApiResponse(responseCode = "204", description = "Pedido removido com sucesso.")
     void removerPedido(@Parameter(description = "Id do Pedido", required = true) Long id);
 
-    @Operation(summary = "Registrar Pagamento Pedido ")
-    @ApiResponse(responseCode = "200", description = "Pagamento registrado com sucesso.",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = CobrancaResponse.class)))
-    CobrancaResponse registrarCobrancaPedido(@Parameter(description = "Id do Pedido", required = true) Long id);
+    @Operation(summary = "Registrar Cobrança Pedido ")
+    @ApiResponse(responseCode = "200", description = "Cobrança registrada com sucesso.",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = CobrancaClienteResponse.class)))
+    CobrancaClienteResponse registrarCobrancaPedido(@Parameter(description = "Id do Pedido", required = true) Long id);
 }

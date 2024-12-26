@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class UsuarioConfig implements UserDetails {
+public class UsuarioSecurityConfig implements UserDetails {
 
     private final Usuario usuario;
 

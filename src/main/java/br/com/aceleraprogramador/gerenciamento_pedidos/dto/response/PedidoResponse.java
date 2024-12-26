@@ -1,5 +1,6 @@
 
 package br.com.aceleraprogramador.gerenciamento_pedidos.dto.response;
+
 import lombok.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,9 +13,8 @@ import java.util.List;
 public class PedidoResponse {
 
     private Long id;
-    private Long idCliente;
+    private Long idCLiente;
     private String dataPedido;
-    private String dataAtualizacao;
     private String status;
     private List<ItemPedidoResponse> itens;
 

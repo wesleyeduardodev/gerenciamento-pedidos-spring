@@ -1,2 +1,0 @@
-language = "java19"
-run = "mvn clean install spring-boot:run"
