@@ -15,7 +15,7 @@ public class TaskAdapter {
         return Task
                 .builder()
                 .name(request.getName())
-                .isCompleted(request.isCompleted())
+                .completed(request.isCompleted())
                 .createdAt(LocalDateTime.now())
                 .build();
     }
@@ -25,7 +25,7 @@ public class TaskAdapter {
                 .builder()
                 .id(entity.getId())
                 .name(entity.getName())
-                .isCompleted(entity.isCompleted())
+                .completed(entity.isCompleted())
                 .createdAt(DateTimeUtil.toString(entity.getCreatedAt()))
                 .updatedAt(DateTimeUtil.toString(entity.getUpdatedAt()))
                 .build();

@@ -16,5 +16,5 @@ public class TaskRequest {
     private String name;
 
     @Schema(description = "Se a tarefa está completada ou não", example = "true")
-    private boolean isCompleted;
+    private boolean completed;
 }
