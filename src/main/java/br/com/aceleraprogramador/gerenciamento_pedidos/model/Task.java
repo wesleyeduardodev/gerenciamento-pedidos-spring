@@ -19,7 +19,7 @@ public class Task {
     @Column(name = "nome", nullable = false, length = 255)
     private String name;
 
-    @Column(name = "descricao")
+    @Column(name = "isCompleted")
     private boolean isCompleted;
 
     @Column(name = "createdAt")
