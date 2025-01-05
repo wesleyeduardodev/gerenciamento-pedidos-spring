@@ -16,7 +16,6 @@ public class TaskRequest {
     private String title;
 
     @Schema(description = "Descrição da tarefa", example = "Resolver assuntos da conta")
-    @NotBlank(message = "O nome é obrigatório")
     @Size(min = 3, max = 255, message = "O nome deve ter entre 3 e 255 caracteres.")
     private String description;
 
