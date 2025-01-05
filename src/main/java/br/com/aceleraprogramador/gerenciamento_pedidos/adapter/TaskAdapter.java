@@ -14,8 +14,11 @@ public class TaskAdapter {
     public static Task toEntity(TaskRequest request) {
         return Task
                 .builder()
-                .name(request.getName())
-                .completed(request.isCompleted())
+                .title(request.getTitle())
+                .description(request.getDescription())
+                .completed(request.getCompleted())
+                .hasAlarm(request.getHasAlarm())
+                .alarmTime(DateTimeUtil.fromIsoString(request.getAlarmTime()))
                 .createdAt(LocalDateTime.now())
                 .build();
     }
@@ -24,16 +27,22 @@ public class TaskAdapter {
         return TaskResponse
                 .builder()
                 .id(entity.getId())
-                .name(entity.getName())
-                .completed(entity.isCompleted())
+                .title(entity.getTitle())
+                .description(entity.getDescription())
+                .completed(entity.getCompleted())
+                .hasAlarm(entity.getHasAlarm())
+                .alarmTime(DateTimeUtil.toIsoString(entity.getAlarmTime()))
                 .createdAt(DateTimeUtil.toString(entity.getCreatedAt()))
                 .updatedAt(DateTimeUtil.toString(entity.getUpdatedAt()))
                 .build();
     }
 
     public static void toUpdate(Task entity, TaskRequest request) {
-        entity.setName(request.getName());
-        entity.setCompleted(request.isCompleted());
+        entity.setTitle(request.getTitle());
+        entity.setDescription(request.getDescription());
+        entity.setCompleted(request.getCompleted());
+        entity.setHasAlarm(request.getHasAlarm());
+        entity.setAlarmTime(DateTimeUtil.fromIsoString(request.getAlarmTime()));
         entity.setUpdatedAt(LocalDateTime.now());
     }
 

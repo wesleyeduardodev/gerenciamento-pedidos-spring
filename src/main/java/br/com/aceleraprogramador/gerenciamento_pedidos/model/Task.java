@@ -16,11 +16,20 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome", nullable = false, length = 255)
-    private String name;
+    @Column(name = "nome", nullable = false, length = 100)
+    private String title;
+
+    @Column(name = "description", nullable = false)
+    private String description;
 
     @Column(name = "completed")
-    private boolean completed;
+    private Boolean completed;
+
+    @Column(name = "hasAlarm")
+    private Boolean hasAlarm;
+
+    @Column(name = "alarmTime")
+    private LocalDateTime alarmTime;
 
     @Column(name = "createdAt")
     private LocalDateTime createdAt;
