@@ -2,6 +2,7 @@ package br.com.aceleraprogramador.gerenciamento_pedidos.controller.task;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.TaskRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.TaskResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.service.TaskService;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@Hidden
 @Tag(name = "Gerenciamento de Tarefas")
 @RestController
 @RequestMapping("/api/tasks")
