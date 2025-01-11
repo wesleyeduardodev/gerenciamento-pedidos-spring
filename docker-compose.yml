@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: api_pedidos
+      MYSQL_USER: acelera
+      MYSQL_PASSWORD: programador
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - docker-network
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-pedidos-container
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: 8080
+      DB_URL: jdbc:mysql://mysql-container:3306/api_pedidos?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      DB_USERNAME: acelera
+      DB_PASSWORD: programador
+      BASE_URL_MULTT: https://api.multt.digital/api/pagamentos
+      TOKEN_MULTT: 59c6d7b0-1180-4aeb-ae0a-c7d30f464a73
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - docker-network
+    restart: always
+
+volumes:
+  mysql_data:
+
+networks:
+  docker-network:
+    driver: bridge
