@@ -101,6 +101,7 @@ public class RegistroFinanceiroService {
                 .tipoRegistro(registro.getTipoRegistro().getCodigo())
                 .tipoTransacao(registro.getTipoTransacao().getCodigo())
                 .idCategoria(registro.getCategoria().getId())
+                .nomeCategoria(registro.getCategoria().getNome())
                 .valor(registro.getValor())
                 .dataTransacao(registro.getDataTransacao().format(DATE_TIME_FORMATTER))
                 .build();
