@@ -33,10 +33,5 @@ public class RegistroFinanceiroRequest {
     @Digits(integer = 8, fraction = 2, message = "O valor deve ter no máximo 8 dígitos inteiros e 2 casas decimais.")
     private BigDecimal valor;
 
-    @NotNull(message = "A data da transação é obrigatória.")
-    @Pattern(
-            regexp = "^\\d{2}/\\d{2}/\\d{4} \\d{2}:\\d{2}:\\d{2}$",
-            message = "A data da transação deve estar no formato dd/MM/yyyy HH:mm:ss."
-    )
     private String dataTransacao;
 }

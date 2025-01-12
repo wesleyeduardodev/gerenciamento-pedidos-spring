@@ -8,12 +8,12 @@ import br.com.aceleraprogramador.gerenciamento_pedidos.model.RegistroFinanceiro;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.CategoriaRegistroFinanceiroRepository;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.RegistroFinanceiroRepository;
+import br.com.aceleraprogramador.gerenciamento_pedidos.utils.DateTimeUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,7 +26,6 @@ public class RegistroFinanceiroService {
 
     private final RegistroFinanceiroRepository registroFinanceiroRepository;
     private final CategoriaRegistroFinanceiroRepository categoriaRepository;
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     @Transactional
     public RegistroFinanceiroResponse createRegistro(Long idUsuario, RegistroFinanceiroRequest request) {
@@ -41,7 +40,7 @@ public class RegistroFinanceiroService {
                 .tipoTransacao(TipoTransacaoFinanceira.valueOfCodigo(request.getTipoTransacao()))
                 .categoria(categoria)
                 .valor(request.getValor())
-                .dataTransacao(LocalDateTime.parse(request.getDataTransacao(), DATE_TIME_FORMATTER))
+                .dataTransacao(DateTimeUtil.fromIsoString(request.getDataTransacao()))
                 .usuario(Usuario.builder().id(idUsuario).build())
                 .build();
 
@@ -77,7 +76,7 @@ public class RegistroFinanceiroService {
         registro.setTipoTransacao(TipoTransacaoFinanceira.valueOfCodigo(request.getTipoTransacao()));
         registro.setCategoria(categoria);
         registro.setValor(request.getValor());
-        registro.setDataTransacao(LocalDateTime.parse(request.getDataTransacao(), DATE_TIME_FORMATTER));
+        registro.setDataTransacao(DateTimeUtil.fromIsoString(request.getDataTransacao()));
         registro.setUsuario(Usuario.builder().id(idUsuario).build());
 
         RegistroFinanceiro updatedRegistro = registroFinanceiroRepository.save(registro);
@@ -103,7 +102,7 @@ public class RegistroFinanceiroService {
                 .idCategoria(registro.getCategoria().getId())
                 .nomeCategoria(registro.getCategoria().getNome())
                 .valor(registro.getValor())
-                .dataTransacao(registro.getDataTransacao().format(DATE_TIME_FORMATTER))
+                .dataTransacao(DateTimeUtil.toIsoString(registro.getDataTransacao()))
                 .build();
     }
 }
