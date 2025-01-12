@@ -1,0 +1,38 @@
+package br.com.aceleraprogramador.gerenciamento_pedidos.dto.request;
+import jakarta.validation.constraints.*;
+import lombok.*;
+import java.math.BigDecimal;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class RegistroFinanceiroRequest {
+
+    @NotNull(message = "O tipo de registro é obrigatório.")
+    @Min(value = 0, message = "O tipo de registro deve ser um número válido.")
+    private Integer tipoRegistro;
+
+    @NotNull(message = "O tipo de transação é obrigatório.")
+    @Min(value = 0, message = "O tipo de transação deve ser um número válido.")
+    private Integer tipoTransacao;
+
+    @NotNull(message = "A categoria é obrigatória.")
+    private Long idCategoria;
+
+    @NotNull(message = "O valor é obrigatório.")
+    @DecimalMin(value = "0.01", message = "O valor deve ser maior que zero.")
+    @Digits(integer = 8, fraction = 2, message = "O valor deve ter no máximo 8 dígitos inteiros e 2 casas decimais.")
+    private BigDecimal valor;
+
+    @NotNull(message = "A data da transação é obrigatória.")
+    @Pattern(
+            regexp = "^\\d{2}/\\d{2}/\\d{4} \\d{2}:\\d{2}:\\d{2}$",
+            message = "A data da transação deve estar no formato dd/MM/yyyy HH:mm:ss."
+    )
+    private String dataTransacao;
+
+    @NotNull(message = "O usuário é obrigatório.")
+    private Long idUsuario;
+}
