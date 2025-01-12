@@ -103,10 +103,6 @@ public class RegistroFinanceiroService {
                 .idCategoria(registro.getCategoria().getId())
                 .valor(registro.getValor())
                 .dataTransacao(registro.getDataTransacao().format(DATE_TIME_FORMATTER))
-                .dataCriacao(registro.getDataCriacao().format(DATE_TIME_FORMATTER))
-                .dataAlteracao(registro.getDataAlteracao() != null
-                        ? registro.getDataAlteracao().format(DATE_TIME_FORMATTER)
-                        : null)
                 .build();
     }
 }
