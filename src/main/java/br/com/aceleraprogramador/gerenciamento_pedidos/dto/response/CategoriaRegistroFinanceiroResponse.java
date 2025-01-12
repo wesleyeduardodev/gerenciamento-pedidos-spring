@@ -9,4 +9,5 @@ import lombok.*;
 public class CategoriaRegistroFinanceiroResponse {
     private Long id;
     private String nome;
+    private String descricao;
 }

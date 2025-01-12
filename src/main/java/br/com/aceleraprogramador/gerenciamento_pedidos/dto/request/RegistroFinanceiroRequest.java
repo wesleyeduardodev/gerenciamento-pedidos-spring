@@ -10,6 +10,13 @@ import java.math.BigDecimal;
 @Builder
 public class RegistroFinanceiroRequest {
 
+    @NotBlank(message = "O Título obrigatório.")
+    @Size(max = 50, message = "O título do registro deve ter no máximo 50 caracteres.")
+    private String titulo;
+
+    @Size(max = 250, message = "A descrição do registro deve ter no máximo 250 caracteres.")
+    private String descricao;
+
     @NotNull(message = "O tipo de registro é obrigatório.")
     @Min(value = 0, message = "O tipo de registro deve ser um número válido.")
     private Integer tipoRegistro;
@@ -32,7 +39,4 @@ public class RegistroFinanceiroRequest {
             message = "A data da transação deve estar no formato dd/MM/yyyy HH:mm:ss."
     )
     private String dataTransacao;
-
-    @NotNull(message = "O usuário é obrigatório.")
-    private Long idUsuario;
 }

@@ -1,15 +1,20 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.security;
+
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+@Getter
 @RequiredArgsConstructor
 public class UsuarioSecurityConfig implements UserDetails {
 
+    // Método para expor o objeto Usuario
     private final Usuario usuario;
 
     @Override
@@ -28,7 +33,7 @@ public class UsuarioSecurityConfig implements UserDetails {
 
     @Override
     public String getUsername() {
-        return usuario.getNome();
+        return usuario.getEmail();
     }
 
     @Override
@@ -50,4 +55,5 @@ public class UsuarioSecurityConfig implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

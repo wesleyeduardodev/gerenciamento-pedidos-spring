@@ -9,12 +9,13 @@ import java.math.BigDecimal;
 @Builder
 public class RegistroFinanceiroResponse {
     private Long id;
+    private String titulo;
+    private String descricao;
     private Integer tipoRegistro;
     private Integer tipoTransacao;
     private Long idCategoria;
     private BigDecimal valor;
     private String dataTransacao;
-    private Long idUsuario;
     private String dataCriacao;
     private String dataAlteracao;
 }

@@ -13,4 +13,7 @@ public class CategoriaRegistroFinanceiroRequest {
     @NotBlank(message = "O nome da categoria é obrigatório.")
     @Size(max = 50, message = "O nome da categoria deve ter no máximo 50 caracteres.")
     private String nome;
+
+    @Size(max = 50, message = "A descrição da categoria deve ter no máximo 250 caracteres.")
+    private String descricao;
 }

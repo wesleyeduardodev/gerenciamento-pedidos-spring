@@ -20,10 +20,11 @@ public class CategoriaRegistroFinanceiroService {
     public CategoriaRegistroFinanceiroResponse create(CategoriaRegistroFinanceiroRequest request) {
         CategoriaRegistroFinanceiro categoria = new CategoriaRegistroFinanceiro();
         categoria.setNome(request.getNome());
+        categoria.setDescricao(request.getDescricao());
 
         CategoriaRegistroFinanceiro savedCategoria = categoriaRegistroFinanceiroRepository.save(categoria);
 
-        return new CategoriaRegistroFinanceiroResponse(savedCategoria.getId(), savedCategoria.getNome());
+        return new CategoriaRegistroFinanceiroResponse(savedCategoria.getId(), savedCategoria.getNome(), savedCategoria.getDescricao());
     }
 
     // Atualizar uma categoria
@@ -32,9 +33,10 @@ public class CategoriaRegistroFinanceiroService {
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + id));
 
         categoria.setNome(request.getNome());
+        categoria.setDescricao(request.getDescricao());
         CategoriaRegistroFinanceiro updatedCategoria = categoriaRegistroFinanceiroRepository.save(categoria);
 
-        return new CategoriaRegistroFinanceiroResponse(updatedCategoria.getId(), updatedCategoria.getNome());
+        return new CategoriaRegistroFinanceiroResponse(updatedCategoria.getId(), updatedCategoria.getNome(), updatedCategoria.getDescricao());
     }
 
     // Buscar todas as categorias
@@ -42,7 +44,7 @@ public class CategoriaRegistroFinanceiroService {
         List<CategoriaRegistroFinanceiro> categorias = categoriaRegistroFinanceiroRepository.findAll();
 
         return categorias.stream()
-                .map(categoria -> new CategoriaRegistroFinanceiroResponse(categoria.getId(), categoria.getNome()))
+                .map(categoria -> new CategoriaRegistroFinanceiroResponse(categoria.getId(), categoria.getNome(), categoria.getDescricao()))
                 .collect(Collectors.toList());
     }
 
@@ -51,7 +53,7 @@ public class CategoriaRegistroFinanceiroService {
         CategoriaRegistroFinanceiro categoria = categoriaRegistroFinanceiroRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + id));
 
-        return new CategoriaRegistroFinanceiroResponse(categoria.getId(), categoria.getNome());
+        return new CategoriaRegistroFinanceiroResponse(categoria.getId(), categoria.getNome(), categoria.getDescricao());
     }
 
     // Remover uma categoria

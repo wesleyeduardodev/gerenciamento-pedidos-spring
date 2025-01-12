@@ -21,6 +21,12 @@ public class RegistroFinanceiro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "titulo", nullable = false, length = 50)
+    private String titulo;
+
+    @Column(name = "descricao", length = 100)
+    private String descricao;
+
     @Enumerated
     @Column(name = "tipo_registro", nullable = false)
     private TipoRegistroFinanceiro tipoRegistro;

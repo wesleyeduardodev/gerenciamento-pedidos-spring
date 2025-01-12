@@ -8,7 +8,6 @@ import br.com.aceleraprogramador.gerenciamento_pedidos.model.RegistroFinanceiro;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.CategoriaRegistroFinanceiroRepository;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.RegistroFinanceiroRepository;
-import br.com.aceleraprogramador.gerenciamento_pedidos.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,24 +26,23 @@ public class RegistroFinanceiroService {
 
     private final RegistroFinanceiroRepository registroFinanceiroRepository;
     private final CategoriaRegistroFinanceiroRepository categoriaRepository;
-    private final UsuarioRepository usuarioRepository;
-
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     @Transactional
-    public RegistroFinanceiroResponse createRegistro(RegistroFinanceiroRequest request) {
+    public RegistroFinanceiroResponse createRegistro(Long idUsuario, RegistroFinanceiroRequest request) {
+
         CategoriaRegistroFinanceiro categoria = categoriaRepository.findById(request.getIdCategoria())
                 .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada."));
-        Usuario usuario = usuarioRepository.findById(request.getIdUsuario())
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado."));
 
         RegistroFinanceiro registro = RegistroFinanceiro.builder()
                 .tipoRegistro(TipoRegistroFinanceiro.valueOfCodigo(request.getTipoRegistro()))
+                .titulo(request.getTitulo())
+                .descricao(request.getDescricao())
                 .tipoTransacao(TipoTransacaoFinanceira.valueOfCodigo(request.getTipoTransacao()))
                 .categoria(categoria)
                 .valor(request.getValor())
                 .dataTransacao(LocalDateTime.parse(request.getDataTransacao(), DATE_TIME_FORMATTER))
-                .usuario(usuario)
+                .usuario(Usuario.builder().id(idUsuario).build())
                 .build();
 
         RegistroFinanceiro savedRegistro = registroFinanceiroRepository.save(registro);
@@ -67,20 +65,20 @@ public class RegistroFinanceiroService {
     }
 
     @Transactional
-    public RegistroFinanceiroResponse updateRegistro(Long id, RegistroFinanceiroRequest request) {
+    public RegistroFinanceiroResponse updateRegistro(Long id, Long idUsuario, RegistroFinanceiroRequest request) {
         RegistroFinanceiro registro = registroFinanceiroRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Registro financeiro não encontrado."));
         CategoriaRegistroFinanceiro categoria = categoriaRepository.findById(request.getIdCategoria())
                 .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada."));
-        Usuario usuario = usuarioRepository.findById(request.getIdUsuario())
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado."));
 
+        registro.setTitulo(request.getTitulo());
+        registro.setDescricao(request.getDescricao());
         registro.setTipoRegistro(TipoRegistroFinanceiro.valueOfCodigo(request.getTipoRegistro()));
         registro.setTipoTransacao(TipoTransacaoFinanceira.valueOfCodigo(request.getTipoTransacao()));
         registro.setCategoria(categoria);
         registro.setValor(request.getValor());
         registro.setDataTransacao(LocalDateTime.parse(request.getDataTransacao(), DATE_TIME_FORMATTER));
-        registro.setUsuario(usuario);
+        registro.setUsuario(Usuario.builder().id(idUsuario).build());
 
         RegistroFinanceiro updatedRegistro = registroFinanceiroRepository.save(registro);
 
@@ -98,12 +96,13 @@ public class RegistroFinanceiroService {
     private RegistroFinanceiroResponse toResponse(RegistroFinanceiro registro) {
         return RegistroFinanceiroResponse.builder()
                 .id(registro.getId())
+                .titulo(registro.getTitulo())
+                .descricao(registro.getDescricao())
                 .tipoRegistro(registro.getTipoRegistro().getCodigo())
                 .tipoTransacao(registro.getTipoTransacao().getCodigo())
                 .idCategoria(registro.getCategoria().getId())
                 .valor(registro.getValor())
                 .dataTransacao(registro.getDataTransacao().format(DATE_TIME_FORMATTER))
-                .idUsuario(registro.getUsuario().getId())
                 .dataCriacao(registro.getDataCriacao().format(DATE_TIME_FORMATTER))
                 .dataAlteracao(registro.getDataAlteracao() != null
                         ? registro.getDataAlteracao().format(DATE_TIME_FORMATTER)
