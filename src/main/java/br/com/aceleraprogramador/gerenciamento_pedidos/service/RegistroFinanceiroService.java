@@ -101,8 +101,10 @@ public class RegistroFinanceiroService {
                 .descricao(registro.getDescricao())
                 .tipoRegistro(registro.getTipoRegistro().getCodigo())
                 .tipoTransacao(registro.getTipoTransacao().getCodigo())
-                .idCategoria(registro.getSubCategoria().getId())
-                .nomeCategoria(registro.getSubCategoria().getNome())
+                .idCategoria(registro.getSubCategoria().getCategoria().getId())
+                .nomeCategoria(registro.getSubCategoria().getCategoria().getNome())
+                .idSubCategoria(registro.getSubCategoria().getId())
+                .nomeSubCategoria(registro.getSubCategoria().getNome())
                 .valor(registro.getValor())
                 .dataTransacao(DateTimeUtil.toIsoString(registro.getDataTransacao()))
                 .build();

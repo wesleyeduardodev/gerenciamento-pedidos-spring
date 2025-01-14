@@ -15,6 +15,8 @@ public class RegistroFinanceiroResponse {
     private Integer tipoTransacao;
     private Long idCategoria;
     private String nomeCategoria;
+    private Long idSubCategoria;
+    private String nomeSubCategoria;
     private BigDecimal valor;
     private String dataTransacao;
 }
