@@ -41,7 +41,7 @@ public class CategoriaRegistroFinanceiroController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
         Usuario usuario = usuarioSecurity.getUsuario();
-        CategoriaRegistroFinanceiroResponse response = categoriaRegistroFinanceiroService.update(usuario.getId(), id, request);
+        CategoriaRegistroFinanceiroResponse response = categoriaRegistroFinanceiroService.update(id, usuario.getId(), request);
         return ResponseEntity.ok(response);
     }
 
