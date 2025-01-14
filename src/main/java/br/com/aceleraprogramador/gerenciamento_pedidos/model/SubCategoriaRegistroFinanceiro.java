@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "categoria_registro_financeiro")
-public class CategoriaRegistroFinanceiro {
+@Table(name = "subcategoria_registro_financeiro")
+public class SubCategoriaRegistroFinanceiro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,10 @@ public class CategoriaRegistroFinanceiro {
 
     @Column(name = "descricao", length = 250)
     private String descricao;
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria_registro_financeiro", nullable = false)
+    private CategoriaRegistroFinanceiro categoria;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)

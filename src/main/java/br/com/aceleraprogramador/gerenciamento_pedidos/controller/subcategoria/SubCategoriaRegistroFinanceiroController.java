@@ -1,9 +1,9 @@
-package br.com.aceleraprogramador.gerenciamento_pedidos.controller.categoria;
-import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.CategoriaRegistroFinanceiroRequest;
-import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.CategoriaRegistroFinanceiroResponse;
+package br.com.aceleraprogramador.gerenciamento_pedidos.controller.subcategoria;
+import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.SubCategoriaRegistroFinanceiroRequest;
+import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.SubCategoriaRegistroFinanceiroResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
 import br.com.aceleraprogramador.gerenciamento_pedidos.security.UsuarioSecurityConfig;
-import br.com.aceleraprogramador.gerenciamento_pedidos.service.CategoriaRegistroFinanceiroService;
+import br.com.aceleraprogramador.gerenciamento_pedidos.service.SubCategoriaRegistroFinanceiroService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,54 +15,54 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@Tag(name = "Gerenciamento de Categorias de Registros Financeiros")
+@Tag(name = "Gerenciamento de SubCategorias de Registros Financeiros")
 @RestController
-@RequestMapping("/api/categorias-registro-financeiros")
+@RequestMapping("/api/subcategorias-registro-financeiros")
 @RequiredArgsConstructor
-public class CategoriaRegistroFinanceiroController {
+public class SubCategoriaRegistroFinanceiroController {
 
-    private final CategoriaRegistroFinanceiroService categoriaRegistroFinanceiroService;
+    private final SubCategoriaRegistroFinanceiroService subCategoriaRegistroFinanceiroService;
 
-    @PostMapping
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
-    public ResponseEntity<CategoriaRegistroFinanceiroResponse> create(@Valid @RequestBody CategoriaRegistroFinanceiroRequest request) {
+    @PostMapping
+    public ResponseEntity<SubCategoriaRegistroFinanceiroResponse> create(@Valid @RequestBody SubCategoriaRegistroFinanceiroRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
         Usuario usuario = usuarioSecurity.getUsuario();
-        CategoriaRegistroFinanceiroResponse response = categoriaRegistroFinanceiroService.create(usuario.getId(), request);
+        SubCategoriaRegistroFinanceiroResponse response = subCategoriaRegistroFinanceiroService.create(usuario.getId(), request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     @PutMapping("/{id}")
-    public ResponseEntity<CategoriaRegistroFinanceiroResponse> update(
+    public ResponseEntity<SubCategoriaRegistroFinanceiroResponse> update(
             @PathVariable Long id,
-            @Valid @RequestBody CategoriaRegistroFinanceiroRequest request) {
+            @Valid @RequestBody SubCategoriaRegistroFinanceiroRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
         Usuario usuario = usuarioSecurity.getUsuario();
-        CategoriaRegistroFinanceiroResponse response = categoriaRegistroFinanceiroService.update(usuario.getId(), id, request);
+        SubCategoriaRegistroFinanceiroResponse response = subCategoriaRegistroFinanceiroService.update(id, usuario.getId(), request);
         return ResponseEntity.ok(response);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     @GetMapping
-    public ResponseEntity<List<CategoriaRegistroFinanceiroResponse>> findAll() {
-        List<CategoriaRegistroFinanceiroResponse> categorias = categoriaRegistroFinanceiroService.findAll();
+    public ResponseEntity<List<SubCategoriaRegistroFinanceiroResponse>> findAll() {
+        List<SubCategoriaRegistroFinanceiroResponse> categorias = subCategoriaRegistroFinanceiroService.findAll();
         return ResponseEntity.ok(categorias);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     @GetMapping("/{id}")
-    public ResponseEntity<CategoriaRegistroFinanceiroResponse> findById(@PathVariable Long id) {
-        CategoriaRegistroFinanceiroResponse response = categoriaRegistroFinanceiroService.findById(id);
+    public ResponseEntity<SubCategoriaRegistroFinanceiroResponse> findById(@PathVariable Long id) {
+        SubCategoriaRegistroFinanceiroResponse response = subCategoriaRegistroFinanceiroService.findById(id);
         return ResponseEntity.ok(response);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        categoriaRegistroFinanceiroService.delete(id);
+        subCategoriaRegistroFinanceiroService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

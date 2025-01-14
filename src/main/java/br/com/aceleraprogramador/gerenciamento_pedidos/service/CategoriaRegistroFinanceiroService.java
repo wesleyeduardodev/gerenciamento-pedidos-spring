@@ -2,6 +2,7 @@ package br.com.aceleraprogramador.gerenciamento_pedidos.service;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.CategoriaRegistroFinanceiroRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.CategoriaRegistroFinanceiroResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.CategoriaRegistroFinanceiro;
+import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.CategoriaRegistroFinanceiroRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +18,11 @@ public class CategoriaRegistroFinanceiroService {
     private final CategoriaRegistroFinanceiroRepository categoriaRegistroFinanceiroRepository;
 
     // Criar nova categoria
-    public CategoriaRegistroFinanceiroResponse create(CategoriaRegistroFinanceiroRequest request) {
+    public CategoriaRegistroFinanceiroResponse create(Long idUsuario, CategoriaRegistroFinanceiroRequest request) {
         CategoriaRegistroFinanceiro categoria = new CategoriaRegistroFinanceiro();
         categoria.setNome(request.getNome());
         categoria.setDescricao(request.getDescricao());
+        categoria.setUsuario(Usuario.builder().id(idUsuario).build());
 
         CategoriaRegistroFinanceiro savedCategoria = categoriaRegistroFinanceiroRepository.save(categoria);
 
@@ -28,12 +30,13 @@ public class CategoriaRegistroFinanceiroService {
     }
 
     // Atualizar uma categoria
-    public CategoriaRegistroFinanceiroResponse update(Long id, CategoriaRegistroFinanceiroRequest request) {
+    public CategoriaRegistroFinanceiroResponse update(Long id, Long idUsuario, CategoriaRegistroFinanceiroRequest request) {
         CategoriaRegistroFinanceiro categoria = categoriaRegistroFinanceiroRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + id));
 
         categoria.setNome(request.getNome());
         categoria.setDescricao(request.getDescricao());
+        categoria.setUsuario(Usuario.builder().id(idUsuario).build());
         CategoriaRegistroFinanceiro updatedCategoria = categoriaRegistroFinanceiroRepository.save(categoria);
 
         return new CategoriaRegistroFinanceiroResponse(updatedCategoria.getId(), updatedCategoria.getNome(), updatedCategoria.getDescricao());
