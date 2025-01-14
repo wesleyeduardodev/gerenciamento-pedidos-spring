@@ -70,7 +70,7 @@ public class SubCategoriaRegistroFinanceiroService {
                         categoria.getNome(),
                         categoria.getDescricao(),
                         categoria.getCategoria().getId(),
-                        categoria.getDescricao()))
+                        categoria.getCategoria().getNome()))
                 .collect(Collectors.toList());
     }
 
