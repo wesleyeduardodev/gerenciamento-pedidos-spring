@@ -5,16 +5,18 @@ import br.com.aceleraprogramador.gerenciamento_pedidos.enuns.TipoRegistroFinance
 import br.com.aceleraprogramador.gerenciamento_pedidos.enuns.TipoTransacaoFinanceira;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.CategoriaRegistroFinanceiro;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.RegistroFinanceiro;
+import br.com.aceleraprogramador.gerenciamento_pedidos.model.SubCategoriaRegistroFinanceiro;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.CategoriaRegistroFinanceiroRepository;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.RegistroFinanceiroRepository;
+import br.com.aceleraprogramador.gerenciamento_pedidos.repository.SubCategoriaRegistroFinanceiroRepository;
 import br.com.aceleraprogramador.gerenciamento_pedidos.utils.DateTimeUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.format.DateTimeFormatter;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,20 +27,20 @@ import java.util.stream.Collectors;
 public class RegistroFinanceiroService {
 
     private final RegistroFinanceiroRepository registroFinanceiroRepository;
-    private final CategoriaRegistroFinanceiroRepository categoriaRepository;
+    private final SubCategoriaRegistroFinanceiroRepository subCategoriaRegistroFinanceiroRepository;
 
     @Transactional
     public RegistroFinanceiroResponse createRegistro(Long idUsuario, RegistroFinanceiroRequest request) {
 
-        CategoriaRegistroFinanceiro categoria = categoriaRepository.findById(request.getIdCategoria())
-                .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada."));
+        SubCategoriaRegistroFinanceiro subCategoriaRegistroFinanceiro = subCategoriaRegistroFinanceiroRepository.findById(request.getIdSubCategoria())
+                .orElseThrow(() -> new EntityNotFoundException("SubCategoria não encontrada."));
 
         RegistroFinanceiro registro = RegistroFinanceiro.builder()
                 .tipoRegistro(TipoRegistroFinanceiro.valueOfCodigo(request.getTipoRegistro()))
                 .titulo(request.getTitulo())
                 .descricao(request.getDescricao())
                 .tipoTransacao(TipoTransacaoFinanceira.valueOfCodigo(request.getTipoTransacao()))
-                .categoria(categoria)
+                .subCategoria(subCategoriaRegistroFinanceiro)
                 .valor(request.getValor())
                 .dataTransacao(DateTimeUtil.fromIsoString(request.getDataTransacao()))
                 .usuario(Usuario.builder().id(idUsuario).build())
@@ -67,14 +69,14 @@ public class RegistroFinanceiroService {
     public RegistroFinanceiroResponse updateRegistro(Long id, Long idUsuario, RegistroFinanceiroRequest request) {
         RegistroFinanceiro registro = registroFinanceiroRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Registro financeiro não encontrado."));
-        CategoriaRegistroFinanceiro categoria = categoriaRepository.findById(request.getIdCategoria())
+        SubCategoriaRegistroFinanceiro subCategoriaRegistroFinanceiro = subCategoriaRegistroFinanceiroRepository.findById(request.getIdSubCategoria())
                 .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada."));
 
         registro.setTitulo(request.getTitulo());
         registro.setDescricao(request.getDescricao());
         registro.setTipoRegistro(TipoRegistroFinanceiro.valueOfCodigo(request.getTipoRegistro()));
         registro.setTipoTransacao(TipoTransacaoFinanceira.valueOfCodigo(request.getTipoTransacao()));
-        registro.setCategoria(categoria);
+        registro.setSubCategoria(subCategoriaRegistroFinanceiro);
         registro.setValor(request.getValor());
         registro.setDataTransacao(DateTimeUtil.fromIsoString(request.getDataTransacao()));
         registro.setUsuario(Usuario.builder().id(idUsuario).build());
@@ -99,8 +101,8 @@ public class RegistroFinanceiroService {
                 .descricao(registro.getDescricao())
                 .tipoRegistro(registro.getTipoRegistro().getCodigo())
                 .tipoTransacao(registro.getTipoTransacao().getCodigo())
-                .idCategoria(registro.getCategoria().getId())
-                .nomeCategoria(registro.getCategoria().getNome())
+                .idCategoria(registro.getSubCategoria().getId())
+                .nomeCategoria(registro.getSubCategoria().getNome())
                 .valor(registro.getValor())
                 .dataTransacao(DateTimeUtil.toIsoString(registro.getDataTransacao()))
                 .build();
