@@ -60,6 +60,13 @@ public class SubCategoriaRegistroFinanceiroController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+    @GetMapping("/findByIdCategoria/{idCategoria}")
+    public ResponseEntity<List<SubCategoriaRegistroFinanceiroResponse>> findByIdCategoria(@PathVariable Long idCategoria) {
+        List<SubCategoriaRegistroFinanceiroResponse> responses = subCategoriaRegistroFinanceiroService.findByIdCategoria(idCategoria);
+        return ResponseEntity.ok(responses);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         subCategoriaRegistroFinanceiroService.delete(id);

@@ -11,4 +11,5 @@ public class SubCategoriaRegistroFinanceiroResponse {
     private String nome;
     private String descricao;
     private Long idCategoria;
+    private String descricaoCategoria;
 }

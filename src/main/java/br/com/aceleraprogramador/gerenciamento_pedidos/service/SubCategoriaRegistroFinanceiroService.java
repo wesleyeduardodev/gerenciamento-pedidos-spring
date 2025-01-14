@@ -1,13 +1,17 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.service;
+
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.SubCategoriaRegistroFinanceiroRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.SubCategoriaRegistroFinanceiroResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.CategoriaRegistroFinanceiro;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.SubCategoriaRegistroFinanceiro;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
+import br.com.aceleraprogramador.gerenciamento_pedidos.repository.CategoriaRegistroFinanceiroRepository;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.SubCategoriaRegistroFinanceiroRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SubCategoriaRegistroFinanceiroService {
 
+    private final CategoriaRegistroFinanceiroRepository categoriaRegistroFinanceiroRepository;
     private final SubCategoriaRegistroFinanceiroRepository subCategoriaRegistroFinanceiroRepository;
 
     public SubCategoriaRegistroFinanceiroResponse create(Long idUsuario, SubCategoriaRegistroFinanceiroRequest request) {
@@ -32,7 +37,9 @@ public class SubCategoriaRegistroFinanceiroService {
         return new SubCategoriaRegistroFinanceiroResponse(savedSubCategoria.getId(),
                 savedSubCategoria.getNome(),
                 savedSubCategoria.getDescricao(),
-                savedSubCategoria.getCategoria().getId());
+                savedSubCategoria.getCategoria().getId(),
+                savedSubCategoria.getCategoria().getDescricao()
+        );
     }
 
     // Atualizar uma categoria
@@ -50,7 +57,8 @@ public class SubCategoriaRegistroFinanceiroService {
         return new SubCategoriaRegistroFinanceiroResponse(updatedSubCategoria.getId(),
                 updatedSubCategoria.getNome(),
                 updatedSubCategoria.getDescricao(),
-                updatedSubCategoria.getCategoria().getId());
+                updatedSubCategoria.getCategoria().getId(),
+                updatedSubCategoria.getCategoria().getDescricao());
     }
 
     // Buscar todas as categorias
@@ -61,7 +69,8 @@ public class SubCategoriaRegistroFinanceiroService {
                 .map(categoria -> new SubCategoriaRegistroFinanceiroResponse(categoria.getId(),
                         categoria.getNome(),
                         categoria.getDescricao(),
-                        categoria.getCategoria().getId()))
+                        categoria.getCategoria().getId(),
+                        categoria.getDescricao()))
                 .collect(Collectors.toList());
     }
 
@@ -73,7 +82,23 @@ public class SubCategoriaRegistroFinanceiroService {
         return new SubCategoriaRegistroFinanceiroResponse(categoria.getId(),
                 categoria.getNome(),
                 categoria.getDescricao(),
-                categoria.getCategoria().getId());
+                categoria.getCategoria().getId(),
+                categoria.getDescricao());
+    }
+
+    public List<SubCategoriaRegistroFinanceiroResponse> findByIdCategoria(Long idCategoria) {
+        CategoriaRegistroFinanceiro categoriaRegistroFinanceiro = categoriaRegistroFinanceiroRepository.findById(idCategoria).orElse(null);
+        List<SubCategoriaRegistroFinanceiro> subCategoriaRegistroFinanceiros = subCategoriaRegistroFinanceiroRepository.findByCategoria(categoriaRegistroFinanceiro);
+        List<SubCategoriaRegistroFinanceiroResponse> subCategorias = new ArrayList<>();
+        subCategoriaRegistroFinanceiros.forEach(categoria -> {
+            SubCategoriaRegistroFinanceiroResponse subCategoriaRegistroFinanceiroResponse = new SubCategoriaRegistroFinanceiroResponse(categoria.getId(),
+                    categoria.getNome(),
+                    categoria.getDescricao(),
+                    categoria.getCategoria().getId(),
+                    categoria.getDescricao());
+            subCategorias.add(subCategoriaRegistroFinanceiroResponse);
+        });
+        return subCategorias;
     }
 
     // Remover uma categoria
