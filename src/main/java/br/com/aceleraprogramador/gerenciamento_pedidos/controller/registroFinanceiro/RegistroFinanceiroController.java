@@ -43,7 +43,13 @@ public class RegistroFinanceiroController {
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public ResponseEntity<List<RegistroFinanceiroResponse>> getAllRegistros() {
         log.info("Buscando todos os registros financeiros.");
-        List<RegistroFinanceiroResponse> registros = registroFinanceiroService.getAllRegistros();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
+        Usuario usuario = usuarioSecurity.getUsuario();
+        log.info("Usuário autenticado: {}", usuario.getId());
+
+        List<RegistroFinanceiroResponse> registros = registroFinanceiroService.getAllRegistros(usuario.getId());
         log.info("Total de registros encontrados: {}", registros.size());
         return ResponseEntity.ok(registros);
     }
@@ -51,7 +57,13 @@ public class RegistroFinanceiroController {
     @GetMapping("/{id}")
     public ResponseEntity<RegistroFinanceiroResponse> getRegistroById(@PathVariable Long id) {
         log.info("Buscando registro financeiro com ID: {}", id);
-        RegistroFinanceiroResponse response = registroFinanceiroService.getRegistroById(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
+        Usuario usuario = usuarioSecurity.getUsuario();
+        log.info("Usuário autenticado: {}", usuario.getId());
+
+        RegistroFinanceiroResponse response = registroFinanceiroService.getRegistroById(id, usuario.getId());
         log.info("Registro financeiro encontrado. JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(response));
         return ResponseEntity.ok(response);
     }
@@ -74,7 +86,13 @@ public class RegistroFinanceiroController {
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public ResponseEntity<Void> deleteRegistro(@PathVariable Long id) {
         log.info("Iniciando exclusão de registro financeiro com ID: {}", id);
-        registroFinanceiroService.deleteRegistro(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
+        Usuario usuario = usuarioSecurity.getUsuario();
+        log.info("Usuário autenticado: {}", usuario.getId());
+
+        registroFinanceiroService.deleteRegistro(id, usuario.getId());
         log.info("Registro financeiro com ID: {} excluído com sucesso.", id);
         return ResponseEntity.noContent().build();
     }

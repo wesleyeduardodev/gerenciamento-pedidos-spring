@@ -17,8 +17,8 @@ public class CategoriaRegistroFinanceiroService {
 
     private final CategoriaRegistroFinanceiroRepository categoriaRegistroFinanceiroRepository;
 
-    // Criar nova categoria
     public CategoriaRegistroFinanceiroResponse create(Long idUsuario, CategoriaRegistroFinanceiroRequest request) {
+
         CategoriaRegistroFinanceiro categoria = new CategoriaRegistroFinanceiro();
         categoria.setNome(request.getNome());
         categoria.setDescricao(request.getDescricao());
@@ -29,9 +29,9 @@ public class CategoriaRegistroFinanceiroService {
         return new CategoriaRegistroFinanceiroResponse(savedCategoria.getId(), savedCategoria.getNome(), savedCategoria.getDescricao());
     }
 
-    // Atualizar uma categoria
     public CategoriaRegistroFinanceiroResponse update(Long id, Long idUsuario, CategoriaRegistroFinanceiroRequest request) {
-        CategoriaRegistroFinanceiro categoria = categoriaRegistroFinanceiroRepository.findById(id)
+
+        CategoriaRegistroFinanceiro categoria = categoriaRegistroFinanceiroRepository.findByIdAndUsuarioId(id, idUsuario)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + id));
 
         categoria.setNome(request.getNome());
@@ -42,29 +42,32 @@ public class CategoriaRegistroFinanceiroService {
         return new CategoriaRegistroFinanceiroResponse(updatedCategoria.getId(), updatedCategoria.getNome(), updatedCategoria.getDescricao());
     }
 
-    // Buscar todas as categorias
-    public List<CategoriaRegistroFinanceiroResponse> findAll() {
-        List<CategoriaRegistroFinanceiro> categorias = categoriaRegistroFinanceiroRepository.findAll();
+    public List<CategoriaRegistroFinanceiroResponse> findAll(Long idUsuario) {
+
+        List<CategoriaRegistroFinanceiro> categorias = categoriaRegistroFinanceiroRepository.findAllByUsuarioId(idUsuario);
 
         return categorias.stream()
                 .map(categoria -> new CategoriaRegistroFinanceiroResponse(categoria.getId(), categoria.getNome(), categoria.getDescricao()))
                 .collect(Collectors.toList());
     }
 
-    // Buscar uma categoria por ID
-    public CategoriaRegistroFinanceiroResponse findById(Long id) {
-        CategoriaRegistroFinanceiro categoria = categoriaRegistroFinanceiroRepository.findById(id)
+    public CategoriaRegistroFinanceiroResponse findById(Long id, Long idUsuario) {
+
+        CategoriaRegistroFinanceiro categoria = categoriaRegistroFinanceiroRepository.findByIdAndUsuarioId(id, idUsuario)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + id));
 
         return new CategoriaRegistroFinanceiroResponse(categoria.getId(), categoria.getNome(), categoria.getDescricao());
     }
 
-    // Remover uma categoria
-    public void delete(Long id) {
-        if (!categoriaRegistroFinanceiroRepository.existsById(id)) {
+    public CategoriaRegistroFinanceiro findByIdAndReturnCategoriaRegistroFinanceiro(Long id, Long idUsuario) {
+      return categoriaRegistroFinanceiroRepository.findByIdAndUsuarioId(id, idUsuario)
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + id));
+    }
+
+    public void delete(Long id, Long idUsuario) {
+        if (!categoriaRegistroFinanceiroRepository.existsByIdAndUsuarioId(id, idUsuario)) {
             throw new RuntimeException("Categoria não encontrada com o ID: " + id);
         }
-
         categoriaRegistroFinanceiroRepository.deleteById(id);
     }
 }

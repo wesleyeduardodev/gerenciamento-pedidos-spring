@@ -1,4 +1,5 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.controller.categoria;
+
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.CategoriaRegistroFinanceiroRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.CategoriaRegistroFinanceiroResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
@@ -15,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Tag(name = "Gerenciamento de Categorias de Registros Financeiros")
@@ -29,12 +31,17 @@ public class CategoriaRegistroFinanceiroController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public ResponseEntity<CategoriaRegistroFinanceiroResponse> create(@Valid @RequestBody CategoriaRegistroFinanceiroRequest request) {
+
         log.info("Iniciando criação de categoria. JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(request));
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
         Usuario usuario = usuarioSecurity.getUsuario();
         log.info("Usuário autenticado: {}", usuario.getId());
+
+
         CategoriaRegistroFinanceiroResponse response = categoriaRegistroFinanceiroService.create(usuario.getId(), request);
+
         log.info("Categoria criada com sucesso. JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(response));
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -44,12 +51,15 @@ public class CategoriaRegistroFinanceiroController {
     public ResponseEntity<CategoriaRegistroFinanceiroResponse> update(
             @PathVariable Long id,
             @Valid @RequestBody CategoriaRegistroFinanceiroRequest request) {
+
         log.info("Iniciando atualização de categoria com ID: {}. JSON: {}", id, ObjectMapperUtilsConfig.pojoParaJson(request));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
         Usuario usuario = usuarioSecurity.getUsuario();
         log.info("Usuário autenticado para atualização: {}", usuario.getId());
+
         CategoriaRegistroFinanceiroResponse response = categoriaRegistroFinanceiroService.update(id, usuario.getId(), request);
+
         log.info("Categoria atualizada com sucesso. JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(response));
         return ResponseEntity.ok(response);
     }
@@ -58,7 +68,13 @@ public class CategoriaRegistroFinanceiroController {
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public ResponseEntity<List<CategoriaRegistroFinanceiroResponse>> findAll() {
         log.info("Buscando todas as categorias.");
-        List<CategoriaRegistroFinanceiroResponse> categorias = categoriaRegistroFinanceiroService.findAll();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
+        Usuario usuario = usuarioSecurity.getUsuario();
+        log.info("Usuário autenticado: {}", usuario.getId());
+
+        List<CategoriaRegistroFinanceiroResponse> categorias = categoriaRegistroFinanceiroService.findAll(usuario.getId());
         log.info("Total de categorias encontradas: {}", categorias.size());
         return ResponseEntity.ok(categorias);
     }
@@ -67,7 +83,13 @@ public class CategoriaRegistroFinanceiroController {
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public ResponseEntity<CategoriaRegistroFinanceiroResponse> findById(@PathVariable Long id) {
         log.info("Buscando categoria com ID: {}", id);
-        CategoriaRegistroFinanceiroResponse response = categoriaRegistroFinanceiroService.findById(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
+        Usuario usuario = usuarioSecurity.getUsuario();
+        log.info("Usuário autenticado: {}", usuario.getId());
+
+        CategoriaRegistroFinanceiroResponse response = categoriaRegistroFinanceiroService.findById(id, usuario.getId());
         log.info("Categoria encontrada. JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(response));
         return ResponseEntity.ok(response);
     }
@@ -76,7 +98,13 @@ public class CategoriaRegistroFinanceiroController {
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.info("Iniciando exclusão de categoria com ID: {}", id);
-        categoriaRegistroFinanceiroService.delete(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
+        Usuario usuario = usuarioSecurity.getUsuario();
+        log.info("Usuário autenticado: {}", usuario.getId());
+
+        categoriaRegistroFinanceiroService.delete(id, usuario.getId());
         log.info("Categoria com ID: {} excluída com sucesso.", id);
         return ResponseEntity.noContent().build();
     }

@@ -1,4 +1,5 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.controller.subcategoria;
+
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.SubCategoriaRegistroFinanceiroRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.SubCategoriaRegistroFinanceiroResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
@@ -15,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Tag(name = "Gerenciamento de SubCategorias de Registros Financeiros")
@@ -29,13 +31,17 @@ public class SubCategoriaRegistroFinanceiroController {
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     @PostMapping
     public ResponseEntity<SubCategoriaRegistroFinanceiroResponse> create(@Valid @RequestBody SubCategoriaRegistroFinanceiroRequest request) {
+
         log.info("Iniciando criação de subcategoria. JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(request));
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
         Usuario usuario = usuarioSecurity.getUsuario();
         log.info("Usuário autenticado: {}", usuario.getId());
+
         SubCategoriaRegistroFinanceiroResponse response = subCategoriaRegistroFinanceiroService.create(usuario.getId(), request);
         log.info("Subcategoria criada com sucesso. JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(response));
+
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -44,13 +50,16 @@ public class SubCategoriaRegistroFinanceiroController {
     public ResponseEntity<SubCategoriaRegistroFinanceiroResponse> update(
             @PathVariable Long id,
             @Valid @RequestBody SubCategoriaRegistroFinanceiroRequest request) {
+
         log.info("Iniciando atualização de subcategoria com ID: {}. JSON: {}", id, ObjectMapperUtilsConfig.pojoParaJson(request));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
         Usuario usuario = usuarioSecurity.getUsuario();
         log.info("Usuário autenticado para atualização: {}", usuario.getId());
+
         SubCategoriaRegistroFinanceiroResponse response = subCategoriaRegistroFinanceiroService.update(id, usuario.getId(), request);
         log.info("Subcategoria atualizada com sucesso. JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(response));
+
         return ResponseEntity.ok(response);
     }
 
@@ -58,7 +67,13 @@ public class SubCategoriaRegistroFinanceiroController {
     @GetMapping
     public ResponseEntity<List<SubCategoriaRegistroFinanceiroResponse>> findAll() {
         log.info("Buscando todas as subcategorias.");
-        List<SubCategoriaRegistroFinanceiroResponse> categorias = subCategoriaRegistroFinanceiroService.findAll();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
+        Usuario usuario = usuarioSecurity.getUsuario();
+        log.info("Usuário autenticado: {}", usuario.getId());
+
+        List<SubCategoriaRegistroFinanceiroResponse> categorias = subCategoriaRegistroFinanceiroService.findAll(usuario.getId());
         log.info("Total de subcategorias encontradas: {}", categorias.size());
         return ResponseEntity.ok(categorias);
     }
@@ -67,7 +82,13 @@ public class SubCategoriaRegistroFinanceiroController {
     @GetMapping("/{id}")
     public ResponseEntity<SubCategoriaRegistroFinanceiroResponse> findById(@PathVariable Long id) {
         log.info("Buscando subcategoria com ID: {}", id);
-        SubCategoriaRegistroFinanceiroResponse response = subCategoriaRegistroFinanceiroService.findById(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
+        Usuario usuario = usuarioSecurity.getUsuario();
+        log.info("Usuário autenticado: {}", usuario.getId());
+
+        SubCategoriaRegistroFinanceiroResponse response = subCategoriaRegistroFinanceiroService.findById(id, usuario.getId());
         log.info("Subcategoria encontrada. JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(response));
         return ResponseEntity.ok(response);
     }
@@ -76,7 +97,13 @@ public class SubCategoriaRegistroFinanceiroController {
     @GetMapping("/findByIdCategoria/{idCategoria}")
     public ResponseEntity<List<SubCategoriaRegistroFinanceiroResponse>> findByIdCategoria(@PathVariable Long idCategoria) {
         log.info("Buscando subcategorias da categoria com ID: {}", idCategoria);
-        List<SubCategoriaRegistroFinanceiroResponse> responses = subCategoriaRegistroFinanceiroService.findByIdCategoria(idCategoria);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
+        Usuario usuario = usuarioSecurity.getUsuario();
+        log.info("Usuário autenticado: {}", usuario.getId());
+
+        List<SubCategoriaRegistroFinanceiroResponse> responses = subCategoriaRegistroFinanceiroService.findByIdCategoria(idCategoria, usuario.getId());
         log.info("Total de subcategorias encontradas para a categoria {}: {}", idCategoria, responses.size());
         return ResponseEntity.ok(responses);
     }
@@ -85,7 +112,13 @@ public class SubCategoriaRegistroFinanceiroController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.info("Iniciando exclusão de subcategoria com ID: {}", id);
-        subCategoriaRegistroFinanceiroService.delete(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UsuarioSecurityConfig usuarioSecurity = (UsuarioSecurityConfig) authentication.getPrincipal();
+        Usuario usuario = usuarioSecurity.getUsuario();
+        log.info("Usuário autenticado: {}", usuario.getId());
+
+        subCategoriaRegistroFinanceiroService.delete(id, usuario.getId());
         log.info("Subcategoria com ID: {} excluída com sucesso.", id);
         return ResponseEntity.noContent().build();
     }

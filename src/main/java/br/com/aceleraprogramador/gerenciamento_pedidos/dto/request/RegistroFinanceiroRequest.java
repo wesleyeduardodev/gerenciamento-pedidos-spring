@@ -26,6 +26,8 @@ public class RegistroFinanceiroRequest {
     private Integer tipoTransacao;
 
     @NotNull(message = "A categoria é obrigatória.")
+    private Long idCategoria;
+
     private Long idSubCategoria;
 
     @NotNull(message = "O valor é obrigatório.")

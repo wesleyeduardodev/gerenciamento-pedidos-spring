@@ -36,7 +36,11 @@ public class RegistroFinanceiro {
     private TipoTransacaoFinanceira tipoTransacao;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_subcategoria", nullable = false)
+    @JoinColumn(name = "id_categoria", nullable = false)
+    private CategoriaRegistroFinanceiro categoria;
+
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_subcategoria")
     private SubCategoriaRegistroFinanceiro subCategoria;
 
     @Column(nullable = false, precision = 10, scale = 2)

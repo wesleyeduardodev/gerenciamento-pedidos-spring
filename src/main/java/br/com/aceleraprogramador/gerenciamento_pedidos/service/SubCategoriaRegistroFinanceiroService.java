@@ -1,16 +1,13 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.service;
-
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.SubCategoriaRegistroFinanceiroRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.SubCategoriaRegistroFinanceiroResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.CategoriaRegistroFinanceiro;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.SubCategoriaRegistroFinanceiro;
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
-import br.com.aceleraprogramador.gerenciamento_pedidos.repository.CategoriaRegistroFinanceiroRepository;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.SubCategoriaRegistroFinanceiroRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,16 +17,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SubCategoriaRegistroFinanceiroService {
 
-    private final CategoriaRegistroFinanceiroRepository categoriaRegistroFinanceiroRepository;
+    private final CategoriaRegistroFinanceiroService categoriaRegistroFinanceiroService;
     private final SubCategoriaRegistroFinanceiroRepository subCategoriaRegistroFinanceiroRepository;
 
     public SubCategoriaRegistroFinanceiroResponse create(Long idUsuario, SubCategoriaRegistroFinanceiroRequest request) {
 
-        SubCategoriaRegistroFinanceiro subCategoriaRegistroFinanceiro = new SubCategoriaRegistroFinanceiro();
+        CategoriaRegistroFinanceiro categoriaRegistroFinanceiro = categoriaRegistroFinanceiroService.findByIdAndReturnCategoriaRegistroFinanceiro(request.getIdCategoria(), idUsuario);
 
+        SubCategoriaRegistroFinanceiro subCategoriaRegistroFinanceiro = new SubCategoriaRegistroFinanceiro();
         subCategoriaRegistroFinanceiro.setNome(request.getNome());
         subCategoriaRegistroFinanceiro.setDescricao(request.getDescricao());
-        subCategoriaRegistroFinanceiro.setCategoria(CategoriaRegistroFinanceiro.builder().id(request.getIdCategoria()).build());
+        subCategoriaRegistroFinanceiro.setCategoria(categoriaRegistroFinanceiro);
         subCategoriaRegistroFinanceiro.setUsuario(Usuario.builder().id(idUsuario).build());
 
         SubCategoriaRegistroFinanceiro savedSubCategoria = subCategoriaRegistroFinanceiroRepository.save(subCategoriaRegistroFinanceiro);
@@ -42,14 +40,16 @@ public class SubCategoriaRegistroFinanceiroService {
         );
     }
 
-    // Atualizar uma categoria
     public SubCategoriaRegistroFinanceiroResponse update(Long id, Long idUsuario, SubCategoriaRegistroFinanceiroRequest request) {
-        SubCategoriaRegistroFinanceiro subCategoriaRegistroFinanceiro = subCategoriaRegistroFinanceiroRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("SubCategoria não encontrada com o ID: " + id));
+
+        CategoriaRegistroFinanceiro categoriaRegistroFinanceiro = categoriaRegistroFinanceiroService.findByIdAndReturnCategoriaRegistroFinanceiro(request.getIdCategoria(), idUsuario);
+
+        SubCategoriaRegistroFinanceiro subCategoriaRegistroFinanceiro = subCategoriaRegistroFinanceiroRepository.findByIdAndUsuarioId(id, idUsuario)
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + id));
 
         subCategoriaRegistroFinanceiro.setNome(request.getNome());
         subCategoriaRegistroFinanceiro.setDescricao(request.getDescricao());
-        subCategoriaRegistroFinanceiro.setCategoria(CategoriaRegistroFinanceiro.builder().id(request.getIdCategoria()).build());
+        subCategoriaRegistroFinanceiro.setCategoria(categoriaRegistroFinanceiro);
         subCategoriaRegistroFinanceiro.setUsuario(Usuario.builder().id(idUsuario).build());
 
         SubCategoriaRegistroFinanceiro updatedSubCategoria = subCategoriaRegistroFinanceiroRepository.save(subCategoriaRegistroFinanceiro);
@@ -61,9 +61,9 @@ public class SubCategoriaRegistroFinanceiroService {
                 updatedSubCategoria.getCategoria().getDescricao());
     }
 
-    // Buscar todas as categorias
-    public List<SubCategoriaRegistroFinanceiroResponse> findAll() {
-        List<SubCategoriaRegistroFinanceiro> categorias = subCategoriaRegistroFinanceiroRepository.findAll();
+    public List<SubCategoriaRegistroFinanceiroResponse> findAll(Long idUsuario) {
+
+        List<SubCategoriaRegistroFinanceiro> categorias = subCategoriaRegistroFinanceiroRepository.findAllByUsuarioId(idUsuario);
 
         return categorias.stream()
                 .map(categoria -> new SubCategoriaRegistroFinanceiroResponse(categoria.getId(),
@@ -74,21 +74,30 @@ public class SubCategoriaRegistroFinanceiroService {
                 .collect(Collectors.toList());
     }
 
-    // Buscar uma categoria por ID
-    public SubCategoriaRegistroFinanceiroResponse findById(Long id) {
-        SubCategoriaRegistroFinanceiro categoria = subCategoriaRegistroFinanceiroRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("SubCategoria não encontrada com o ID: " + id));
+    public SubCategoriaRegistroFinanceiroResponse findById(Long id, Long idUsuario) {
 
-        return new SubCategoriaRegistroFinanceiroResponse(categoria.getId(),
-                categoria.getNome(),
-                categoria.getDescricao(),
-                categoria.getCategoria().getId(),
-                categoria.getDescricao());
+        SubCategoriaRegistroFinanceiro subCategoriaRegistroFinanceiro = subCategoriaRegistroFinanceiroRepository.findByIdAndUsuarioId(id, idUsuario)
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + id));
+
+        return new SubCategoriaRegistroFinanceiroResponse(subCategoriaRegistroFinanceiro.getId(),
+                subCategoriaRegistroFinanceiro.getNome(),
+                subCategoriaRegistroFinanceiro.getDescricao(),
+                subCategoriaRegistroFinanceiro.getCategoria().getId(),
+                subCategoriaRegistroFinanceiro.getDescricao());
     }
 
-    public List<SubCategoriaRegistroFinanceiroResponse> findByIdCategoria(Long idCategoria) {
-        CategoriaRegistroFinanceiro categoriaRegistroFinanceiro = categoriaRegistroFinanceiroRepository.findById(idCategoria).orElse(null);
-        List<SubCategoriaRegistroFinanceiro> subCategoriaRegistroFinanceiros = subCategoriaRegistroFinanceiroRepository.findByCategoria(categoriaRegistroFinanceiro);
+    public SubCategoriaRegistroFinanceiro findByIdUsuario(Long id, Long idUsuario) {
+        return subCategoriaRegistroFinanceiroRepository.findByIdAndUsuarioId(id, idUsuario)
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + id));
+    }
+
+
+    public List<SubCategoriaRegistroFinanceiroResponse> findByIdCategoria(Long idCategoria, Long idUsuario) {
+
+        CategoriaRegistroFinanceiro categoriaRegistroFinanceiro = categoriaRegistroFinanceiroService.findByIdAndReturnCategoriaRegistroFinanceiro(idCategoria, idUsuario);
+
+        List<SubCategoriaRegistroFinanceiro> subCategoriaRegistroFinanceiros = subCategoriaRegistroFinanceiroRepository.findByCategoriaAndUsuarioId(categoriaRegistroFinanceiro, idUsuario);
+
         List<SubCategoriaRegistroFinanceiroResponse> subCategorias = new ArrayList<>();
         subCategoriaRegistroFinanceiros.forEach(categoria -> {
             SubCategoriaRegistroFinanceiroResponse subCategoriaRegistroFinanceiroResponse = new SubCategoriaRegistroFinanceiroResponse(categoria.getId(),
@@ -101,12 +110,10 @@ public class SubCategoriaRegistroFinanceiroService {
         return subCategorias;
     }
 
-    // Remover uma categoria
-    public void delete(Long id) {
-        if (!subCategoriaRegistroFinanceiroRepository.existsById(id)) {
+    public void delete(Long id, Long idUsuario) {
+        if (!subCategoriaRegistroFinanceiroRepository.existsByIdAndUsuarioId(id, idUsuario)) {
             throw new RuntimeException("SubCategoria não encontrada com o ID: " + id);
         }
-
         subCategoriaRegistroFinanceiroRepository.deleteById(id);
     }
 }
