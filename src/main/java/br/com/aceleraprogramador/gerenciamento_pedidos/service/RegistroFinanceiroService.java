@@ -112,6 +112,12 @@ public class RegistroFinanceiroService {
     }
 
     private RegistroFinanceiroResponse toResponse(RegistroFinanceiro registro) {
+        Long idSubCategoria = null;
+        String nomeSubCategoria = null;
+        if(Objects.nonNull(registro.getSubCategoria())) {
+            idSubCategoria = registro.getSubCategoria().getId();
+            nomeSubCategoria = registro.getSubCategoria().getNome();
+        }
         return RegistroFinanceiroResponse.builder()
                 .id(registro.getId())
                 .titulo(registro.getTitulo())
@@ -120,8 +126,8 @@ public class RegistroFinanceiroService {
                 .tipoTransacao(registro.getTipoTransacao().getCodigo())
                 .idCategoria(registro.getCategoria().getId())
                 .nomeCategoria(registro.getCategoria().getNome())
-                .idSubCategoria(registro.getSubCategoria().getId())
-                .nomeSubCategoria(registro.getSubCategoria().getNome())
+                .idSubCategoria(idSubCategoria)
+                .nomeSubCategoria(nomeSubCategoria)
                 .valor(registro.getValor())
                 .dataTransacao(DateTimeUtil.toIsoString(registro.getDataTransacao()))
                 .build();
