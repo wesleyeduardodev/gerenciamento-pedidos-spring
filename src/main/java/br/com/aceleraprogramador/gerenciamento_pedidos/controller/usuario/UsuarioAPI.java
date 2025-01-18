@@ -22,6 +22,15 @@ public interface UsuarioAPI {
     })
     UsuarioResponse criarUsuario(UsuarioRequest request);
 
+    @Operation(summary = "Criar um usuario")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Usuários criado com sucesso.",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UsuarioResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request - Requisição inválida", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErroResponse.class)))
+    })
+    UsuarioResponse criarUsuarioLivre(UsuarioRequest request);
+
+
     @Operation(summary = "Buscar usuário por ID")
     @ApiResponse(responseCode = "200", description = "Usuário Retornado com sucesso.",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UsuarioResponse.class)))

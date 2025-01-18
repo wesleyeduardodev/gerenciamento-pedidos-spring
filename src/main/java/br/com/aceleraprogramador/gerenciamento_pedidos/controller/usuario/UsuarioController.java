@@ -4,6 +4,7 @@ import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.UsuarioResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.service.UsuarioService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,14 @@ public class UsuarioController implements UsuarioAPI {
     @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR')")
     public UsuarioResponse criarUsuario(@Valid @RequestBody UsuarioRequest request) {
         return usuarioService.criarUsuario(request);
+    }
+
+    @Override
+    @PostMapping(value = "/v1/criarUsuarioLivre", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    @PermitAll
+    public UsuarioResponse criarUsuarioLivre(@Valid @RequestBody UsuarioRequest request) {
+        return usuarioService.criarUsuarioLivre(request);
     }
 
     @Override

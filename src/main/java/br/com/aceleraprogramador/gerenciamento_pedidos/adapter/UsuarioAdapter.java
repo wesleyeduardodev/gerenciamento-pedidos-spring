@@ -22,6 +22,15 @@ public class UsuarioAdapter {
                 .build();
     }
 
+    public static Usuario toEntitySemRoles(UsuarioRequest request, String senha) {
+        return Usuario
+                .builder()
+                .nome(request.getNome())
+                .senha(senha)
+                .email(request.getEmail())
+                .build();
+    }
+
     public static Usuario toEntity(String nome, String senha, String email, List<RoleType> roleTypes) {
         return Usuario
                 .builder()
@@ -39,6 +48,15 @@ public class UsuarioAdapter {
                 .nome(usuario.getNome())
                 .email(usuario.getEmail())
                 .roles(toResponseListFromEnity(usuario.getRoles()))
+                .build();
+    }
+
+    public static UsuarioResponse toResponseSemRoles(Usuario usuario) {
+        return UsuarioResponse
+                .builder()
+                .id(usuario.getId())
+                .nome(usuario.getNome())
+                .email(usuario.getEmail())
                 .build();
     }
 

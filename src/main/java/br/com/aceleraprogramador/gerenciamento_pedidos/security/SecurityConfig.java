@@ -31,7 +31,9 @@ public class SecurityConfig {
                 .securityMatcher(new AntPathRequestMatcher("/api/**"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable) // Desativa CORS
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(new AntPathRequestMatcher("/api/usuarios/v1/criarUsuarioLivre")).permitAll() // Permite acesso sem autenticação
+                        .anyRequest().authenticated()) // Exige autenticação para outras rotas
                 .userDetailsService(usuarioAutenticaoService)
                 .httpBasic(withDefaults())
                 .build();

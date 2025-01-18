@@ -17,8 +17,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -38,12 +41,61 @@ public class UsuarioService {
 
         List<RoleType> roleTypes = UsuarioAdapter.convertStringsToRoleTypes(request.getRoles());
         List<Role> roles = roleRepository.findAllByRoleTypeIn(roleTypes);
-        usuario.setRoles(roles);
+
+        List<Role> distinctRoles = roles.stream()
+                .filter(role -> role != null && role.getRoleType() != null) // Garante que não há nulos
+                .collect(Collectors.toMap(
+                        Role::getRoleType, // Usa o roleType como chave
+                        role -> role, // Mantém o objeto completo como valor
+                        (existing, replacement) -> existing // Em caso de duplicatas, mantém o primeiro
+                ))
+                .values()
+                .stream()
+                .toList();
+
+        usuario.setRoles(distinctRoles);
 
         usuarioRepository.save(usuario);
         UsuarioResponse usuarioResponse = UsuarioAdapter.toResponse(usuario);
 
         log.info("Usuário criado com sucesso...");
+
+        return usuarioResponse;
+    }
+
+    public UsuarioResponse criarUsuarioLivre(UsuarioRequest request) {
+
+        request.setRoles(new ArrayList<>());
+        request.getRoles().add("ROLE_USUARIO");
+
+        log.info("Criando um novo usuário livre...");
+        log.info("JSON: {}", ObjectMapperUtilsConfig.pojoParaJson(request));
+
+        Usuario usuario = UsuarioAdapter.toEntitySemRoles(request, passwordEncoder.encode(request.getSenha()));
+        List<RoleType> roleTypes = UsuarioAdapter.convertStringsToRoleTypes(request.getRoles());
+
+        List<Role> roles = roleRepository.findAllByRoleTypeIn(roleTypes);
+
+
+        List<Role> distinctRoles = roles.stream()
+                .filter(role -> role != null && role.getRoleType() != null) // Garante que não há nulos
+                .collect(Collectors.toMap(
+                        Role::getRoleType, // Usa o roleType como chave
+                        role -> role, // Mantém o objeto completo como valor
+                        (existing, replacement) -> existing // Em caso de duplicatas, mantém o primeiro
+                ))
+                .values()
+                .stream()
+                .toList();
+
+
+
+        usuario.setRoles(distinctRoles);
+
+        usuarioRepository.save(usuario);
+        UsuarioResponse usuarioResponse = UsuarioAdapter.toResponseSemRoles(usuario);
+
+        log.info("Usuário livre criado com sucesso...");
 
         return usuarioResponse;
     }
