@@ -3,6 +3,7 @@ import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.UsuarioReques
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.UsuarioResponse;
 import br.com.aceleraprogramador.gerenciamento_pedidos.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
@@ -32,6 +33,7 @@ public class UsuarioController implements UsuarioAPI {
     @PostMapping(value = "/v1/criarUsuarioLivre", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @PermitAll
+    @Hidden
     public UsuarioResponse criarUsuarioLivre(@Valid @RequestBody UsuarioRequest request) {
         return usuarioService.criarUsuarioLivre(request);
     }
