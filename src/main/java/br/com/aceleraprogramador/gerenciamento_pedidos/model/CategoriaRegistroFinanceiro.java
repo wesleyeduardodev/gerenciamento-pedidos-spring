@@ -1,4 +1,5 @@
 package br.com.aceleraprogramador.gerenciamento_pedidos.model;
+
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,14 +13,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "categoria_registro_financeiro")
+@Table(
+        name = "categoria_registro_financeiro",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"nome", "id_usuario"})
+        }
+)
 public class CategoriaRegistroFinanceiro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome", nullable = false, unique = true, length = 50)
+    @Column(name = "nome", nullable = false, length = 50)
     private String nome;
 
     @Column(name = "descricao", length = 250)

@@ -3,7 +3,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.time.LocalDateTime;
 
 @Getter
@@ -12,14 +11,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "subcategoria_registro_financeiro")
+@Table(
+        name = "subcategoria_registro_financeiro",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"nome", "id_usuario"})
+        }
+)
 public class SubCategoriaRegistroFinanceiro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome", nullable = false, unique = true, length = 50)
+    @Column(name = "nome", nullable = false, length = 50)
     private String nome;
 
     @Column(name = "descricao", length = 250)
