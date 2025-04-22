@@ -1,3 +1,4 @@
+/*
 package br.com.aceleraprogramador.gerenciamento_pedidos.security;
 
 import br.com.aceleraprogramador.gerenciamento_pedidos.model.Usuario;
@@ -57,3 +58,4 @@ public class UsuarioSecurityConfig implements UserDetails {
     }
 
 }
+*/

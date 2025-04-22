@@ -1,3 +1,4 @@
+/*
 package br.com.aceleraprogramador.gerenciamento_pedidos.security;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,3 +12,4 @@ public class GerenciadorSenhas {
         System.out.println("Senha codificada: " + encodedPassword);
     }
 }
+*/

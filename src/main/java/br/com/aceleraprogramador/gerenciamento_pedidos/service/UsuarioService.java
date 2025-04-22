@@ -1,3 +1,4 @@
+/*
 package br.com.aceleraprogramador.gerenciamento_pedidos.service;
 import br.com.aceleraprogramador.gerenciamento_pedidos.adapter.UsuarioAdapter;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.UsuarioRequest;
@@ -160,4 +161,4 @@ public class UsuarioService {
             return usuarioOptional.get();
         }
     }
-}
+}*/

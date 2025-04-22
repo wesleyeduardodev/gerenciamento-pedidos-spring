@@ -8,7 +8,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Gerenciamento de Fornecedores")
@@ -22,7 +21,7 @@ public class FornecedorController implements FornecedorAPI {
     @Override
     @PostMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+   // @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public FornecedorResponse criarFornecedor(@Valid @RequestBody FornecedorRequest request) {
         return fornecedorService.criarFornecedor(request);
     }
@@ -30,7 +29,7 @@ public class FornecedorController implements FornecedorAPI {
     @Override
     @GetMapping(value = "/v1/buscarTodosOsFornecedoresPorParametros", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+  //  @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public PageResponse<FornecedorResponse> buscarTodosOsFornecedoresPorParametros(@RequestParam(required = false) Long id,
                                                                                    @RequestParam(required = false) String nome,
                                                                                    @RequestParam(required = false) String cnpj,
@@ -46,7 +45,7 @@ public class FornecedorController implements FornecedorAPI {
     @Override
     @GetMapping(value = "/v1/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+ //   @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public FornecedorResponse buscarFornecedorPorId(@PathVariable Long id) {
         return fornecedorService.buscarFornecedorPorId(id);
     }
@@ -54,14 +53,14 @@ public class FornecedorController implements FornecedorAPI {
     @Override
     @PutMapping(value = "/v1/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ROLE_GERENTE')")
+  //  @PreAuthorize("hasRole('ROLE_GERENTE')")
     public void atualizarTodosOsDadosDoFornecedor(@PathVariable Long id, @Valid @RequestBody FornecedorRequest request) {
         fornecedorService.atualizarTodosOsDadosDoFornecedor(id, request);
     }
 
     @DeleteMapping(value = "/v1/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
+  //  @PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     public void removerFornecedor(@PathVariable Long id) {
         fornecedorService.removerFornecedor(id);
     }

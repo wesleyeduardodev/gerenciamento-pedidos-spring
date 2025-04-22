@@ -1,3 +1,4 @@
+/*
 package br.com.aceleraprogramador.gerenciamento_pedidos.security;
 import br.com.aceleraprogramador.gerenciamento_pedidos.exceptions.RecursoNaoEncontradoException;
 import br.com.aceleraprogramador.gerenciamento_pedidos.repository.UsuarioRepository;
@@ -19,4 +20,4 @@ public class UsuarioAutenticaoService implements UserDetailsService {
                 .map(UsuarioSecurityConfig::new)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Email:" + email + " não enconstrado"));
     }
-}
+}*/

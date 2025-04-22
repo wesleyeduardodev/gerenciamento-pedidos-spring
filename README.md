@@ -74,3 +74,6 @@ https://api.multt.digital/swagger
 ## Contato
 Para dúvidas ou sugestões, entre em contato:
 - Email: wesley@aceleraprogramador.com.br
+
+## Swagger Local
+- http://localhost:8080/swagger-ui/index.html

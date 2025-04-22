@@ -1,3 +1,4 @@
+/*
 package br.com.aceleraprogramador.gerenciamento_pedidos.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -56,3 +57,4 @@ public class SecurityConfig {
     }
 }
 
+*/

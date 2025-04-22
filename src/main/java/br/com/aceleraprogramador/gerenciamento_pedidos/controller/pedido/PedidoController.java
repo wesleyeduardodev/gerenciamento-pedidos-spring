@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Gerenciamento de Pedidos")
@@ -23,7 +22,7 @@ public class PedidoController implements PedidoAPI {
     @Override
     @PostMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+   // @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public PedidoResponse criarPedido(@Valid @RequestBody PedidoRequest request) {
         return pedidoService.criarPedido(request);
     }
@@ -31,7 +30,7 @@ public class PedidoController implements PedidoAPI {
     @Override
     @GetMapping(value = "/v1/buscarTodosOsPedidosPorParametros", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+   // @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public PageResponse<PedidoResponse> buscarTodosOsPedidosPorParametros(@RequestParam(required = false) Long id,
                                                                           @RequestParam(required = false) Long idCliente,
                                                                           @RequestParam(required = false) String status,
@@ -46,7 +45,7 @@ public class PedidoController implements PedidoAPI {
     @Override
     @GetMapping(value = "/v1/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+   // @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public PedidoResponse buscarPedidoPorId(@PathVariable Long id) {
         return pedidoService.buscarPedidoPorId(id);
     }
@@ -54,14 +53,14 @@ public class PedidoController implements PedidoAPI {
     @Override
     @PutMapping(value = "/v1/{id}/status/{status}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+  //  @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public void atualizarStatusDoPedido(@PathVariable Long id, @PathVariable String status) {
         pedidoService.atualizarStatusDoPedido(id, status);
     }
 
     @DeleteMapping(value = "/v1/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+   // @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public void removerPedido(@PathVariable Long id) {
         pedidoService.removerPedido(id);
     }
@@ -69,7 +68,7 @@ public class PedidoController implements PedidoAPI {
     @Override
     @PutMapping(value = "/v1/registrarCobrancaPedido/pedido/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+   // @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public CobrancaClienteResponse registrarCobrancaPedido(@PathVariable Long id) {
         return pedidoService.registrarCobrancaClientePedido(id);
     }

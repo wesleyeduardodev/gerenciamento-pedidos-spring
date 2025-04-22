@@ -1,3 +1,4 @@
+/*
 package br.com.aceleraprogramador.gerenciamento_pedidos.controller.usuario;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.request.UsuarioRequest;
 import br.com.aceleraprogramador.gerenciamento_pedidos.dto.response.PageResponse;
@@ -24,7 +25,7 @@ public class UsuarioController implements UsuarioAPI {
     @Override
     @PostMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR')")
+   // @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR')")
     public UsuarioResponse criarUsuario(@Valid @RequestBody UsuarioRequest request) {
         return usuarioService.criarUsuario(request);
     }
@@ -32,7 +33,7 @@ public class UsuarioController implements UsuarioAPI {
     @Override
     @PostMapping(value = "/v1/criarUsuarioLivre", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    @PermitAll
+   // @PermitAll
     @Hidden
     public UsuarioResponse criarUsuarioLivre(@Valid @RequestBody UsuarioRequest request) {
         return usuarioService.criarUsuarioLivre(request);
@@ -41,7 +42,7 @@ public class UsuarioController implements UsuarioAPI {
     @Override
     @GetMapping(value = "/v1/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR')")
+  //  @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR')")
     public UsuarioResponse buscarUsuarioPorId(@PathVariable Long id) {
         return usuarioService.buscarUsuarioPorId(id);
     }
@@ -49,7 +50,7 @@ public class UsuarioController implements UsuarioAPI {
     @Override
     @GetMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR')")
+   // @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR')")
     public PageResponse<UsuarioResponse> buscarTodosOsUsuarios(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection) {
         return usuarioService.buscarTodosOsUsuario(pageNumber, pageSize, sortBy, sortDirection);
     }
@@ -57,7 +58,7 @@ public class UsuarioController implements UsuarioAPI {
     @Override
     @PutMapping(value = "/v1/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR')")
+   // @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR')")
     public void atualizarTodosOsDadosDoUsuario(@PathVariable Long id, @Valid @RequestBody UsuarioRequest request) {
         usuarioService.atualizarTodosOsDadosDoUsuario(id, request);
     }
@@ -65,8 +66,9 @@ public class UsuarioController implements UsuarioAPI {
     @Override
     @DeleteMapping(value = "/v1/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR')")
+   // @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR')")
     public void removerUsuario(@PathVariable Long id) {
         usuarioService.removerUsuario(id);
     }
 }
+*/

@@ -2,7 +2,6 @@ package br.com.aceleraprogramador.gerenciamento_pedidos.exceptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -98,21 +97,5 @@ public class GlobalExceptionHandler {
         log.error(ex.getMessage(), ex);
 
         return new ResponseEntity<>(erroResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(AuthorizationDeniedException.class)
-    public ResponseEntity<ErroResponse> handleAuthorizationDeniedException(AuthorizationDeniedException ex, WebRequest request) {
-
-        ErroResponse erroResponse = ErroResponse
-                .builder()
-                .status(HttpStatus.FORBIDDEN.value())
-                .mensagem(ex.getMessage())
-                .dateTime(LocalDateTime.now())
-                .path(request.getDescription(false))
-                .build();
-
-        log.error(ex.getMessage(), ex);
-
-        return new ResponseEntity<>(erroResponse, HttpStatus.FORBIDDEN);
     }
 }

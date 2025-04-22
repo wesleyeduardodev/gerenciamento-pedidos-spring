@@ -8,7 +8,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 
@@ -23,7 +22,7 @@ public class ProdutoController implements ProdutoAPI {
     @Override
     @PostMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+  //  @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public ProdutoResponse criarProduto(@Valid @RequestBody ProdutoRequest request) {
         return produtoService.criarProduto(request);
     }
@@ -31,7 +30,7 @@ public class ProdutoController implements ProdutoAPI {
     @Override
     @GetMapping(value = "/v1/buscarTodosOsProdutosPorParametros", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+   // @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public PageResponse<ProdutoResponse> buscarTodosOsProdutosPorParametros(@RequestParam(required = false) Long id,
                                                                             @RequestParam(required = false) String nome,
                                                                             @RequestParam(required = false) String descricao,
@@ -47,7 +46,7 @@ public class ProdutoController implements ProdutoAPI {
     @Override
     @GetMapping(value = "/v1/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+    //@PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public ProdutoResponse buscarProdutoPorId(@PathVariable Long id) {
         return produtoService.buscarProdutoPorId(id);
     }
@@ -55,14 +54,14 @@ public class ProdutoController implements ProdutoAPI {
     @Override
     @PutMapping(value = "/v1/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+   // @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public void atualizarTodosOsDadosDoProduto(@PathVariable Long id, @Valid @RequestBody ProdutoRequest request) {
         produtoService.atualizarTodosOsDadosDoProduto(id, request);
     }
 
     @DeleteMapping(value = "/v1/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
+   // @PreAuthorize("hasAnyRole('ROLE_GERENTE','ROLE_ADMINISTRADOR','ROLE_USUARIO')")
     public void removerProduto(@PathVariable Long id) {
         produtoService.removerProduto(id);
     }
