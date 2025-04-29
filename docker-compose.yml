@@ -1,23 +1,23 @@
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysql-container
+  postgres:
+    image: postgres:17
+    container_name: postgres-container
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: api_pedidos
-      MYSQL_USER: acelera
-      MYSQL_PASSWORD: programador
+      POSTGRES_USER: acelera
+      POSTGRES_PASSWORD: programador
+      POSTGRES_DB: api_pedidos
     volumes:
-      - mysql_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - docker-network
     restart: always
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "pg_isready", "-U", "acelera"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -31,20 +31,20 @@ services:
       - "8080:8080"
     environment:
       SERVER_PORT: 8080
-      DB_URL: jdbc:mysql://mysql-container:3306/api_pedidos?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      DB_URL: jdbc:postgresql://postgres-container:5432/api_pedidos
       DB_USERNAME: acelera
       DB_PASSWORD: programador
       BASE_URL_MULTT: https://api.multt.digital/api/pagamentos
       TOKEN_MULTT: 59c6d7b0-1180-4aeb-ae0a-c7d30f464a73
     depends_on:
-      mysql:
+      postgres:
         condition: service_healthy
     networks:
       - docker-network
     restart: always
 
 volumes:
-  mysql_data:
+  postgres_data:
 
 networks:
   docker-network:
