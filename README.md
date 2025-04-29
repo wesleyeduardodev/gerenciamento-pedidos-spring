@@ -40,7 +40,7 @@ SERVER_PORT=8080
 Use o comando abaixo para criar um usuário inicial no banco de dados:
 
 ```sql
-INSERT INTO usuario (id, email, nome, senha) 
+INSERT INTO usuario (id, email, nome, senha) -> senha: 123456
 VALUES (1, 'wesley@gmail.com', 'Wesley Eduardo', '$2a$10$4wwRH6NMIEHLc7D7Inf11ub1sC4/cMTwdhHEsbcCq6kIwUcE1F7dK');
 ```
 
